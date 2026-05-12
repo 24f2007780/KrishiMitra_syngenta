@@ -42,16 +42,19 @@ async def get_historical_baselines(lat: float, lon: float, district: str = None)
     if cache_key in BASELINE_CACHE: return BASELINE_CACHE[cache_key]
 
     url = f"https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,PRECTOTCORR&community=AG&longitude={lon}&latitude={lat}&format=JSON"
+    print(f"DEBUG: NASA POWER URL: {url}")
     async with httpx.AsyncClient() as client:
         try:
             response = await client.get(url, timeout=10.0)
             data = response.json()
             may_temp = data['properties']['parameter']['T2M']['5']
             may_rain = data['properties']['parameter']['PRECTOTCORR']['5']
+            print(f"DEBUG: NASA Data Fetched -> Temp: {may_temp}, Rain: {may_rain}")
             res = (float(may_temp), float(may_rain))
             BASELINE_CACHE[cache_key] = res
             return res
-        except Exception:
+        except Exception as e:
+            print(f"DEBUG: NASA POWER Error: {e}")
             if district and district in SEASONAL_NORMALS:
                 n = SEASONAL_NORMALS[district]
                 return n['avg_temp_may'], n['avg_rainfall_may']
@@ -99,6 +102,7 @@ async def get_weather_signals(lat: float = Query(...), lon: float = Query(...)):
         get_historical_baselines(lat, lon, district),
         get_current_weather(lat, lon)
     )
+    print("historical baselines" , hist_temp, hist_rain)
     pest_name, pest_risk = get_pest_risk(district)
     
     temp_anomaly = curr_temp - hist_temp
