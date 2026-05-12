@@ -3,7 +3,7 @@ import random
 import os
 from datetime import datetime, timedelta
 from sqlalchemy.orm import Session
-from .models import Farmer, Product
+from shared.models import Farmer, Product
 
 def seed_farmers(db: Session):
     db.query(Farmer).delete()
