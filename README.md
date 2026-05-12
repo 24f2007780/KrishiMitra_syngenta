@@ -44,14 +44,3 @@ Many small **services** talk to each other; one **orchestrator** runs the full p
 ## Tech (short)
 
 Python, FastAPI microservices, SQLite for farmers and delivery log, Pydantic for shared models, weather from Open-Meteo, Claude for multilingual explanations and message drafts, Streamlit for the demo UI.
-
----
-
-## Detailed plan and architecture
-
-For module list, APIs, day-by-day tasks, and diagrams, see the docs under the repo root:
-
-- `.rajnish/plan/KRISHIMITRA_TECHNICAL_PLAN.md` — full technical plan  
-- `.rajnish/system-architecture/OVERVIEW.md` — big-picture architecture  
-
----
