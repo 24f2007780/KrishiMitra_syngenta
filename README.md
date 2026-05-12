@@ -55,7 +55,3 @@ For module list, APIs, day-by-day tasks, and diagrams, see the docs under the re
 - `.rajnish/system-architecture/OVERVIEW.md` — big-picture architecture  
 
 ---
-
-## License / ownership
-
-Built for the hackathon submission; align with your team and organizers on reuse and attribution.
