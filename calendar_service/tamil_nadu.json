@@ -395,18 +395,6 @@
             "content": "Apply 1.5% foliar formulation at flower initiation stage."
         }
     ],
-    "blackgram": [
-        {
-            "stage": "nodulation",
-            "risk": "medium",
-            "content": "Use nodule-associated plant probiotics containing beneficial microbes to improve nodulation, drought tolerance, and yield."
-        },
-        {
-            "stage": "foliar_disease_management",
-            "risk": "high",
-            "content": "Apply foliar spray of tebuconazole + trifloxystrobin (1 g/L) or tebuconazole 25 EC (1 ml/L) at symptom appearance and again after 15 days for powdery mildew and Cercospora leaf spot management."
-        }
-    ],
     "greengram_blackgram_redgram": [
         {
             "stage": "flowering",
@@ -429,6 +417,11 @@
             "content": "Treat seeds with Imidacloprid (5 ml/kg), Bacillus subtilis (10 g/kg), Rhizobium, and Phosphobacteria (30 g/kg)."
         },
         {
+            "stage": "foliar_disease_management",
+            "risk": "high",
+            "content": "Apply foliar spray of tebuconazole + trifloxystrobin (1 g/L) or tebuconazole 25 EC (1 ml/L) at symptom appearance and again after 15 days for powdery mildew and Cercospora leaf spot management."
+        },
+        {
             "stage": "agronomy",
             "risk": "medium",
             "content": "Maintain spacing of 30 × 15 cm with drip irrigation and fertigation of 25:50:25:40 NPKS kg/ha."
@@ -447,18 +440,6 @@
             "stage": "bio_priming",
             "risk": "medium",
             "content": "Use Bio-Pulse microbial seed bio-priming formulation to improve yield under pathogenic stress."
-        }
-    ],
-    "greengram": [
-        {
-            "stage": "foliar_disease_management",
-            "risk": "high",
-            "content": "Apply foliar spray of tebuconazole + trifloxystrobin (1 g/L) or tebuconazole 25 EC (1 ml/L) at symptom appearance and again after 15 days for powdery mildew and Cercospora leaf spot management."
-        },
-        {
-            "stage": "seed_booster",
-            "risk": "low",
-            "content": "Apply TNAU Vigour Plus pre-sowing seed coating containing IAA and GA to improve seed germination and seedling vigour."
         }
     ],
     "groundnut": [

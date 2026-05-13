@@ -39,14 +39,7 @@ HEADERS = {
 PAYLOAD = {
     "dashboard": "marketwise_price_arrival",
     "date": datetime.now().strftime("%Y-%m-%d"),
-    "group": [100000],
-    "commodity": [100001],
-    "variety": 100021,
-    "state": 100006,
-    "district": [100007],
-    "market": [100009],
-    "grades": [4],
-    "limit": 10,
+    "limit": 100, # Increased limit to get more data
     "format": "json"
 }
 

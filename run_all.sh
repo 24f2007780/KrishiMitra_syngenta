@@ -16,9 +16,9 @@ echo "🚀 Starting Syngenta KrishiMitra Microservices..."
 .venv/bin/python3 -m uvicorn calendar_service.main:app --host 0.0.0.0 --port 8005 &
 # python3 -m uvicorn context_service.main:app --host 0.0.0.0 --port 8006 &
 
-# # Tier 3: Intelligence Engine
-# python3 -m uvicorn scoring_service.main:app --host 0.0.0.0 --port 8007 &
-# python3 -m uvicorn ranking_service.main:app --host 0.0.0.0 --port 8008 &
+# Tier 3: Intelligence Engine
+.venv/bin/python3 -m uvicorn ranking_service.main:app --host 0.0.0.0 --port 8008 &
+# .venv/bin/python3 -m uvicorn scoring_service.main:app --host 0.0.0.0 --port 8007 &
 # python3 -m uvicorn explainer_service.main:app --host 0.0.0.0 --port 8009 &
 
 # # Tier 4: Content Generation

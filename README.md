@@ -63,3 +63,56 @@ Python, FastAPI microservices, SQLite for farmers and delivery log, Pydantic for
 ✅ Context assembled for farmer MH-107
 {'profile': {'farmer_id': 'MH-107', 'name': 'Mahesh Babu', 'age': 42, 'phone': '+91-9876543007', 'preferred_language': 'Marathi', 'state': 'Maharashtra', 'district': 'Jalna', 'village': 'Ambad', 'acres': 9.9, 'crops': ['cotton'], 'latitude': 19.8208, 'longitude': 75.8769, 'device_type': 'android', 'connectivity': '2G', 'whatsapp_enabled': False, 'last_message_sent_at': '2026-04-23', 'messages_received_last_30d': 1, 'messages_opened_last_30d': 0, 'preferred_contact_time': 'evening', 'linked_retailer_id': 'RET-744', 'linked_retailer_name': 'Sandeep Chaudhary Agro Agency'}, 'signals': {'district': 'Jalna', 'state': 'Maharashtra', 'humidity_7d_avg': 24.8, 'rainfall_deviation_pct': -96.8, 'temperature_anomaly': 6.8, 'pest_risk_level': 'high', 'active_pest': 'Bollworm', 'weather_anomaly_flag': True}, 'crop_stage': {'confirmed_stage': 'seed_treatment', 'days_in_stage': 0, 'vulnerability': 'low', 'days_to_next_stage': 15}, 'assembled_at': '2026-05-13T14:11:21.540292'}
 ```
+```json
+Testing: Crop=rice, Pest=blight, Stage=vegetative, Urgency=0.5
+INFO:     127.0.0.1:32912 - "POST /rank HTTP/1.1" 200 OK
+Response: {
+  "top_products": [
+    "Vibrance RST",
+    "Amistar Top"
+  ],
+  "match_reasons": [
+    "Direct match for blight",
+    "Direct match for blight"
+  ]
+}
+
+Testing: Crop=cotton, Pest=aphid, Stage=flowering, Urgency=0.5
+INFO:     127.0.0.1:32916 - "POST /rank HTTP/1.1" 200 OK
+Response: {
+  "top_products": [
+    "Ridomil Gold GR",
+    "Amistar Top"
+  ],
+  "match_reasons": [
+    "Protects crop during critical flowering growth",
+    "Protects crop during critical flowering growth"
+  ]
+}
+
+Testing: Crop=wheat, Pest=rust, Stage=vegetative, Urgency=0.5
+INFO:     127.0.0.1:32924 - "POST /rank HTTP/1.1" 200 OK
+Response: {
+  "top_products": [
+    "Trivapro",
+    "Miravis Ace"
+  ],
+  "match_reasons": [
+    "Direct match for rust",
+    "Protects crop during critical vegetative growth"
+  ]
+}
+
+Testing: Crop=rice, Pest=none, Stage=seed_treatment, Urgency=0.5
+INFO:     127.0.0.1:32940 - "POST /rank HTTP/1.1" 200 OK
+Response: {
+  "top_products": [
+    "Vibrance RST",
+    "Adage"
+  ],
+  "match_reasons": [
+    "Specifically formulated for seed protection",
+    "Ideal for your current seed_treatment stage"
+  ]
+}
+```
