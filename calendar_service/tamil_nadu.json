@@ -1,0 +1,488 @@
+{
+    "rice": [
+        {
+            "stage": "booting",
+            "risk": "medium",
+            "content": "Apply Rice Reap (5 kg/ha) at booting and again after 10 days to improve spikelet fertility, grain filling, and yield."
+        },
+        {
+            "stage": "heading",
+            "risk": "medium",
+            "content": "Apply Rice Bloom (5 kg/ha) at heading and grain filling stages with wetting agent."
+        },
+        {
+            "stage": "vegetative",
+            "risk": "medium",
+            "content": "Apply Zinc Solubilizing Bacteria (2 L/ha) + Zinc Sulphate (25 kg/ha) + RDF for improved zinc nutrition and drought resilience."
+        },
+        {
+            "stage": "stress",
+            "risk": "high",
+            "content": "Bacillus altitudinis FD48 improves drought resilience under stress conditions."
+        },
+        {
+            "stage": "water_management",
+            "risk": "medium",
+            "content": "Follow Alternate Wetting and Drying from 21 DAS to 10 days before harvest with 125% RDF."
+        },
+        {
+            "stage": "stubble_management",
+            "risk": "low",
+            "content": "Incorporate stubble using TNAU Biomineralizer (2 kg/t) with urea."
+        },
+        {
+            "stage": "tillering",
+            "risk": "high",
+            "content": "Spray Azoxystrobin + Propiconazole @ 500 ml/ha at tillering and booting stages for disease control."
+        },
+        {
+            "stage": "seed_treatment",
+            "risk": "low",
+            "content": "Apply FD48 seed treatment @ 125 ml/ha before sowing."
+        },
+        {
+            "stage": "30_DAS",
+            "risk": "medium",
+            "content": "Apply FD48 foliar spray @ 500 ml/ha at 30 DAS."
+        },
+        {
+            "stage": "50_DAS",
+            "risk": "medium",
+            "content": "Apply FD48 foliar spray @ 500 ml/ha at 50 DAS."
+        },
+        {
+            "stage": "all_stages",
+            "risk": "medium",
+            "content": "Use stage-specific inoculants containing Azospirillum, Azotobacter, Phosphobacteria, Potash bacteria, Pseudomonas, and PPFM."
+        },
+        {
+            "stage": "nutrient_management",
+            "risk": "medium",
+            "content": "Use Zinc Solubilizing Bacterial Biofertilizer to improve Zn nutrition and increase yield."
+        },
+        {
+            "stage": "micronutrient_management",
+            "risk": "medium",
+            "content": "Apply TNAU Micronutrient Mixtures for wetland and rainfed rice to improve quality and yield."
+        },
+        {
+            "stage": "pest_management",
+            "risk": "high",
+            "content": "Use Nanosci Lure for eco-friendly monitoring and mass trapping of yellow stem borer."
+        },
+        {
+            "stage": "stubble_management",
+            "risk": "low",
+            "content": "Use TNAU Biomineralizer (2 kg/tonne) for in-situ rice straw decomposition."
+        }
+    ],
+    "maize": [
+        {
+            "stage": "soil_management",
+            "risk": "low",
+            "content": "Apply Neem cake @ 250 kg/ha for nutrient and soil management."
+        },
+        {
+            "stage": "30_DAS",
+            "risk": "medium",
+            "content": "Apply Zn citrate (0.5%) and Fe citrate (1%) foliar sprays at 30 DAS in deficient soils."
+        },
+        {
+            "stage": "40_DAS",
+            "risk": "medium",
+            "content": "Apply Zn citrate (0.5%) and Fe citrate (1%) foliar sprays at 40 DAS in deficient soils."
+        },
+        {
+            "stage": "50_DAS",
+            "risk": "medium",
+            "content": "Apply Zn citrate (0.5%) and Fe citrate (1%) foliar sprays at 50 DAS in deficient soils."
+        },
+        {
+            "stage": "seed_treatment",
+            "risk": "high",
+            "content": "Treat seeds with Thiamethoxam 30 FS @ 10 ml/kg for FAW management."
+        },
+        {
+            "stage": "crop_management",
+            "risk": "medium",
+            "content": "Maintain spacing of 60 × 25 cm with rogue rows every 10 rows."
+        },
+        {
+            "stage": "cropping_system",
+            "risk": "medium",
+            "content": "Use border crops like cowpea and gingelly and intercrop with blackgram."
+        },
+        {
+            "stage": "monitoring",
+            "risk": "high",
+            "content": "Install pheromone traps (50/ha) and solar traps (1/ha) for FAW monitoring."
+        },
+        {
+            "stage": "15_20_DAS",
+            "risk": "high",
+            "content": "At early whorl stage apply Emamectin benzoate, Chlorantraniliprole, Flubendiamide, or Azadirachtin."
+        },
+        {
+            "stage": "35_40_DAS",
+            "risk": "high",
+            "content": "At late whorl stage apply Metarhizium anisopliae, Emamectin benzoate, Novaluron, or Spinetoram."
+        },
+        {
+            "stage": "60_65_DAS",
+            "risk": "medium",
+            "content": "At tasseling/cob formation stage use insecticides not used earlier."
+        },
+        {
+            "stage": "biological_control",
+            "risk": "medium",
+            "content": "Release Telenomus remus @ 1.25 lakh/ha for biological control."
+        }
+    ],
+    "cotton": [
+        {
+            "stage": "sowing",
+            "risk": "medium",
+            "content": "Use high density planting with spacing of 90 × 15 cm for 29,629 plants/acre using varieties like Suraksha, CO-17, and VPT-2."
+        },
+        {
+            "stage": "fertilizer_management",
+            "risk": "medium",
+            "content": "Apply fertilizer dose of 100:50:50 kg NPK/ha."
+        },
+        {
+            "stage": "weed_management",
+            "risk": "medium",
+            "content": "Apply Pendimethalin 38.7% CS @ 700 ml/acre within 24-48 hours of sowing."
+        },
+        {
+            "stage": "square_flowering",
+            "risk": "medium",
+            "content": "Spray NAA @ 40 ppm or Cotton Plus @ 2.5 kg/acre for growth management."
+        },
+        {
+            "stage": "square_flowering",
+            "risk": "medium",
+            "content": "Apply Mepiquat Chloride (0.015%) at square/flowering stage."
+        },
+        {
+            "stage": "boll_burst",
+            "risk": "medium",
+            "content": "Apply sodium chlorate (0.9%) or Drop Ultra as defoliant at 60% boll burst."
+        },
+        {
+            "stage": "intercropping",
+            "risk": "low",
+            "content": "Use paired row planting (45/90 × 30 cm) of Bt Cotton with two rows of cluster bean."
+        },
+        {
+            "stage": "mechanical_harvest",
+            "risk": "low",
+            "content": "Application of Mepiquat Chloride and Sodium Chlorate improves suitability of CO 17 for mechanical harvesting."
+        }
+    ],
+    "coconut": [
+        {
+            "stage": "pest_management",
+            "risk": "high",
+            "content": "Install yellow sticky traps (20/ha or 8/ac), use trunk banding, and spray jet water on fronds."
+        },
+        {
+            "stage": "biocontrol",
+            "risk": "medium",
+            "content": "Release Apertochrysa astur (1000/ha) and Encarsia spp. (250/ha or 100/ac) for biological control."
+        },
+        {
+            "stage": "idm",
+            "risk": "medium",
+            "content": "Apply FYM (50 kg) + neem cake (5 kg) + fertilizers along with bio-agents like Trichoderma, Bacillus, Phosphobacteria, Azospirillum, and VAM."
+        },
+        {
+            "stage": "nutrient_management",
+            "risk": "medium",
+            "content": "Apply CuSO4 (200 g) and MgSO4 (1 kg) alternately."
+        },
+        {
+            "stage": "tonic_application",
+            "risk": "low",
+            "content": "Apply TNAU Coconut Tonic (40 ml twice/year) for improved palm vigour and nut yield."
+        },
+        {
+            "stage": "soil_health",
+            "risk": "low",
+            "content": "Apply IIHR Arka Decomposer for rapid composting of coconut residues and improved soil health."
+        },
+        {
+            "stage": "drenching",
+            "risk": "medium",
+            "content": "Apply COCOCON drench @ 2 L/tree every 2 months."
+        },
+        {
+            "stage": "disease_management",
+            "risk": "high",
+            "content": "Apply crown spray of hexaconazole when required."
+        },
+        {
+            "stage": "post_harvest",
+            "risk": "medium",
+            "content": "Use Copra Guard nano-formulation (10 ml/litre) to control fungal growth on copra."
+        }
+    ],
+    "chilli": [
+        {
+            "stage": "seed_treatment",
+            "risk": "medium",
+            "content": "Treat seeds with Bacillus subtilis @ 10 g/kg before sowing."
+        },
+        {
+            "stage": "vector_management",
+            "risk": "high",
+            "content": "Use three-row maize barrier and install yellow sticky traps @ 12/ha."
+        },
+        {
+            "stage": "nutrition_management",
+            "risk": "medium",
+            "content": "Apply and spray micronutrient mixture containing Fe, Zn, Cu, Mn, and B."
+        },
+        {
+            "stage": "45_DAT",
+            "risk": "high",
+            "content": "Rogue virus infected plants up to 45 DAT."
+        },
+        {
+            "stage": "virus_management",
+            "risk": "high",
+            "content": "Apply Imidacloprid 17.8% SL @ 3 ml/10 L and Pyriproxyfen 10% EC @ 1 ml/L alternately."
+        },
+        {
+            "stage": "fungal_disease_management",
+            "risk": "high",
+            "content": "Spray Azoxystrobin 18.2% + Difenoconazole 11.4% SC @ 0.1% three times at 15-day intervals."
+        },
+        {
+            "stage": "ipm",
+            "risk": "medium",
+            "content": "Use border crops like cowpea, lab-lab, and coriander with bird perches (20/ha), sticky traps (20/ha), and pheromone traps (12/ha)."
+        },
+        {
+            "stage": "ipm_spray",
+            "risk": "medium",
+            "content": "Use need-based foliar sprays with Azadirachtin 1%, NSKE 5%, 3G extract 5%, five-leaf extract 10%, and Bacillus subtilis 0.5%."
+        }
+    ],
+    "banana": [
+        {
+            "stage": "5th_month",
+            "risk": "high",
+            "content": "Apply emamectin benzoate 5 SG @ 0.4 g/L through pseudo stem injector during 5th month for insect management."
+        },
+        {
+            "stage": "6th_month",
+            "risk": "high",
+            "content": "Apply emamectin benzoate 5 SG @ 0.4 g/L through pseudo stem injector during 6th month for insect management."
+        },
+        {
+            "stage": "7th_month",
+            "risk": "high",
+            "content": "Apply emamectin benzoate 5 SG @ 0.4 g/L through pseudo stem injector during 7th month for insect management."
+        },
+        {
+            "stage": "seedling",
+            "risk": "medium",
+            "content": "Perform seedling bio-hardening using Bacillus velezensis + Brachybacterium paraconglomeratum (1% consortia) twice fortnightly."
+        },
+        {
+            "stage": "2nd_month",
+            "risk": "medium",
+            "content": "Apply soil drenching @ 0.5 L/plant using microbial consortia during 2nd month."
+        },
+        {
+            "stage": "4th_month",
+            "risk": "medium",
+            "content": "Apply soil drenching @ 0.5 L/plant using microbial consortia during 4th month."
+        },
+        {
+            "stage": "6th_month",
+            "risk": "medium",
+            "content": "Apply soil drenching @ 0.5 L/plant using microbial consortia during 6th month."
+        },
+        {
+            "stage": "8th_month",
+            "risk": "medium",
+            "content": "Apply soil drenching @ 0.5 L/plant using microbial consortia during 8th month."
+        }
+    ],
+    "papaya": [
+        {
+            "stage": "vector_management",
+            "risk": "high",
+            "content": "Maintain 3-row maize border and use insect-proof nursery for vector and disease management."
+        },
+        {
+            "stage": "general",
+            "risk": "medium",
+            "content": "Spray neem oil at 3% concentration for pest management."
+        },
+        {
+            "stage": "2_month_interval",
+            "risk": "medium",
+            "content": "Apply humic acid drenching @ 2 ml/L every 2 months."
+        },
+        {
+            "stage": "4th_month",
+            "risk": "medium",
+            "content": "Apply foliar spray containing ZnSO4 (5 g/L), boron (1 g/L), and urea (10 g/L) during 4th month."
+        },
+        {
+            "stage": "7th_month",
+            "risk": "medium",
+            "content": "Apply foliar spray containing ZnSO4 (5 g/L), boron (1 g/L), and urea (10 g/L) during 7th month."
+        },
+        {
+            "stage": "3rd_month",
+            "risk": "low",
+            "content": "Apply Jeevamruth drenching (200 L + oilcake extracts) @ 1 L/plant during 3rd month."
+        },
+        {
+            "stage": "5th_month",
+            "risk": "low",
+            "content": "Apply Jeevamruth drenching (200 L + oilcake extracts) @ 1 L/plant during 5th month."
+        },
+        {
+            "stage": "8th_month",
+            "risk": "low",
+            "content": "Apply Jeevamruth drenching (200 L + oilcake extracts) @ 1 L/plant during 8th month."
+        },
+        {
+            "stage": "disease_management",
+            "risk": "high",
+            "content": "Apply Flonicamid 50 WG @ 75 g a.i./ha when required."
+        },
+        {
+            "stage": "hi_tech_farming",
+            "risk": "medium",
+            "content": "Use raised bed planting with drip fertigation and foliar micronutrients (Zn, B) to improve yield and fruit quality."
+        }
+    ],
+    "finger_millet": [
+        {
+            "stage": "organic_package",
+            "risk": "medium",
+            "content": "Apply FYM @ 3 t/ha, Azophos (2 kg/ha), Trichoderma (2.5 kg/ha), and vermicompost (1.5 t/ha)."
+        },
+        {
+            "stage": "vegetative",
+            "risk": "low",
+            "content": "Spray Panchagavya (3%) during vegetative stage."
+        },
+        {
+            "stage": "flowering",
+            "risk": "low",
+            "content": "Spray Panchagavya (3%) during flowering stage."
+        },
+        {
+            "stage": "grain_filling",
+            "risk": "low",
+            "content": "Spray Panchagavya (3%) during grain filling stage."
+        },
+        {
+            "stage": "disease_management",
+            "risk": "medium",
+            "content": "Apply NSKE 5% and Bacillus subtilis 0.5% as needed for disease and pest management."
+        },
+        {
+            "stage": "flower_initiation",
+            "risk": "medium",
+            "content": "Apply 1.5% foliar formulation at flower initiation stage."
+        }
+    ],
+    "blackgram": [
+        {
+            "stage": "nodulation",
+            "risk": "medium",
+            "content": "Use nodule-associated plant probiotics containing beneficial microbes to improve nodulation, drought tolerance, and yield."
+        },
+        {
+            "stage": "foliar_disease_management",
+            "risk": "high",
+            "content": "Apply foliar spray of tebuconazole + trifloxystrobin (1 g/L) or tebuconazole 25 EC (1 ml/L) at symptom appearance and again after 15 days for powdery mildew and Cercospora leaf spot management."
+        }
+    ],
+    "greengram_blackgram_redgram": [
+        {
+            "stage": "flowering",
+            "risk": "medium",
+            "content": "Apply TNAU Liquid Pulse Wonder @ 5 kg/ha at peak flowering stage in greengram and blackgram."
+        },
+        {
+            "stage": "15_days_after_flowering",
+            "risk": "medium",
+            "content": "Apply TNAU Liquid Pulse Wonder @ 5 kg/ha 15 days after flowering in redgram."
+        },
+        {
+            "stage": "land_preparation",
+            "risk": "low",
+            "content": "Prepare raised beds of 90 cm width with 30 cm furrows."
+        },
+        {
+            "stage": "seed_treatment",
+            "risk": "high",
+            "content": "Treat seeds with Imidacloprid (5 ml/kg), Bacillus subtilis (10 g/kg), Rhizobium, and Phosphobacteria (30 g/kg)."
+        },
+        {
+            "stage": "agronomy",
+            "risk": "medium",
+            "content": "Maintain spacing of 30 × 15 cm with drip irrigation and fertigation of 25:50:25:40 NPKS kg/ha."
+        },
+        {
+            "stage": "weed_management",
+            "risk": "medium",
+            "content": "Apply Pendimethalin + Imazethapyr as pre-emergence and Quizalofop-ethyl + Imazethapyr as early post-emergence herbicides."
+        },
+        {
+            "stage": "seed_booster",
+            "risk": "low",
+            "content": "Apply TNAU Vigour Plus seed coating @ 20-25 ml/kg to improve germination and seedling vigour."
+        },
+        {
+            "stage": "bio_priming",
+            "risk": "medium",
+            "content": "Use Bio-Pulse microbial seed bio-priming formulation to improve yield under pathogenic stress."
+        }
+    ],
+    "greengram": [
+        {
+            "stage": "foliar_disease_management",
+            "risk": "high",
+            "content": "Apply foliar spray of tebuconazole + trifloxystrobin (1 g/L) or tebuconazole 25 EC (1 ml/L) at symptom appearance and again after 15 days for powdery mildew and Cercospora leaf spot management."
+        },
+        {
+            "stage": "seed_booster",
+            "risk": "low",
+            "content": "Apply TNAU Vigour Plus pre-sowing seed coating containing IAA and GA to improve seed germination and seedling vigour."
+        }
+    ],
+    "groundnut": [
+        {
+            "stage": "35_DAS",
+            "risk": "medium",
+            "content": "Apply TNAU Groundnut Rich @ 5.0 kg/ha at 35 DAS (50% flowering) using 500 litres of water."
+        },
+        {
+            "stage": "45_DAS",
+            "risk": "medium",
+            "content": "Apply TNAU Groundnut Rich @ 5.0 kg/ha at 45 DAS during pod development using 500 litres of water."
+        },
+        {
+            "stage": "seed_treatment",
+            "risk": "low",
+            "content": "Use Nut Boost seed inoculation containing phosphate, potash, and zinc solubilizing PGPRs to improve pod yield."
+        }
+    ],
+    "turmeric": [
+        {
+            "stage": "90_DAP",
+            "risk": "medium",
+            "content": "Apply TNAU micronutrient mixture @ 15 kg/ha as enriched FYM with 50% basal application and 50% top dressing at 90 DAP."
+        }
+    ]
+}

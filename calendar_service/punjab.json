@@ -1,0 +1,1164 @@
+{
+    "rice": [
+        {
+            "stage": "variety_selection",
+            "risk": "medium",
+            "content": "Use short duration varieties such as PR 132, PR 131, PR 130, PR 129, PR 128, HKR 47, PR 127, PR 126, PR 122, PR 121, PR 114, and PR 113 for water saving and easy rice straw management."
+        },
+        {
+            "stage": "nursery_sowing",
+            "risk": "medium",
+            "content": "Complete nursery sowing between 20 May and 20 June for better grain quality, water saving, and lower stem borer incidence."
+        },
+        {
+            "stage": "transplanting",
+            "risk": "medium",
+            "content": "Complete transplanting between 20 June and 10 July."
+        },
+        {
+            "stage": "transplanting",
+            "risk": "medium",
+            "content": "Use 30-35 day old nursery for medium duration varieties and 25-30 day old nursery for PR 126."
+        },
+        {
+            "stage": "spacing",
+            "risk": "medium",
+            "content": "Transplant seedlings in lines at spacing of 20 × 15 cm with 2 seedlings per hill."
+        },
+        {
+            "stage": "water_management",
+            "risk": "medium",
+            "content": "Maintain standing water for only 2 weeks after transplanting and thereafter irrigate 2 days after ponded water infiltrates."
+        },
+        {
+            "stage": "fertilizer_management",
+            "risk": "medium",
+            "content": "Apply fertilizers based on soil test recommendations."
+        },
+        {
+            "stage": "fertilizer_management",
+            "risk": "medium",
+            "content": "Omit phosphorus application in rice following wheat that received recommended phosphatic fertilizer dose."
+        },
+        {
+            "stage": "nitrogen_management",
+            "risk": "medium",
+            "content": "Apply nitrogen based on Leaf Colour Chart recommendations."
+        },
+        {
+            "stage": "nitrogen_management",
+            "risk": "medium",
+            "content": "Apply 25% less nitrogen fertilizer in PR 132 compared to other varieties."
+        },
+        {
+            "stage": "zinc_deficiency_management",
+            "risk": "medium",
+            "content": "Apply 25 kg zinc sulphate heptahydrate (21%) or 16 kg zinc sulphate monohydrate (33%) per acre at puddling in zinc deficient fields."
+        },
+        {
+            "stage": "booting",
+            "risk": "high",
+            "content": "Spray recommended fungicides at boot stage for false smut management."
+        },
+        {
+            "stage": "monitoring",
+            "risk": "high",
+            "content": "Monitor rice planthopper population regularly to prevent hopper burn."
+        },
+        {
+            "stage": "pest_management",
+            "risk": "high",
+            "content": "Avoid use of synthetic pyrethroids for rice insect-pest management to prevent increase in planthopper population."
+        }
+    ],
+    "basmati_rice": [
+        {
+            "stage": "variety_selection",
+            "risk": "medium",
+            "content": "Use suitable varieties such as Pusa Basmati 1121, Pusa Basmati 1509, Punjab Basmati 5, Punjab Basmati 7, Pusa Basmati 1718, Pusa Basmati 1847, and CSR 30."
+        },
+        {
+            "stage": "nursery_sowing",
+            "risk": "medium",
+            "content": "Complete nursery sowing during first fortnight of June for Punjab Basmati 7, Punjab Basmati 5, Pusa Basmati 1847, Pusa Basmati 1121, and Pusa Basmati 1718."
+        },
+        {
+            "stage": "transplanting",
+            "risk": "medium",
+            "content": "Complete transplanting during first fortnight of July for Punjab Basmati 7, Punjab Basmati 5, Pusa Basmati 1847, Pusa Basmati 1121, and Pusa Basmati 1718."
+        },
+        {
+            "stage": "nursery_sowing",
+            "risk": "medium",
+            "content": "Complete nursery sowing during second fortnight of June for CSR 30 and Pusa Basmati 1509."
+        },
+        {
+            "stage": "transplanting",
+            "risk": "medium",
+            "content": "Complete transplanting during second fortnight of July for CSR 30 and Pusa Basmati 1509."
+        },
+        {
+            "stage": "seed_treatment",
+            "risk": "high",
+            "content": "Treat seeds with Trichoderma harzianum @ 15 g/kg seed before sowing for foot rot management."
+        },
+        {
+            "stage": "seedling_treatment",
+            "risk": "high",
+            "content": "Dip seedling roots in Trichoderma harzianum @ 15 g/L water for 6 hours before transplanting."
+        },
+        {
+            "stage": "seed_treatment",
+            "risk": "high",
+            "content": "Treat seeds with Sprint 75 WS @ 3 g/kg seed before sowing for seed borne disease management."
+        },
+        {
+            "stage": "spacing",
+            "risk": "medium",
+            "content": "Transplant two seedlings per hill at spacing of 20 × 15 cm in well puddled fields."
+        },
+        {
+            "stage": "soil_selection",
+            "risk": "medium",
+            "content": "Cultivate direct seeded rice only in medium to heavy textured soils."
+        },
+        {
+            "stage": "pre_emergence",
+            "risk": "medium",
+            "content": "Spray Stomp/Bunker 30 EC @ 1 litre per acre or PEPE 25 SE in 200 litres water for annual grass and broadleaf weed control."
+        },
+        {
+            "stage": "direct_seeding",
+            "risk": "medium",
+            "content": "Prepare tar-wattar fields with shallow cultivation and sow seeds at 3-4 cm depth in 20 cm spaced rows."
+        },
+        {
+            "stage": "sowing",
+            "risk": "medium",
+            "content": "Complete direct seeding during first fortnight of June for rice and second fortnight of June for basmati rice."
+        },
+        {
+            "stage": "seed_treatment",
+            "risk": "medium",
+            "content": "Imbibe seeds in 2% potassium nitrate solution for 12 hours and treat with Sprint 75 WS @ 3 g/kg seed."
+        },
+        {
+            "stage": "nutrition_management",
+            "risk": "medium",
+            "content": "Skip phosphorus application if previous wheat crop received recommended phosphorus dose."
+        },
+        {
+            "stage": "nutrition_management",
+            "risk": "medium",
+            "content": "Apply 75 kg superphosphate per acre in phosphorus deficient soils before last puddling."
+        },
+        {
+            "stage": "urea_application",
+            "risk": "medium",
+            "content": "Apply 45 kg/ha urea for CSR 30, 90 kg/ha for Punjab Basmati 5, Punjab Basmati 7, Pusa Basmati 1718 and Pusa Basmati 1121, and 135 kg/ha for Pusa Basmati 1509."
+        },
+        {
+            "stage": "3_weeks_after_transplanting",
+            "risk": "medium",
+            "content": "Apply first split of urea at 3 weeks after transplanting."
+        },
+        {
+            "stage": "6_weeks_after_transplanting",
+            "risk": "medium",
+            "content": "Apply second split of urea at 6 weeks after transplanting."
+        },
+        {
+            "stage": "15_25_DAS",
+            "risk": "medium",
+            "content": "Spray Nominee Gold 10 SC @ 100 ml per acre at 15-25 DAS for swank and rice motha management."
+        },
+        {
+            "stage": "20_25_DAS",
+            "risk": "medium",
+            "content": "Spray Novlect 12 EC @ 500 ml per acre at 20-25 DAS for swank, chinigha, broadleaf weeds, and rice motha management."
+        },
+        {
+            "stage": "20_25_DAS",
+            "risk": "medium",
+            "content": "Spray Ricestar 6.7 EC @ 400 ml per acre at 20-25 DAS for madhana, chinigha, chirigha, and takrigha management."
+        },
+        {
+            "stage": "20_25_DAS",
+            "risk": "medium",
+            "content": "Spray Almix 20 WP @ 8 g per acre at 20-25 DAS for broadleaf weeds and rice motha management."
+        },
+        {
+            "stage": "4_weeks_after_sowing",
+            "risk": "medium",
+            "content": "Apply first split of 130 kg urea per acre at 4 weeks after sowing for direct seeded rice."
+        },
+        {
+            "stage": "6_weeks_after_sowing",
+            "risk": "medium",
+            "content": "Apply second split of 130 kg urea per acre at 6 weeks after sowing for direct seeded rice."
+        },
+        {
+            "stage": "9_weeks_after_sowing",
+            "risk": "medium",
+            "content": "Apply third split of 130 kg urea per acre at 9 weeks after sowing for direct seeded rice."
+        },
+        {
+            "stage": "3_weeks_after_sowing",
+            "risk": "medium",
+            "content": "Apply first split of 54 kg urea per acre at 3 weeks after sowing for basmati rice."
+        },
+        {
+            "stage": "6_weeks_after_sowing",
+            "risk": "medium",
+            "content": "Apply second split of 54 kg urea per acre at 6 weeks after sowing for basmati rice."
+        },
+        {
+            "stage": "9_weeks_after_sowing",
+            "risk": "medium",
+            "content": "Apply third split of 54 kg urea per acre at 9 weeks after sowing for basmati rice."
+        },
+        {
+            "stage": "21_DAS",
+            "risk": "medium",
+            "content": "Apply first irrigation around 21 DAS in direct seeded tar-wattar fields."
+        },
+        {
+            "stage": "irrigation",
+            "risk": "medium",
+            "content": "Apply irrigation at 5-7 day intervals depending on soil type in direct seeded rice."
+        },
+        {
+            "stage": "direct_seeding",
+            "risk": "medium",
+            "content": "Apply first irrigation immediately after sowing and second irrigation at 4-5 DAS in dry direct seeded fields."
+        }
+    ],
+    "maize": [
+        {
+            "stage": "variety_selection",
+            "risk": "medium",
+            "content": "Use improved maize varieties such as PMH 17, DKC 9144, Bioseed 9788, PMH 14, PMH 13, ADV 9293, JC 12, PMH 11, PMH 1, JC 4, and PMH 2."
+        },
+        {
+            "stage": "fertilizer_management",
+            "risk": "medium",
+            "content": "Apply 130 kg urea per acre in three equal splits at 4, 6, and 9 weeks after sowing."
+        },
+        {
+            "stage": "irrigation",
+            "risk": "medium",
+            "content": "Apply first irrigation immediately after sowing and second irrigation at 4-5 DAS in dry direct seeded fields."
+        },
+        {
+            "stage": "irrigation",
+            "risk": "medium",
+            "content": "Apply subsequent irrigations at 5-7 day intervals depending on soil type."
+        },
+        {
+            "stage": "seed_rate",
+            "risk": "medium",
+            "content": "Use 10 kg seed per acre for maize sowing."
+        },
+        {
+            "stage": "sowing",
+            "risk": "medium",
+            "content": "Sow seeds at 3-5 cm depth using maize planter or seed-cum-fertilizer drill."
+        },
+        {
+            "stage": "spacing",
+            "risk": "medium",
+            "content": "Maintain row spacing of 60 cm and plant spacing of 20 cm."
+        },
+        {
+            "stage": "sowing",
+            "risk": "medium",
+            "content": "Use four-row pneumatic planter with bed making provision for maize sowing."
+        },
+        {
+            "stage": "sowing",
+            "risk": "medium",
+            "content": "Complete maize sowing from last week of May to end of June."
+        },
+        {
+            "stage": "weed_management",
+            "risk": "medium",
+            "content": "Perform two hoeings at 15-30 DAS using khurpa, kasaula, wheel-hoe, triphali, or tractor-drawn cultivator."
+        },
+        {
+            "stage": "weed_management",
+            "risk": "medium",
+            "content": "Apply Atrataf/Atragold/Masstaf/Atari/Traxx 50 WP @ 800 g per acre on medium to heavy soils and 500 g per acre on light soils within 10 days of sowing."
+        },
+        {
+            "stage": "20_DAS",
+            "risk": "medium",
+            "content": "Spray Laudis 420 SC (tembotrione) @ 105 ml per acre in 150 litres water at 20 DAS for mixed weed control."
+        },
+        {
+            "stage": "20_25_DAS",
+            "risk": "medium",
+            "content": "Apply 2,4-D amine salt 58 SL @ 400 ml per acre at 20-25 DAS for dila and motha weed control."
+        },
+        {
+            "stage": "fertilizer_management",
+            "risk": "medium",
+            "content": "Apply 110 kg urea, 55 kg DAP or 150 kg SSP, and 20 kg MOP per acre."
+        },
+        {
+            "stage": "fertilizer_management",
+            "risk": "medium",
+            "content": "Omit phosphorus application if previous wheat crop received recommended phosphorus dose."
+        },
+        {
+            "stage": "sowing",
+            "risk": "medium",
+            "content": "Apply one-third nitrogen and full phosphorus and potassium at sowing."
+        },
+        {
+            "stage": "knee_high",
+            "risk": "medium",
+            "content": "Top dress one-third nitrogen at knee-high stage."
+        },
+        {
+            "stage": "pre_tasseling",
+            "risk": "medium",
+            "content": "Top dress remaining nitrogen at pre-tasseling stage."
+        },
+        {
+            "stage": "monitoring",
+            "risk": "high",
+            "content": "Regularly monitor maize crop for fall armyworm infestation."
+        },
+        {
+            "stage": "2_3_weeks_after_sowing",
+            "risk": "high",
+            "content": "Apply recommended insecticides within 2-3 weeks after sowing for maize borer control."
+        },
+        {
+            "stage": "10_day_crop",
+            "risk": "high",
+            "content": "Release Trichogramma cards on 10 day old crop for maize borer management."
+        },
+        {
+            "stage": "17_day_crop",
+            "risk": "high",
+            "content": "Release Trichogramma cards on 17 day old crop for maize borer management."
+        }
+    ],
+    "cotton": [
+        {
+            "stage": "variety_selection",
+            "risk": "medium",
+            "content": "Grow Bt cotton varieties PAU Bt 2 and PAU Bt 3 or other Bt hybrids recommended by PAU Ludhiana for higher yield."
+        },
+        {
+            "stage": "variety_selection",
+            "risk": "medium",
+            "content": "Grow non-Bt varieties F 2228, LH 2108, LD 1019, LD 949, and FDK 124."
+        },
+        {
+            "stage": "pre_sowing_irrigation",
+            "risk": "medium",
+            "content": "Apply heavy pre-sowing irrigation preferably with canal water for better germination and early crop establishment."
+        },
+        {
+            "stage": "land_preparation",
+            "risk": "low",
+            "content": "Perform cross sub-soiling at 1.0 m spacing to depth of 45-50 cm before field preparation."
+        },
+        {
+            "stage": "seed_rate",
+            "risk": "medium",
+            "content": "Use seed rate of 4.0 + 1.0 kg refuge seed per acre for PAU Bt 2 and PAU Bt 3."
+        },
+        {
+            "stage": "seed_rate",
+            "risk": "medium",
+            "content": "Use seed rate of 3.5 kg per acre for non-Bt varieties F 2228 and LH 2108."
+        },
+        {
+            "stage": "seed_rate",
+            "risk": "medium",
+            "content": "Use two pouches of 475 g seed for recommended Bt hybrids."
+        },
+        {
+            "stage": "seed_treatment",
+            "risk": "medium",
+            "content": "Soak acid delinted seed in solution of 0.5 g succinic acid in 5 litres water for 2-4 hours."
+        },
+        {
+            "stage": "seed_treatment",
+            "risk": "medium",
+            "content": "Soak non-delinted seed in solution of 0.5 g succinic acid in 5 litres water for 6-8 hours."
+        },
+        {
+            "stage": "seed_treatment",
+            "risk": "high",
+            "content": "Treat seed with Gaucho 70 WS (imidacloprid) @ 5 g/kg or Cruiser 30FS (thiomethoxam) @ 7 g/kg for jassid management."
+        },
+        {
+            "stage": "seed_treatment",
+            "risk": "low",
+            "content": "Rub non-delinted seed with fine earth, cow-dung, or ash to remove fuzz."
+        },
+        {
+            "stage": "sowing",
+            "risk": "medium",
+            "content": "Sow cotton crop between 1 April and 15 May for better yield and reduced pest incidence."
+        },
+        {
+            "stage": "spacing",
+            "risk": "medium",
+            "content": "Maintain row spacing of 67.5 cm using cotton sowing drill or planter."
+        },
+        {
+            "stage": "spacing",
+            "risk": "medium",
+            "content": "Maintain plant spacing of 30 cm for PAU Bt 2 and PAU Bt 3."
+        },
+        {
+            "stage": "spacing",
+            "risk": "medium",
+            "content": "Maintain plant spacing of 45 cm for desi cotton varieties."
+        },
+        {
+            "stage": "spacing",
+            "risk": "medium",
+            "content": "Maintain plant spacing of 60 cm for non-Bt hybrids or varieties."
+        },
+        {
+            "stage": "spacing",
+            "risk": "medium",
+            "content": "Maintain plant spacing of 75 cm for Bt hybrids after thinning."
+        },
+        {
+            "stage": "weed_management",
+            "risk": "medium",
+            "content": "Perform two or three hoeings with first hoeing before first irrigation."
+        },
+        {
+            "stage": "pre_emergence",
+            "risk": "medium",
+            "content": "Apply Stomp 30 EC (pendimethalin) @ 1.0 litre per acre within 24 hours of sowing for weed control."
+        },
+        {
+            "stage": "post_emergence",
+            "risk": "medium",
+            "content": "Apply Stomp 30 EC after first irrigation in 200 litres water if weeds emerge after irrigation or rainfall."
+        },
+        {
+            "stage": "post_emergence",
+            "risk": "medium",
+            "content": "Spray Hitweed Maxx 10 MEC @ 500 ml per acre in 150 litres water after first irrigation for grass and broadleaf weed control."
+        },
+        {
+            "stage": "fertilizer_management",
+            "risk": "medium",
+            "content": "Apply urea @ 162.5 kg for non-Bt varieties, 200 kg for Bt varieties, and 225 kg for Bt and non-Bt hybrids per hectare."
+        },
+        {
+            "stage": "fertilizer_management",
+            "risk": "medium",
+            "content": "Apply DAP @ 67.5 kg or SSP @ 187.5 kg per hectare at sowing."
+        },
+        {
+            "stage": "fertilizer_management",
+            "risk": "medium",
+            "content": "Omit phosphorus application if previous wheat crop received recommended phosphorus dose."
+        },
+        {
+            "stage": "fertilizer_management",
+            "risk": "medium",
+            "content": "Reduce urea dose by 25 kg when 67.5 kg DAP is applied."
+        },
+        {
+            "stage": "nutrient_management",
+            "risk": "medium",
+            "content": "Apply 50 kg muriate of potash and 25 kg zinc sulphate heptahydrate or 16.25 kg zinc sulphate monohydrate per hectare in light soils."
+        },
+        {
+            "stage": "nutrient_management",
+            "risk": "medium",
+            "content": "Apply magnesium sulphate @ 62.5 kg/ha."
+        },
+        {
+            "stage": "sowing",
+            "risk": "medium",
+            "content": "Apply full dose of phosphorus, magnesium sulphate, muriate of potash, and zinc sulphate at sowing."
+        },
+        {
+            "stage": "thinning",
+            "risk": "medium",
+            "content": "Apply first split of urea at thinning stage."
+        },
+        {
+            "stage": "flowering",
+            "risk": "medium",
+            "content": "Apply second split of urea at flowering stage."
+        },
+        {
+            "stage": "flower_initiation",
+            "risk": "medium",
+            "content": "Spray 2% potassium nitrate (13:0:45) at weekly intervals starting from flower initiation."
+        },
+        {
+            "stage": "irrigation",
+            "risk": "medium",
+            "content": "Apply first irrigation 4-6 weeks after sowing and subsequent irrigations at intervals of 2-3 weeks."
+        },
+        {
+            "stage": "flowering",
+            "risk": "medium",
+            "content": "Avoid water stress during flowering stage."
+        },
+        {
+            "stage": "fruiting",
+            "risk": "medium",
+            "content": "Avoid water stress during fruiting stage."
+        },
+        {
+            "stage": "drainage_management",
+            "risk": "medium",
+            "content": "Prevent water stagnation during early growth stage of cotton."
+        }
+    ],
+    "sugarcane": [
+        {
+            "stage": "soil_selection",
+            "risk": "medium",
+            "content": "Grow sugarcane on sandy loam to clay loam soils as it is semi-tolerant to sodicity and salinity."
+        },
+        {
+            "stage": "land_preparation",
+            "risk": "low",
+            "content": "Perform cross sub-soiling at 1.0 m spacing once in 3-4 years before field preparation."
+        },
+        {
+            "stage": "variety_selection",
+            "risk": "medium",
+            "content": "Grow early maturing varieties CoPb 95, CoPb 96, Co 15023, CoPb 92, Co 118, CoJ 85, and CoJ 64."
+        },
+        {
+            "stage": "variety_selection",
+            "risk": "medium",
+            "content": "Grow mid-late maturing varieties CoPb 98, CoPb 93, CoPb 94, Co 238, CoPb 91, and CoJ 88."
+        },
+        {
+            "stage": "sowing",
+            "risk": "medium",
+            "content": "Plant sugarcane from mid-February to end of March."
+        },
+        {
+            "stage": "crop_rotation",
+            "risk": "high",
+            "content": "Do not plant sugarcane in fields previously infected with red rot or wilt."
+        },
+        {
+            "stage": "seed_selection",
+            "risk": "high",
+            "content": "Use disease-free seed free from red rot, wilt, smut, ratoon stunting, and grassy shoot diseases."
+        },
+        {
+            "stage": "seed_rate",
+            "risk": "medium",
+            "content": "Use 20 thousand three-budded setts, 15 thousand four-budded setts, or 12 thousand five-budded setts per acre."
+        },
+        {
+            "stage": "seed_selection",
+            "risk": "medium",
+            "content": "Use only top two-third portion of selected canes for planting."
+        },
+        {
+            "stage": "seed_treatment",
+            "risk": "medium",
+            "content": "Soak setts overnight in solution prepared using 25 ml Ethrel 39 SL in 100 litres water for better germination."
+        },
+        {
+            "stage": "seed_treatment",
+            "risk": "medium",
+            "content": "Alternatively soak sugarcane setts in water for 24 hours before planting."
+        },
+        {
+            "stage": "weed_management",
+            "risk": "medium",
+            "content": "Perform two or three hoeings using triphali, tractor mounted tiller, or rotary weeder."
+        },
+        {
+            "stage": "pre_emergence",
+            "risk": "medium",
+            "content": "Apply Atrataf/Solaro/Masstaf/Markazine 50 WP, Sencor 70 WP, Karmex/Klass 80 WP, or Authority NXT 58 WP within 2-3 days of planting for weed control."
+        },
+        {
+            "stage": "post_emergence",
+            "risk": "medium",
+            "content": "Apply Triskele/Trishuk WDG or Sindica WDG at 3-5 leaf stage of weeds for control of grass, sedge, and broadleaf weeds."
+        },
+        {
+            "stage": "post_emergence",
+            "risk": "medium",
+            "content": "Apply 2,4-D sodium salt 80 WP @ 800 g per acre in fields infested with dila."
+        },
+        {
+            "stage": "3_5_leaf_stage",
+            "risk": "medium",
+            "content": "Apply 2,4-D sodium salt 80 WP or 2,4-D amine salt 58 SL for Ipomoea and broadleaf weed management at 3-5 leaf stage."
+        },
+        {
+            "stage": "lodging_management",
+            "risk": "medium",
+            "content": "Perform heavy earthing up at end of June before onset of monsoon to prevent lodging."
+        },
+        {
+            "stage": "lodging_management",
+            "risk": "medium",
+            "content": "Prop up sugarcane crop during end of August or beginning of September."
+        },
+        {
+            "stage": "nitrogen_management",
+            "risk": "medium",
+            "content": "Avoid excessive nitrogen application to prevent lodging and poor cane quality."
+        },
+        {
+            "stage": "ratoon_management",
+            "risk": "medium",
+            "content": "Do not harvest ratoon crop before end of January."
+        },
+        {
+            "stage": "ratoon_management",
+            "risk": "medium",
+            "content": "Remove trash and irrigate field after harvesting ratoon crop."
+        },
+        {
+            "stage": "ratoon_management",
+            "risk": "high",
+            "content": "Do not ratoon diseased sugarcane crop."
+        },
+        {
+            "stage": "harvesting",
+            "risk": "medium",
+            "content": "Harvest canes close to ground level for better ratoon sprouting."
+        },
+        {
+            "stage": "crop_management",
+            "risk": "medium",
+            "content": "Remove late tillers and water shoots to improve ratoon sprouting."
+        },
+        {
+            "stage": "weed_management",
+            "risk": "medium",
+            "content": "Use tractor drawn tillers or rotary weeders during early growth stages."
+        },
+        {
+            "stage": "gap_filling",
+            "risk": "medium",
+            "content": "Plant three-budded setts in gaps during beginning of March to improve ratoon stand."
+        },
+        {
+            "stage": "insect_pest_management",
+            "risk": "high",
+            "content": "Perform early sowing to reduce early shoot borer infestation."
+        },
+        {
+            "stage": "insect_pest_management",
+            "risk": "high",
+            "content": "Use Tricho-cards for borer management."
+        },
+        {
+            "stage": "red_rot_management",
+            "risk": "high",
+            "content": "Avoid sugarcane cultivation for one year in red rot infected fields."
+        },
+        {
+            "stage": "wilt_management",
+            "risk": "high",
+            "content": "Avoid sugarcane cultivation for three years in wilt infected fields."
+        },
+        {
+            "stage": "red_rot_management",
+            "risk": "high",
+            "content": "Use seed from disease-free plots and rogue out diseased canes for red rot management."
+        },
+        {
+            "stage": "disease_management",
+            "risk": "high",
+            "content": "Uproot and bury entire diseased clumps and avoid ratooning diseased crop."
+        }
+    ],
+    "kinnow": [
+        {
+            "stage": "nutrient_management",
+            "risk": "medium",
+            "content": "Spray zinc sulphate @ 4.7 g/litre and manganese sulphate @ 3.3 g/litre during mid August on fully developed flushes."
+        },
+        {
+            "stage": "spray_management",
+            "risk": "medium",
+            "content": "Maintain one week gap between Bordeaux mixture spray and zinc sulphate plus manganese sulphate spray."
+        },
+        {
+            "stage": "fruit_drop_management",
+            "risk": "high",
+            "content": "Spray GA @ 10 mg/litre with Copper oxychloride 50 WP @ 3 g/litre during August and September for fruit drop management."
+        },
+        {
+            "stage": "orchard_sanitation",
+            "risk": "medium",
+            "content": "Collect and destroy mummified and fallen fruits through deep burying."
+        },
+        {
+            "stage": "fruit_development",
+            "risk": "medium",
+            "content": "Apply three foliar sprays of 1% potassium nitrate at end of May, June, and July to improve fruit size and yield."
+        },
+        {
+            "stage": "psylla_management",
+            "risk": "high",
+            "content": "Spray Crocodile/Conidor 17.8 SL (imidacloprid) or Actara/Dotara for Citrus Psylla management."
+        }
+    ],
+    "guava": [
+        {
+            "stage": "organic_manuring",
+            "risk": "low",
+            "content": "Apply farmyard manure in May to guava plants."
+        },
+        {
+            "stage": "organic_manuring",
+            "risk": "low",
+            "content": "Apply 20 kg rice straw manure per full grown guava plant as substitute for farmyard manure."
+        },
+        {
+            "stage": "fertilizer_management",
+            "risk": "medium",
+            "content": "Apply urea @ 1.0 kg/plant, SSP @ 2.5 kg/plant, and MOP @ 1.5 kg/plant to full grown guava trees."
+        },
+        {
+            "stage": "may_june",
+            "risk": "medium",
+            "content": "Apply half dose of inorganic fertilizers during May-June."
+        },
+        {
+            "stage": "september_october",
+            "risk": "medium",
+            "content": "Apply remaining half dose of inorganic fertilizers during September-October."
+        },
+        {
+            "stage": "zinc_deficiency_management",
+            "risk": "medium",
+            "content": "Spray zinc sulphate solution prepared using 1 kg zinc sulphate and 0.5 kg unslaked lime in 100 litres water for zinc deficiency correction."
+        },
+        {
+            "stage": "june_september",
+            "risk": "medium",
+            "content": "Apply 2-3 zinc sulphate sprays at fortnightly intervals between June and September."
+        },
+        {
+            "stage": "weed_management",
+            "risk": "medium",
+            "content": "Apply rice straw mulch @ 4.0 t/acre under tree canopy after fertilizer application in May."
+        },
+        {
+            "stage": "flowering",
+            "risk": "medium",
+            "content": "Spray urea 10% or NAA @ 600 mg/litre during May when maximum flowers have opened for winter season crop management."
+        },
+        {
+            "stage": "irrigation_management",
+            "risk": "medium",
+            "content": "Withhold irrigation during May and apply fertilizers during June to encourage flowering during August-September."
+        },
+        {
+            "stage": "mite_management",
+            "risk": "high",
+            "content": "Spray soybean oil @ 10 litres or cotton seed oil @ 10 litres with 1.25 kg detergent powder in 500 litres water per acre when mite population appears."
+        },
+        {
+            "stage": "fruit_fly_management",
+            "risk": "high",
+            "content": "Collect and bury infested fruits regularly for fruit fly management."
+        },
+        {
+            "stage": "fruit_fly_management",
+            "risk": "high",
+            "content": "Install PAU fruit fly traps @ 16 traps/acre during second week of August and recharge when required."
+        },
+        {
+            "stage": "foot_rot_management",
+            "risk": "high",
+            "content": "Avoid flood irrigation and prevent irrigation water from touching tree trunk for foot rot management."
+        },
+        {
+            "stage": "foot_rot_management",
+            "risk": "high",
+            "content": "Apply Curzate M 8 paint @ 2 g/100 ml linseed oil on infected trunk and drench soil with 25 g/10 litres water per tree during July-August."
+        },
+        {
+            "stage": "scab_management",
+            "risk": "high",
+            "content": "Spray Bordeaux mixture (2:2:250) or Copper oxychloride @ 3 g/litre at 20 day intervals from last week of June to August for scab management."
+        },
+        {
+            "stage": "disease_management",
+            "risk": "high",
+            "content": "Clip infected leaves during July for disease management."
+        },
+        {
+            "stage": "irrigation_management",
+            "risk": "medium",
+            "content": "Provide light and frequent irrigations during May-June to prevent fruit cracking."
+        },
+        {
+            "stage": "fruit_protection",
+            "risk": "high",
+            "content": "Cover mature green guava fruits with white non-woven bags from end of June to middle of July for fruit fly management."
+        },
+        {
+            "stage": "fruit_fly_management",
+            "risk": "high",
+            "content": "Install PAU fruit fly traps @ 16 traps/acre during first week of July and recharge when required."
+        },
+        {
+            "stage": "anthracnose_management",
+            "risk": "high",
+            "content": "Avoid standing water around tree basin for fruit rot, anthracnose, and dieback management."
+        },
+        {
+            "stage": "post_pruning",
+            "risk": "high",
+            "content": "Spray Bordeaux mixture (2:2:250) or Blitox @ 300 g in 100 litres water after pruning."
+        },
+        {
+            "stage": "orchard_sanitation",
+            "risk": "medium",
+            "content": "Bury rotten and mummified fruits deep into soil."
+        },
+        {
+            "stage": "august_september",
+            "risk": "medium",
+            "content": "Apply two foliar sprays of 2% potassium nitrate during August and September to improve fruit size and yield."
+        }
+    ],
+    "mango": [
+        {
+            "stage": "fruit_drop_management",
+            "risk": "high",
+            "content": "Spray 10 g sodium salt 2,4-D in 500 litres water during first week of May to control pre-harvest fruit drop in Dusehri and Langra cultivars."
+        },
+        {
+            "stage": "spray_preparation",
+            "risk": "medium",
+            "content": "Dissolve 2,4-D in small quantity of alcohol or spirit before adding required volume of water."
+        },
+        {
+            "stage": "spray_management",
+            "risk": "medium",
+            "content": "Wash spray pump thoroughly with washing soda before and after spraying 2,4-D solution."
+        },
+        {
+            "stage": "spray_management",
+            "risk": "medium",
+            "content": "Do not repeat spray of 2,4-D solution."
+        },
+        {
+            "stage": "fruit_fly_management",
+            "risk": "high",
+            "content": "Regularly remove fallen fruits and bury infested fruits at least 60 cm deep for fruit fly management."
+        },
+        {
+            "stage": "fruit_fly_management",
+            "risk": "high",
+            "content": "Install PAU fruit fly traps @ 16 traps/acre during third week of May and recharge when required."
+        }
+    ],
+    "pear": [
+        {
+            "stage": "zinc_deficiency_management",
+            "risk": "medium",
+            "content": "Spray 3 kg zinc sulphate with 1.5 kg unslaked lime in 500 litres water per acre to correct zinc deficiency."
+        },
+        {
+            "stage": "iron_deficiency_management",
+            "risk": "medium",
+            "content": "Spray 0.3% ferrous sulphate solution prepared using 300 g ferrous sulphate in 100 litres water for iron deficiency correction."
+        },
+        {
+            "stage": "irrigation",
+            "risk": "medium",
+            "content": "Provide irrigation at 5-7 day intervals during summer months after transplanting."
+        },
+        {
+            "stage": "july_august",
+            "risk": "medium",
+            "content": "Provide irrigation at 15 day intervals during July-August."
+        },
+        {
+            "stage": "post_harvest",
+            "risk": "medium",
+            "content": "Restrict irrigation after fruit harvest."
+        },
+        {
+            "stage": "fruit_fly_management",
+            "risk": "high",
+            "content": "Regularly remove fallen fruits and bury infested fruits at least 60 cm deep for fruit fly management."
+        },
+        {
+            "stage": "fruit_fly_management",
+            "risk": "high",
+            "content": "Install PAU fruit fly traps @ 16 traps/acre during first week of June and recharge when required."
+        }
+    ],
+    "litchi": [
+        {
+            "stage": "irrigation",
+            "risk": "medium",
+            "content": "Irrigate young litchi plants twice a week during May-June."
+        },
+        {
+            "stage": "fruit_development",
+            "risk": "medium",
+            "content": "Provide twice weekly irrigation from second week of May to end of June during fruit development stage."
+        },
+        {
+            "stage": "fruit_development",
+            "risk": "medium",
+            "content": "Maintain adequate irrigation during fruit development to reduce fruit cracking and improve fruit size."
+        },
+        {
+            "stage": "post_monsoon",
+            "risk": "medium",
+            "content": "Irrigate young orchards at weekly or fortnightly intervals after withdrawal of monsoon from September onwards."
+        },
+        {
+            "stage": "25_30_days_after_fruit_set",
+            "risk": "high",
+            "content": "Bag litchi fruit bunches with white or pink polypropylene non-woven bags at 25-30 days after fruit set for protection against fruit nut borer, sunburn, and cracking."
+        },
+        {
+            "stage": "orchard_sanitation",
+            "risk": "high",
+            "content": "Remove fallen fruits and plough orchard to reduce carry-over of litchi nut borer."
+        }
+    ],
+    "peach": [
+        {
+            "stage": "fruit_development",
+            "risk": "medium",
+            "content": "Provide adequate irrigation from fruit set until fruit maturity during June."
+        },
+        {
+            "stage": "25_30_days_before_maturity",
+            "risk": "medium",
+            "content": "Avoid moisture stress 25-30 days before fruit maturity to ensure maximum fruit weight gain."
+        },
+        {
+            "stage": "iron_deficiency_management",
+            "risk": "medium",
+            "content": "Spray ferrous sulphate @ 0.3% (3 g/litre water) during June and August for iron deficiency correction."
+        },
+        {
+            "stage": "fruit_fly_management",
+            "risk": "high",
+            "content": "Install PAU fruit fly traps @ 16 traps/acre during May for fruit fly management."
+        }
+    ],
+    "ber": [
+        {
+            "stage": "pruning",
+            "risk": "medium",
+            "content": "Prune ber trees during second fortnight of May when trees are dormant."
+        },
+        {
+            "stage": "pruning",
+            "risk": "medium",
+            "content": "Perform heading back pruning to 8 buds of previous year's growth for higher yield and better fruit quality."
+        },
+        {
+            "stage": "organic_manuring",
+            "risk": "low",
+            "content": "Apply farmyard manure @ 100 kg/tree during May-June to full grown ber plants."
+        },
+        {
+            "stage": "july_august",
+            "risk": "medium",
+            "content": "Apply first split of urea @ 1.0 kg/plant during rainy season in July-August."
+        },
+        {
+            "stage": "fruit_set",
+            "risk": "medium",
+            "content": "Apply second split of urea @ 1.0 kg/plant soon after fruit set."
+        }
+    ],
+    "cucurbits": [
+        {
+            "stage": "sowing",
+            "risk": "medium",
+            "content": "Sow pumpkin during June-July on 2-2.5 m wide beds with 60 cm spacing using 1.0-1.5 kg seed per acre."
+        },
+        {
+            "stage": "sowing",
+            "risk": "medium",
+            "content": "Sow bottle gourd, bitter gourd, sponge gourd, ash gourd, and round gourd during June-July on 1.5-3 m wide beds with 45-90 cm spacing using 2.0 kg seed per acre."
+        },
+        {
+            "stage": "organic_manuring",
+            "risk": "low",
+            "content": "Apply 8-15 tonnes FYM per acre in cucurbits."
+        },
+        {
+            "stage": "fertilizer_management",
+            "risk": "medium",
+            "content": "Apply 40 kg nitrogen using 90 kg urea per acre in pumpkin in two splits."
+        },
+        {
+            "stage": "fertilizer_management",
+            "risk": "medium",
+            "content": "Apply 28-40 kg nitrogen, 20 kg P2O5, and 20 kg K2O per acre in cucurbits with nitrogen in two splits."
+        },
+        {
+            "stage": "irrigation",
+            "risk": "medium",
+            "content": "Irrigate cucurbits every 6-7 days during summer with total 8-10 irrigations."
+        },
+        {
+            "stage": "pre_harvest",
+            "risk": "medium",
+            "content": "Reduce irrigation frequency before harvest to prevent fruit rot."
+        },
+        {
+            "stage": "fruit_fly_management",
+            "risk": "high",
+            "content": "Install 16 fruit fly traps per acre during 3rd-4th week of April for spring crops and 4th week of June for rainy season crops."
+        },
+        {
+            "stage": "fruit_fly_management",
+            "risk": "high",
+            "content": "Apply bait spray using Malathion 50 EC @ 20 ml with 200 g gur in 20 litres water at 15-day intervals on maize trap crop rows."
+        },
+        {
+            "stage": "fungal_disease_management",
+            "risk": "high",
+            "content": "Spray Bavistin @ 1 g and Mancozeb @ 2 g per litre water for fungal disease management."
+        },
+        {
+            "stage": "sucking_pest_management",
+            "risk": "high",
+            "content": "Spray Imidacloprid @ 0.5 ml/litre water for sucking pest management."
+        },
+        {
+            "stage": "whitefly_management",
+            "risk": "high",
+            "content": "Apply PAU Neem extract @ 1200 ml in 100-125 litres water per acre for whitefly management."
+        }
+    ],
+    "okra": [
+        {
+            "stage": "sowing",
+            "risk": "medium",
+            "content": "Sow okra during June-July using varieties Punjab Suhawani, Punjab-8, Pusa Kranti, Varsha Uphar, or A-4."
+        },
+        {
+            "stage": "seed_rate",
+            "risk": "medium",
+            "content": "Use 4-6 kg seed per acre with spacing of 45 × 15 cm for okra cultivation."
+        },
+        {
+            "stage": "jassid_whitefly_management",
+            "risk": "high",
+            "content": "Apply Ecotin (Azadirachtin 5%) @ 80 ml or PAU Neem extract @ 2000 ml in 100-125 litres water per acre for jassid and whitefly management."
+        },
+        {
+            "stage": "jassid_management",
+            "risk": "high",
+            "content": "Spray Actara 25 WG @ 40 g, Malathion 50 EC @ 560 ml, or Conidor 17.8 SL @ 40 ml in 100-125 litres water per acre during severe jassid infestation."
+        },
+        {
+            "stage": "bollworm_management",
+            "risk": "high",
+            "content": "Spray Coragen 18.5 SC or Sumipleo 10 EC @ 50 ml in 100-125 litres water per acre for spotted bollworm management."
+        },
+        {
+            "stage": "mite_management",
+            "risk": "high",
+            "content": "Apply PAU Dharek extract @ 1600 ml in 100 litres water per acre or Oberon 22.9 SC @ 150 ml in 100 litres water per acre for red spider mite management."
+        },
+        {
+            "stage": "yellow_mosaic_management",
+            "risk": "high",
+            "content": "Rogue out Yellow Mosaic Virus affected plants and spray Thiomethoxam 25WG @ 60 g/acre for whitefly vector management."
+        }
+    ],
+    "cauliflower": [
+        {
+            "stage": "nursery_sowing",
+            "risk": "medium",
+            "content": "Sow cauliflower nursery during May for Kharif season using early group cultivars like Pusa Deepali, Pusa Kartiki, and Pant Gobhi-3."
+        },
+        {
+            "stage": "transplanting",
+            "risk": "medium",
+            "content": "Transplant cauliflower by mid-June with spacing of 45 × 30 cm."
+        },
+        {
+            "stage": "organic_manuring",
+            "risk": "low",
+            "content": "Apply 10-15 tonnes FYM per acre in cauliflower."
+        },
+        {
+            "stage": "fertilizer_management",
+            "risk": "medium",
+            "content": "Apply 50 kg N, 25 kg P2O5, and 25 kg K2O per acre with full phosphorus, potassium, and one-third nitrogen at sowing."
+        },
+        {
+            "stage": "4_weeks_after_transplanting",
+            "risk": "medium",
+            "content": "Apply remaining nitrogen as top dressing four weeks after transplanting."
+        },
+        {
+            "stage": "irrigation",
+            "risk": "medium",
+            "content": "Irrigate cauliflower every 6-7 days with total 9-11 irrigations while avoiding over-flooding."
+        },
+        {
+            "stage": "boron_management",
+            "risk": "medium",
+            "content": "Apply Borax @ 8 kg/acre to manage browning in cauliflower."
+        },
+        {
+            "stage": "disease_management",
+            "risk": "high",
+            "content": "Spray Mancozeb @ 0.2% or Copper Oxychloride @ 0.3% for leaf spot, blight, and downy mildew management."
+        },
+        {
+            "stage": "borer_management",
+            "risk": "high",
+            "content": "Spray Spinosad 45 SC @ 80 ml/acre in 200 litres water for stem borer and fruit borer management."
+        }
+    ],
+    "cowpea": [
+        {
+            "stage": "sowing",
+            "risk": "medium",
+            "content": "Sow cowpea during June-July using variety Cowpea 263 with spacing of 45 × 15 cm."
+        },
+        {
+            "stage": "fertilizer_management",
+            "risk": "medium",
+            "content": "Apply 45 kg urea, 100 kg SSP, and 16 kg MOP per acre at sowing."
+        },
+        {
+            "stage": "seed_treatment",
+            "risk": "high",
+            "content": "Treat cowpea seeds with Bavistin and Rhizobium culture before sowing."
+        },
+        {
+            "stage": "sucking_pest_management",
+            "risk": "high",
+            "content": "Apply alternate sprays of Neem-based pesticide 1500 ppm @ 600 ml/acre and Imidacloprid 17.8 @ 70 ml/acre for aphid and whitefly management."
+        },
+        {
+            "stage": "fungal_disease_management",
+            "risk": "high",
+            "content": "Treat seeds with Carbendazim @ 0.2%, Thiram @ 0.3%, or Captan @ 0.3% for fungal disease management."
+        }
+    ]
+}

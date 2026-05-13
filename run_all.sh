@@ -8,15 +8,12 @@ export PYTHONPATH=$PYTHONPATH:.
 echo "🚀 Starting Syngenta KrishiMitra Microservices..."
 
 # Tier 1: Data Foundation
-python3 -m uvicorn farmer_service.main:app --host 0.0.0.0 --port 8001 &
-python3 -m uvicorn product_service.main:app --host 0.0.0.0 --port 8002 &
+.venv/bin/python3 -m uvicorn farmer_service.main:app --host 0.0.0.0 --port 8001 &
+.venv/bin/python3 -m uvicorn product_service.main:app --host 0.0.0.0 --port 8002 &
 
 # Tier 2: Signal Ingestion
-python3 -m uvicorn weather_service.main:app --host 0.0.0.0 --port 8004 &
-
-# The following modules are placeholders or not yet fully implemented
-# # Tier 2: Signal Ingestion (Cont.)
-# python3 -m uvicorn calendar_service.main:app --host 0.0.0.0 --port 8005 &
+.venv/bin/python3 -m uvicorn weather_service.main:app --host 0.0.0.0 --port 8004 &
+.venv/bin/python3 -m uvicorn calendar_service.main:app --host 0.0.0.0 --port 8005 &
 # python3 -m uvicorn context_service.main:app --host 0.0.0.0 --port 8006 &
 
 # # Tier 3: Intelligence Engine

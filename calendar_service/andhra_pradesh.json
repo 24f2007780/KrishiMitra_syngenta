@@ -1,0 +1,1407 @@
+{
+  "rice": {
+    "common_instructions": [
+      {
+        "stage": "fertilizer_management",
+        "risk": "medium",
+        "content": "Grow green manure crops such as Dhaincha, Sunhemp, Pillipesara, and Cowpea before rice cultivation."
+      },
+      {
+        "stage": "final_puddling",
+        "risk": "medium",
+        "content": "Apply full phosphorus dose during final puddling stage."
+      },
+      {
+        "stage": "final_puddling",
+        "risk": "medium",
+        "content": "Apply full potash dose in heavy soils during final puddling."
+      },
+      {
+        "stage": "panicle_initiation",
+        "risk": "medium",
+        "content": "Apply remaining half potash dose at panicle initiation stage in light soils."
+      },
+      {
+        "stage": "3_5_days_after_sowing",
+        "risk": "medium",
+        "content": "Apply Pyrazosulfuron-ethyl 10% WP @ 250 g/ha or Pretilachlor + Safener 37% EW @ 1500 ml/ha in wet direct-seeded rice fields."
+      },
+      {
+        "stage": "3_5_days_after_transplanting",
+        "risk": "medium",
+        "content": "Apply Pyrazosulfuron-ethyl 10% WP @ 200 g/ha, Butachlor 50% EC @ 2.5-3.12 litres/ha, or Pretilachlor 50% EC @ 1000 ml/ha in transplanted rice."
+      },
+      {
+        "stage": "weed_management",
+        "risk": "medium",
+        "content": "Apply Bensulfuron Methyl 0.6% + Pretilachlor 6.0% granules @ 10 kg/ha for heavy weed infestation."
+      },
+      {
+        "stage": "20_DAT",
+        "risk": "medium",
+        "content": "Apply Cyhalofop-P-butyl 10% EC @ 1000 ml/ha for grassy weed control at 20 DAT."
+      },
+      {
+        "stage": "weed_management",
+        "risk": "medium",
+        "content": "Apply Bispyribac Sodium 10% SL @ 250 ml/ha or Triafamone + Ethoxysulfuron 30% WG @ 225 g/ha for severe weed infestation."
+      },
+      {
+        "stage": "booting",
+        "risk": "high",
+        "content": "Spray Propiconazole @ 200 ml/acre at booting stage for false smut management."
+      },
+      {
+        "stage": "50_percent_panicle_emergence",
+        "risk": "high",
+        "content": "Spray Propiconazole @ 200 ml/acre at 50% panicle emergence stage for false smut management."
+      },
+      {
+        "stage": "disease_management",
+        "risk": "high",
+        "content": "Spray Tebuconazole + Trifloxystrobin 75 WG @ 80 g/acre under severe false smut incidence."
+      },
+      {
+        "stage": "bacterial_leaf_blight_management",
+        "risk": "high",
+        "content": "Destroy affected stubbles by burning or ploughing for bacterial leaf blight management."
+      },
+      {
+        "stage": "bacterial_leaf_blight_management",
+        "risk": "medium",
+        "content": "Avoid clipping seedling tips during transplanting to reduce bacterial leaf blight incidence."
+      },
+      {
+        "stage": "planting",
+        "risk": "medium",
+        "content": "Apply potassium @ 15 kg/acre during planting for bacterial leaf blight management."
+      },
+      {
+        "stage": "panicle_initiation",
+        "risk": "medium",
+        "content": "Apply potassium @ 20 kg/acre at panicle initiation stage for bacterial leaf blight management."
+      },
+      {
+        "stage": "15_DAT",
+        "risk": "high",
+        "content": "Install Trap Barrier System with 2 ft polythene sheet barrier around crop at 15 DAT."
+      },
+      {
+        "stage": "natural_calamity_management",
+        "risk": "high",
+        "content": "Spray Carbendazim @ 1 g/L or Carbendazim + Mancozeb @ 2 g/L or Propiconazole @ 1 ml/L after crop submergence to avoid grain discoloration."
+      },
+      {
+        "stage": "post_harvest",
+        "risk": "medium",
+        "content": "Spray 5% salt solution on drenched harvested sheaves to prevent seed germination."
+      },
+      {
+        "stage": "storm_management",
+        "risk": "medium",
+        "content": "Sprinkle 25 kg salt per acre on incompletely dried rice sheaves during stormy weather."
+      }
+    ],
+    "district_wise": {
+      "north_coastal_zone": [
+        {
+          "stage": "variety_selection",
+          "risk": "medium",
+          "content": "Grow Pushkala, Srisatya, Cotton Dora Sannalu, Tarangini, Nellore Masoori, Nellore Dhanyarashi, and NLR Rice 3238 in North Coastal Zone."
+        }
+      ],
+      "southern_zone": [
+        {
+          "stage": "variety_selection",
+          "risk": "medium",
+          "content": "Grow Sweta, Bharani, Somasila, Nellore Masoori, Nellore Dhanyarashi, Nellore Sugandha, NLR 3238, Cotton Dora Sannalu, Tarangini, and Chandra in Southern Zone."
+        }
+      ],
+      "hat_zone": [
+        {
+          "stage": "variety_selection",
+          "risk": "medium",
+          "content": "Grow Cotton Dora Sannalu, Tarangini, Chandra, Pushkala, Srisatya, and NLR 3238 in HAT Zone."
+        }
+      ],
+      "krishna_zone": [
+        {
+          "stage": "variety_selection",
+          "risk": "medium",
+          "content": "Grow Swarna, Indra, Amara, Krishnaveni, Varam, MTU Rice 1318, MTU 1232, Panduranga, MCM Rice 103, Samba Masoori, Akshaya, Bhavapuri Sannalu, Bapatla Masoori, Nellore Siri, Teja, Bhavathi, Sasya, BPT Rice 2841, BPT Rice 2846, Maruteru Samba, Maruteru Masoori, MTU Rice 1271, MTU Rice 1278, Nellore Sona, Nellore Siri, and NLR 3238 in Krishna Zone."
+        },
+        {
+          "stage": "late_nursery_transplanting",
+          "risk": "medium",
+          "content": "Use Swarna, Indra, Amara, Maruteru Masoori, MTU Rice 1318, Bapatla Masoori, Bhavapuri Sannalu, Teja, Panduranga, and MCM Rice 103 for late nursery transplanting."
+        },
+        {
+          "stage": "bph_prone_areas",
+          "risk": "high",
+          "content": "Use Krishnaveni, Indra, Amara, Maruteru Samba, Maruteru Masoori, MTU 1271, Bhavapuri Sannalu, Teja, Sasya, BPT Rice 2846, and Nellore Siri in BPH-prone areas."
+        },
+        {
+          "stage": "flood_prone_areas",
+          "risk": "high",
+          "content": "Use Amara, Indra, Bhima, MTU Rice 1232, and MTU Rice 1318 in flood-prone areas."
+        },
+        {
+          "stage": "saline_soils",
+          "risk": "medium",
+          "content": "Use Indra, Panduranga, and MCM Rice 103 in saline soils."
+        },
+        {
+          "stage": "late_planting",
+          "risk": "medium",
+          "content": "Use Cotton Dora Sannalu, Tarangini, MTU 1293, Nellore Sona, Nellore Masoori, Nellore Siri, and NLR 3238 for late planting."
+        },
+        {
+          "stage": "drought_prone_areas",
+          "risk": "high",
+          "content": "Use Cotton Dora Sannalu, Vijetha, Tarangini, Chandar, MTU 1293, and NLR 3238 in drought-prone areas."
+        }
+      ],
+      "godavari_zone": [
+        {
+          "stage": "variety_selection",
+          "risk": "medium",
+          "content": "Grow Swarna, Indra, Amara, Bhima, Pushyami, Ksheera, Sravani, Maruteru Samba, Maruteru Masoori, MTU 1212, MTU 1280, MTU 1281, MTU 1293, MTU 1310, MTU 1321, MTU 1318, MTU 1232, MTU 1271, MTU 1275, Samba Masoori, Teja, Bhavathi, Bapatla Masoori, BPT 2841, and MCM Rice 103 in Godavari Zone."
+        },
+        {
+          "stage": "late_nursery_transplanting",
+          "risk": "medium",
+          "content": "Use Swarna, Indra, Amara, MTU 1318, Maruteru Masoori, and Srikakulam Sannalu for late nursery transplanting."
+        },
+        {
+          "stage": "bph_prone_areas",
+          "risk": "high",
+          "content": "Use Krishnaveni, Indra, Amara, Pushyami, Maruteru Samba, MTU 1271, and BPT 2846 in BPH-prone areas."
+        },
+        {
+          "stage": "flood_prone_areas",
+          "risk": "high",
+          "content": "Use Amara, Indra, Bhima, MTU 1232, and MTU 1318 in flood-prone areas."
+        }
+      ],
+      "southern_region": [
+        {
+          "stage": "variety_selection",
+          "risk": "medium",
+          "content": "Grow Nellore Sona, Nellore Masoori, Nellore Dhanyarashi, Nellore Siri, Somasila, Bharani, Sweta, NLR 3238, Samba Masoori, Bapatla Masoori, Teja, Bhavathi, Sasya, BPT Rice 2841, BPT Rice 2846, Varam, Maruteru Samba, Maruteru Masoori, MTU Rice 1232, MTU Rice 1271, MCM Rice 103, and Nandyala Sona in Southern Region."
+        },
+        {
+          "stage": "late_nursery_planting",
+          "risk": "medium",
+          "content": "Use Parthiva, Bapatla Masoori, Teja, Bhavapuri Sannalu, and Maruteru Masoori for late nursery planting."
+        },
+        {
+          "stage": "bph_prone_areas",
+          "risk": "high",
+          "content": "Use Maruteru Samba, Maruteru Masoori, MTU 1271, Bapatla Masoori, BPT 2846, and Parthiva in BPH-prone areas."
+        },
+        {
+          "stage": "saline_soils",
+          "risk": "medium",
+          "content": "Use Nellore Masoori, Panduranga, and MCM Rice 103 in saline soils."
+        }
+      ]
+    }
+  },
+  "maize": [
+    {
+      "stage": "sowing",
+      "risk": "medium",
+      "content": "Sow rainfed maize between June 15 and July 15 under normal conditions."
+    },
+    {
+      "stage": "rainfed_sowing",
+      "risk": "medium",
+      "content": "Sow maize under rainfed conditions only after receiving more than 50 mm rainfall."
+    },
+    {
+      "stage": "seed_rate",
+      "risk": "medium",
+      "content": "Use seed rate of 17.5-20 kg/ha for normal hybrids, 7.5-10 kg/ha for sweetcorn, 12.5 kg/ha for popcorn, and 25 kg/ha for baby corn."
+    },
+    {
+      "stage": "2_3_days_after_sowing",
+      "risk": "medium",
+      "content": "Spray Atrazine herbicide @ 2 kg/ha in light soils and 3 kg/ha in heavy soils mixed with 500 litres water within 2-3 days after sowing."
+    },
+    {
+      "stage": "15_18_DAS",
+      "risk": "medium",
+      "content": "Spray Tembotrione 34.4% SC @ 287.5 ml/ha + Atrazine 50% WP @ 1000 g/ha at 15-18 DAS for broadleaf and grassy weed control."
+    },
+    {
+      "stage": "15_18_DAS",
+      "risk": "medium",
+      "content": "Spray Topramezone 33.6% SC @ 75 ml/ha + Atrazine 50% WP @ 1000 g/ha at 15-18 DAS for weed management."
+    },
+    {
+      "stage": "weed_management",
+      "risk": "medium",
+      "content": "Spray Halosulfuron methyl @ 100 g/ha mixed with 500 litres water for Cyperus spp. management."
+    },
+    {
+      "stage": "fall_armyworm_management",
+      "risk": "high",
+      "content": "Perform summer ploughing and destroy fall armyworm egg masses for pest management."
+    },
+    {
+      "stage": "monitoring",
+      "risk": "high",
+      "content": "Install Spodoptera frugiperda pheromone traps @ 4 traps/acre for fall armyworm monitoring."
+    },
+    {
+      "stage": "intercropping",
+      "risk": "medium",
+      "content": "Grow grain sorghum as border crop and intercrop maize with cowpea rows for fall armyworm management."
+    },
+    {
+      "stage": "10_15_DAS",
+      "risk": "high",
+      "content": "Spray Azadirachtin 10000 ppm @ 2 ml/litre during 10-15 DAS for fall armyworm management."
+    },
+    {
+      "stage": "15_21_DAS",
+      "risk": "high",
+      "content": "Apply EPN or Bt spray @ 2 ml/litre during 15-21 DAS for fall armyworm control."
+    },
+    {
+      "stage": "21_28_DAS",
+      "risk": "high",
+      "content": "Spray Emamectin Benzoate 5 SG @ 0.4 g/litre or Spinosad 480 SC @ 0.5 ml/litre during 21-28 DAS."
+    },
+    {
+      "stage": "30_35_DAS",
+      "risk": "high",
+      "content": "Spray Metarhizium anisopliae (1×10⁷) @ 2 ml/litre during 30-35 DAS."
+    },
+    {
+      "stage": "36_42_DAS",
+      "risk": "high",
+      "content": "Spray Flubendiamide 480 SC @ 0.3 ml/litre or Chlorantraniliprole 18.5 SC @ 0.3 ml/litre or Spinetoram 11.7 SC @ 0.3 ml/litre during 36-42 DAS."
+    },
+    {
+      "stage": "45_65_DAS",
+      "risk": "high",
+      "content": "Apply poison bait using Thiodicarb 75 WP with 25 kg rice bran and 5 kg jaggery per hectare during 45-65 DAS."
+    }
+  ],
+  "groundnut": [
+    {
+      "stage": "land_preparation",
+      "risk": "low",
+      "content": "Perform summer ploughing before sowing groundnut."
+    },
+    {
+      "stage": "variety_selection",
+      "risk": "medium",
+      "content": "Use high yielding groundnut varieties such as TCGS 1694, K-Chitravathi, and K-Lepakshi."
+    },
+    {
+      "stage": "sowing",
+      "risk": "medium",
+      "content": "Sow rainfed groundnut from July to first week of August."
+    },
+    {
+      "stage": "intercropping",
+      "risk": "medium",
+      "content": "Adopt redgram intercropping with groundnut at 7:1, 11:1, or 15:1 ratio."
+    },
+    {
+      "stage": "sowing",
+      "risk": "medium",
+      "content": "Use fertilizer cum seed drill for groundnut sowing instead of manual sowing."
+    },
+    {
+      "stage": "20_30_DAS",
+      "risk": "medium",
+      "content": "Form conservation furrows at every 3.6 m interval during sowing or 20-30 DAS for moisture conservation."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat groundnut seeds with Imidacloprid 600 FS @ 1 ml/kg seed before sowing."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat seeds with Tebuconazole 2 DS @ 1 g/kg, Mancozeb @ 3 g/kg, or Trichoderma viride @ 10 g/kg seed."
+    },
+    {
+      "stage": "border_cropping",
+      "risk": "high",
+      "content": "Sow bajra or jowar border crops with 4-8 rows around field to reduce vector transmission of PSND and PBND diseases."
+    },
+    {
+      "stage": "dry_spell_management",
+      "risk": "medium",
+      "content": "Spray KNO3 @ 0.5% or 19:19:19 immediately after dry spell."
+    },
+    {
+      "stage": "flowering",
+      "risk": "medium",
+      "content": "Provide supplemental irrigation of 20 mm during flowering stage."
+    },
+    {
+      "stage": "peg_penetration",
+      "risk": "medium",
+      "content": "Provide supplemental irrigation of 20 mm during peg penetration stage."
+    },
+    {
+      "stage": "monitoring",
+      "risk": "high",
+      "content": "Install sticky traps @ 10 traps/acre and pheromone traps @ 4 traps/acre for pest monitoring."
+    },
+    {
+      "stage": "monitoring",
+      "risk": "medium",
+      "content": "Install bird perches @ 4 per acre for predation of egg and larval populations."
+    },
+    {
+      "stage": "sucking_pest_management",
+      "risk": "high",
+      "content": "Spray Imidacloprid 17.8 SL @ 0.3 ml/litre water for sucking pest management at ETL."
+    },
+    {
+      "stage": "early_stage",
+      "risk": "high",
+      "content": "Spray Quinalphos @ 2 ml/litre and neem oil @ 5 ml/litre water during initial pest infestation stages."
+    },
+    {
+      "stage": "late_stage",
+      "risk": "high",
+      "content": "Spray Emamectin benzoate 5% SG @ 0.4 g/litre water during later pest infestation stages."
+    },
+    {
+      "stage": "disease_management",
+      "risk": "high",
+      "content": "Spray Chlorothalonil @ 2 g/litre, Hexaconazole @ 2 ml/litre, or Tebuconazole @ 1 ml/litre water for Tikka leaf spot management."
+    },
+    {
+      "stage": "disease_management",
+      "risk": "high",
+      "content": "Repeat fungicide spray for Tikka leaf spot at 15 day intervals."
+    },
+    {
+      "stage": "pbnd_management",
+      "risk": "high",
+      "content": "Spray Monocrotophos @ 1.6 ml/litre, Fipronil @ 2 ml/litre, or Dimethoate @ 2 ml/litre water for peanut bud necrosis virus management."
+    }
+  ],
+  "castor": [
+    {
+      "stage": "variety_selection",
+      "risk": "medium",
+      "content": "Use castor varieties Haritha, Kiran, Jwala, Pragathi and hybrids DCH-117, PCH-111, GCH-8, ICH-66, and ICH-5."
+    },
+    {
+      "stage": "sowing",
+      "risk": "medium",
+      "content": "Sow castor between June 15 and July 31."
+    },
+    {
+      "stage": "seed_rate",
+      "risk": "medium",
+      "content": "Use castor seed rate of 2-2.5 kg/acre with spacing of 90 cm × 60 cm."
+    },
+    {
+      "stage": "10_15_DAS",
+      "risk": "medium",
+      "content": "Perform thinning at 10-15 DAS by retaining one seedling per hill."
+    },
+    {
+      "stage": "30_35_DAS",
+      "risk": "medium",
+      "content": "Apply urea @ 13 kg/acre at 30-35 DAS under sufficient soil moisture."
+    },
+    {
+      "stage": "60_65_DAS",
+      "risk": "medium",
+      "content": "Apply urea @ 13 kg/acre at 60-65 DAS under sufficient soil moisture."
+    },
+    {
+      "stage": "90_95_DAS",
+      "risk": "medium",
+      "content": "Apply additional urea @ 13 kg/acre at 90-95 DAS in hybrid castor under sufficient soil moisture."
+    }
+  ],
+  "sesamum": [
+    {
+      "stage": "sowing",
+      "risk": "medium",
+      "content": "Sow sesamum during second fortnight of May."
+    },
+    {
+      "stage": "variety_selection",
+      "risk": "medium",
+      "content": "Use sesamum varieties Sarada, Goutham, Varaha, Madhavi, and Gowri."
+    },
+    {
+      "stage": "seed_rate",
+      "risk": "medium",
+      "content": "Use 2 kg sesamum seed per acre mixed with equal proportion of sand or sawdust."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat sesamum seeds with Carbendazim or Mancozeb @ 3 g/kg seed."
+    },
+    {
+      "stage": "fertilizer_management",
+      "risk": "medium",
+      "content": "Apply fertilizers supplying 16 kg nitrogen, 8 kg phosphorus, and 8 kg potash per acre."
+    },
+    {
+      "stage": "weed_management",
+      "risk": "medium",
+      "content": "Spray Pendimethalin 30% @ 4-5 ml/litre water immediately after sowing for weed control."
+    }
+  ],
+  "sunflower": [
+    {
+      "stage": "variety_selection",
+      "risk": "medium",
+      "content": "Use high-yielding sunflower hybrids such as NDSH-1012, LSFH-171, DRSH-1, and KBSH-44."
+    },
+    {
+      "stage": "intercropping",
+      "risk": "medium",
+      "content": "Adopt sunflower and groundnut intercropping at 2:4 ratio."
+    },
+    {
+      "stage": "intercropping",
+      "risk": "medium",
+      "content": "Adopt sunflower and redgram intercropping at 2:1 ratio."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat sunflower seeds with Iprodione 25% + Carbendazim 25%, Fluxapyroxad FS @ 1.5 g/kg, or Saaf @ 2 g/kg for Alternaria leaf spot management."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat seeds with Thiamethoxam (Cruiser) @ 4 g/kg or Imidacloprid (Gaucho) @ 5 g/kg in necrosis virus-prone areas."
+    },
+    {
+      "stage": "sowing",
+      "risk": "medium",
+      "content": "Apply 26 kg urea at sowing in sunflower."
+    },
+    {
+      "stage": "30_DAS",
+      "risk": "medium",
+      "content": "Apply 13 kg urea during bud stage at 30 DAS."
+    },
+    {
+      "stage": "50_DAS",
+      "risk": "medium",
+      "content": "Apply 13 kg urea during flowering stage at 50 DAS."
+    },
+    {
+      "stage": "final_ploughing",
+      "risk": "medium",
+      "content": "Apply full phosphorus dose using 150 kg SSP and potash using 20 kg MOP during final ploughing."
+    },
+    {
+      "stage": "sulphur_management",
+      "risk": "medium",
+      "content": "Apply 10 kg sulphur per acre using gypsum @ 55 kg/acre in sulphur-deficient soils."
+    },
+    {
+      "stage": "boron_deficiency_management",
+      "risk": "medium",
+      "content": "Spray borax @ 2 g/litre water using 200 litres water per acre when boron deficiency is observed."
+    }
+  ],
+  "pigeonpea": [
+    {
+      "stage": "variety_selection",
+      "risk": "medium",
+      "content": "Use high yielding pigeonpea varieties Laxmi, LRG-41, WRG-27, WRG-53, LRG-105, and LRG-133-33."
+    },
+    {
+      "stage": "sowing",
+      "risk": "medium",
+      "content": "Sow early maturing pigeonpea varieties during first fortnight of June."
+    },
+    {
+      "stage": "sowing",
+      "risk": "medium",
+      "content": "Sow medium and late maturing pigeonpea varieties during second fortnight of June."
+    },
+    {
+      "stage": "seed_rate",
+      "risk": "medium",
+      "content": "Use 20-25 kg/ha seed rate with 45-60 cm row spacing and 10-15 cm plant spacing for early maturing pigeonpea varieties."
+    },
+    {
+      "stage": "seed_rate",
+      "risk": "medium",
+      "content": "Use 15-20 kg/ha seed rate with 60-75 cm row spacing and 15-20 cm plant spacing for medium and late maturing pigeonpea varieties."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat pigeonpea seeds with Imidacloprid @ 8 ml/kg or Thioethyl @ 10 ml/kg seed along with Rhizobium @ 10 ml/kg seed."
+    },
+    {
+      "stage": "variety_selection",
+      "risk": "high",
+      "content": "Use sterility mosaic tolerant pigeonpea varieties ICPL 87119, BSMR 853, BSMR 736, TRG 59, and LRG 105."
+    },
+    {
+      "stage": "sowing",
+      "risk": "medium",
+      "content": "Apply 25-30 kg nitrogen, 40-50 kg P2O5, and 30 kg K2O per hectare as basal dose during sowing."
+    },
+    {
+      "stage": "30_DAS",
+      "risk": "medium",
+      "content": "Provide irrigation at branching stage around 30 DAS during prolonged drought."
+    },
+    {
+      "stage": "70_DAS",
+      "risk": "medium",
+      "content": "Provide irrigation during flowering stage around 70 DAS during prolonged drought."
+    },
+    {
+      "stage": "110_DAS",
+      "risk": "medium",
+      "content": "Provide irrigation during podding stage around 110 DAS during prolonged drought."
+    },
+    {
+      "stage": "20_25_DAS",
+      "risk": "medium",
+      "content": "Perform first mechanical weeding at 20-25 DAS before flowering."
+    },
+    {
+      "stage": "45_50_DAS",
+      "risk": "medium",
+      "content": "Perform second mechanical weeding at 45-50 DAS before flowering."
+    },
+    {
+      "stage": "pre_emergence",
+      "risk": "medium",
+      "content": "Apply Pendimethalin @ 0.75-1 kg a.i./ha in 400-600 litres water as pre-emergence herbicide."
+    }
+  ],
+  "bengalgram": [
+    {
+      "stage": "variety_selection",
+      "risk": "medium",
+      "content": "Use wilt resistant Bengal gram varieties Nandyala gram 776, Nandyala gram 857, Nandyala gram 1267, Nandyala gram 452, and Nandyala gram 119."
+    },
+    {
+      "stage": "sowing",
+      "risk": "medium",
+      "content": "Sow Bengal gram from October 15 to November 15 during rabi season."
+    },
+    {
+      "stage": "seed_rate",
+      "risk": "medium",
+      "content": "Use seed rate of 85-90 kg/ha for desi Bengal gram varieties."
+    },
+    {
+      "stage": "seed_rate",
+      "risk": "medium",
+      "content": "Use seed rate of 100-110 kg/ha for kabuli Bengal gram varieties."
+    },
+    {
+      "stage": "seed_rate",
+      "risk": "medium",
+      "content": "Use seed rate of 130-150 kg/ha for extra-large seed kabuli Bengal gram varieties."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat Bengal gram seeds with Trichoderma viride @ 8 g/kg seed."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat Bengal gram seeds with Captan or Thiram @ 2.5 g/kg, Carbendazim @ 3 g/kg, or Tebuconazole @ 1.5 g/kg seed."
+    },
+    {
+      "stage": "basal_application",
+      "risk": "medium",
+      "content": "Apply 20 kg nitrogen, 50 kg P2O5, and 40 kg sulphur per hectare as basal fertilizer."
+    },
+    {
+      "stage": "weed_management",
+      "risk": "medium",
+      "content": "Perform manual weeding or interculture operations for timely weed management."
+    },
+    {
+      "stage": "immediately_after_sowing",
+      "risk": "medium",
+      "content": "Spray Pendimethalin @ 2.5-3.5 L/ha immediately after sowing for weed control."
+    },
+    {
+      "stage": "30_35_DAS",
+      "risk": "medium",
+      "content": "Provide light irrigation at 30-35 DAS to improve Bengal gram yield."
+    },
+    {
+      "stage": "dry_spell_management",
+      "risk": "medium",
+      "content": "Spray KNO3 @ 5 g/litre twice during dry spells and saline soil conditions."
+    },
+    {
+      "stage": "pest_disease_management",
+      "risk": "high",
+      "content": "Adopt integrated pest and disease management practices for Helicoverpa pod borer, wilt, and dry root rot."
+    }
+  ],
+  "blackgram": [
+    {
+      "stage": "variety_selection",
+      "risk": "medium",
+      "content": "Use YMV resistant or tolerant blackgram varieties LBG 884, LBG 932, LBG 904, TBG 104, PU 31, GBG 1, and TBG 129."
+    },
+    {
+      "stage": "sowing",
+      "risk": "medium",
+      "content": "Sow blackgram from second fortnight of June to second fortnight of July depending on rainfall availability."
+    },
+    {
+      "stage": "seed_rate",
+      "risk": "medium",
+      "content": "Use seed rate of 18-20 kg/ha for blackgram."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat blackgram seeds with Carbendazim or Mancozeb @ 2.5 g/kg seed."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat blackgram seeds with Imidacloprid 600 FS @ 5 ml/kg or Thiamethoxam 70 WS @ 5 g/kg seed 24 hours before sowing."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat blackgram seeds with Trichoderma viride @ 8-10 g/kg seed."
+    },
+    {
+      "stage": "basal_application",
+      "risk": "medium",
+      "content": "Apply 8 kg nitrogen, 20 kg P2O5, and K2O per acre under rainfed conditions."
+    },
+    {
+      "stage": "basal_application",
+      "risk": "medium",
+      "content": "Apply 25 kg nitrogen, 50 kg P2O5, and 25 kg K2O under irrigated conditions."
+    },
+    {
+      "stage": "20_25_DAS",
+      "risk": "medium",
+      "content": "Perform hand weeding at 20-25 DAS or maintain weed-free field up to 50 DAS."
+    },
+    {
+      "stage": "flowering",
+      "risk": "medium",
+      "content": "Provide irrigation during flowering stage as it is a critical moisture-sensitive stage."
+    },
+    {
+      "stage": "pod_formation",
+      "risk": "medium",
+      "content": "Provide irrigation during pod formation stage as it is a critical moisture-sensitive stage."
+    },
+    {
+      "stage": "water_management",
+      "risk": "medium",
+      "content": "Avoid water stagnation at all crop growth stages."
+    },
+    {
+      "stage": "moisture_stress_management",
+      "risk": "medium",
+      "content": "Spray KNO3 or 19:19:19 @ 1% as foliar spray to mitigate moisture stress."
+    },
+    {
+      "stage": "iron_deficiency_management",
+      "risk": "medium",
+      "content": "Spray FeSO4 @ 0.5% twice at 7-10 day intervals to correct iron deficiency."
+    }
+  ],
+  "greengram": [
+    {
+      "stage": "variety_selection",
+      "risk": "medium",
+      "content": "Use YMV resistant or tolerant greengram varieties LGG 607, LGG 630, LGG 460, LGG 450, WGG 42, and IPM-2-19."
+    },
+    {
+      "stage": "sowing",
+      "risk": "medium",
+      "content": "Sow greengram from second fortnight of June to second fortnight of July depending on rainfall availability."
+    },
+    {
+      "stage": "seed_rate",
+      "risk": "medium",
+      "content": "Use seed rate of 15-16 kg/ha for greengram."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat greengram seeds with Carbendazim or Mancozeb @ 2.5 g/kg seed."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat greengram seeds with Imidacloprid 600 FS @ 5 ml/kg or Thiamethoxam 70 WS @ 5 g/kg seed 24 hours before sowing."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat greengram seeds with Trichoderma viride @ 8-10 g/kg seed."
+    },
+    {
+      "stage": "basal_application",
+      "risk": "medium",
+      "content": "Apply 8 kg nitrogen, 20 kg P2O5, and K2O per acre under rainfed conditions."
+    },
+    {
+      "stage": "basal_application",
+      "risk": "medium",
+      "content": "Apply 25 kg nitrogen, 50 kg P2O5, and 25 kg K2O under irrigated conditions."
+    },
+    {
+      "stage": "20_25_DAS",
+      "risk": "medium",
+      "content": "Perform hand weeding at 20-25 DAS or maintain weed-free field up to 50 DAS."
+    },
+    {
+      "stage": "flowering",
+      "risk": "medium",
+      "content": "Provide irrigation during flowering stage as it is a critical moisture-sensitive stage."
+    },
+    {
+      "stage": "pod_formation",
+      "risk": "medium",
+      "content": "Provide irrigation during pod formation stage as it is a critical moisture-sensitive stage."
+    },
+    {
+      "stage": "water_management",
+      "risk": "medium",
+      "content": "Avoid water stagnation at all crop growth stages."
+    },
+    {
+      "stage": "moisture_stress_management",
+      "risk": "medium",
+      "content": "Spray KNO3 or 19:19:19 @ 1% as foliar spray to mitigate moisture stress."
+    },
+    {
+      "stage": "iron_deficiency_management",
+      "risk": "medium",
+      "content": "Spray FeSO4 @ 0.5% twice at 7-10 day intervals to correct iron deficiency."
+    }
+  ],
+  "cotton": [
+    {
+      "stage": "sowing",
+      "risk": "medium",
+      "content": "Sow cotton during June to mid-July in red soils."
+    },
+    {
+      "stage": "sowing",
+      "risk": "medium",
+      "content": "Sow cotton during July to mid-August in black soils."
+    },
+    {
+      "stage": "land_selection",
+      "risk": "medium",
+      "content": "Avoid cultivating cotton in light red soils without irrigation facilities."
+    },
+    {
+      "stage": "refuge_crop",
+      "risk": "high",
+      "content": "Grow Non-Bt cotton or redgram around Bt cotton as refuge crop to delay bollworm resistance development."
+    },
+    {
+      "stage": "immediately_after_sowing",
+      "risk": "medium",
+      "content": "Apply Pendimethalin @ 1 L/acre immediately after sowing as pre-emergence herbicide."
+    },
+    {
+      "stage": "25_30_DAS",
+      "risk": "medium",
+      "content": "Apply Quizalofop-p ethyl @ 400 ml plus Pyrithiobac sodium @ 200 ml/acre at 25-30 DAS as post-emergence herbicide."
+    },
+    {
+      "stage": "early_stage",
+      "risk": "medium",
+      "content": "Use mechanical weeders during early crop stages for weed management."
+    },
+    {
+      "stage": "irrigation",
+      "risk": "medium",
+      "content": "Adopt drip irrigation for higher yield and water saving."
+    },
+    {
+      "stage": "45_DAS",
+      "risk": "medium",
+      "content": "Spray MgSO4 @ 10 g/litre at 45 DAS to manage magnesium deficiency."
+    },
+    {
+      "stage": "70_DAS",
+      "risk": "medium",
+      "content": "Spray MgSO4 @ 10 g/litre at 70 DAS to manage magnesium deficiency."
+    },
+    {
+      "stage": "zinc_deficiency_management",
+      "risk": "medium",
+      "content": "Spray ZnSO4 @ 2 g/litre 2-3 times at 5-6 day intervals for zinc deficiency correction."
+    },
+    {
+      "stage": "soil_application",
+      "risk": "medium",
+      "content": "Apply 20 kg ZnSO4 per acre in soil once every three years."
+    },
+    {
+      "stage": "60_90_DAS",
+      "risk": "medium",
+      "content": "Spray borax @ 1-1.5 g/litre twice at weekly intervals during 60-90 DAS for boron deficiency management."
+    },
+    {
+      "stage": "stress_management",
+      "risk": "medium",
+      "content": "Spray 2% urea or 1% 19:19:19 or 20:20:20 or 21:21:21 or 13-0-45 (KNO3) during drought or stress conditions."
+    },
+    {
+      "stage": "waterlogging_management",
+      "risk": "high",
+      "content": "Drain excess water immediately after submergence due to heavy rainfall."
+    },
+    {
+      "stage": "waterlogging_management",
+      "risk": "medium",
+      "content": "Apply 20 kg nitrogen and 10 kg potassium per hectare after waterlogging."
+    },
+    {
+      "stage": "waterlogging_management",
+      "risk": "medium",
+      "content": "Loosen soil and spray 1% KNO3 or 19:19:19 or 20:20:20 or 21:21:21 after waterlogging."
+    },
+    {
+      "stage": "parawilt_management",
+      "risk": "high",
+      "content": "Drench affected plants with Copper oxychloride 25 g plus 200 g urea in 10 litres water within 48 hours of Parawilt occurrence."
+    },
+    {
+      "stage": "monitoring",
+      "risk": "high",
+      "content": "Install yellow and blue sticky traps @ 10 traps/acre for sucking pest management."
+    },
+    {
+      "stage": "5_days_after_waterlogging",
+      "risk": "medium",
+      "content": "Spray Salicylic acid @ 6.9 g dissolved in 300 ml ethyl alcohol and mixed in 20 litres water per acre using drone at 5 days after waterlogging."
+    },
+    {
+      "stage": "8_days_after_waterlogging",
+      "risk": "medium",
+      "content": "Spray KNO3 (13:0:45) @ 400 g in 20 litres water through drone three days after salicylic acid application."
+    },
+    {
+      "stage": "5_days_after_waterlogging",
+      "risk": "medium",
+      "content": "Spray Salicylic acid @ 6.9 g dissolved in 300 ml ethyl alcohol and mixed in 200 litres water per acre using knapsack sprayer at 5 days after waterlogging."
+    },
+    {
+      "stage": "8_days_after_waterlogging",
+      "risk": "medium",
+      "content": "Spray 2% KNO3 (13:0:45) three days after salicylic acid application using knapsack sprayer."
+    }
+  ],
+  "sugarcane": [
+    {
+      "stage": "variety_selection",
+      "risk": "medium",
+      "content": "Use early maturing sugarcane varieties 84A 125, 87A 298, 86V 96, 2003V 46, 93A 145, 97A 85, 2001A63, 2003A255, 2009V127 (Ranga), 2005T16, 2009A107, and 2012A319."
+    },
+    {
+      "stage": "variety_selection",
+      "risk": "medium",
+      "content": "Use mid-late maturing sugarcane varieties CoT 8201, CoA 7602, Co 7805, 98A163, 2000A225, and 2009A252."
+    },
+    {
+      "stage": "variety_selection",
+      "risk": "medium",
+      "content": "Use late maturing sugarcane variety Co 7219."
+    },
+    {
+      "stage": "moisture_stress",
+      "risk": "medium",
+      "content": "Use CoT 8201, 87A298, 97A85, Co7219, CoA7602, 98A163, and 2005T16 varieties under moisture stress conditions."
+    },
+    {
+      "stage": "saline_alkaline_soils",
+      "risk": "medium",
+      "content": "Use CoT8201, Co7219, 97A85, 93A145, 99V30, 2005T16, 2003V46, 2009V127, 2009A107, and 2009A252 varieties in saline-alkaline soils."
+    },
+    {
+      "stage": "waterlogging",
+      "risk": "medium",
+      "content": "Use CoT8201, Co7805, 87A298, 93A145, 2003V46, 2009V127, 2009A107, and 2009A252 varieties in waterlogged conditions."
+    },
+    {
+      "stage": "seed_rate",
+      "risk": "medium",
+      "content": "Use 16,000 three-budded setts (4 t/acre) as seed material for sugarcane planting."
+    },
+    {
+      "stage": "seed_selection",
+      "risk": "low",
+      "content": "Use seed canes from 6-7 month old short crop for better germination and improved cane yield."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Dip sugarcane setts in Carbendazim @ 0.5 g/L or Dimethoate @ 2 ml/L or Imidacloprid 48% FS @ 1 ml/L for 15 minutes before planting."
+    },
+    {
+      "stage": "spacing",
+      "risk": "medium",
+      "content": "Maintain 80 cm row spacing for early sugarcane varieties and 90 cm spacing for mid-late varieties."
+    },
+    {
+      "stage": "paired_row_planting",
+      "risk": "medium",
+      "content": "Adopt paired row planting at 60 cm x 120/150 cm spacing to support mechanization and drip irrigation."
+    },
+    {
+      "stage": "land_preparation",
+      "risk": "low",
+      "content": "Apply farm yard manure @ 10 tonnes/acre or dry press mud cake @ 5 tonnes/acre or vermicompost @ 1 tonne/acre during last ploughing."
+    },
+    {
+      "stage": "basal_application",
+      "risk": "medium",
+      "content": "Apply phosphorus @ 40 kg/acre and potassium @ 48 kg/acre as basal dose during planting."
+    },
+    {
+      "stage": "45_DAP",
+      "risk": "medium",
+      "content": "Apply first split dose of nitrogen @ 33.5 kg/acre at 45 DAP."
+    },
+    {
+      "stage": "90_DAP",
+      "risk": "medium",
+      "content": "Apply second split dose of nitrogen @ 33.5 kg/acre at 90 DAP."
+    },
+    {
+      "stage": "45_60_DAP",
+      "risk": "medium",
+      "content": "Spray Zinc sulphate @ 2 g/L and Ferrous sulphate @ 10-20 g/L at 45-60 DAP where zinc and iron deficiencies are observed."
+    },
+    {
+      "stage": "biofertilizer_application",
+      "risk": "low",
+      "content": "Apply Azotobacter @ 4 kg/acre and Azospirillum @ 4 kg/acre to reduce nitrogen fertilizer requirement."
+    },
+    {
+      "stage": "biofertilizer_application",
+      "risk": "low",
+      "content": "Apply phosphobacteria @ 4 kg/acre and VAM @ 5 kg/acre to improve phosphorus availability."
+    },
+    {
+      "stage": "biofertilizer_application",
+      "risk": "low",
+      "content": "Apply potassium releasing bacteria @ 4 kg/acre to improve potassium availability."
+    },
+    {
+      "stage": "30_180_DAP",
+      "risk": "medium",
+      "content": "Apply urea and muriate of potash through drip fertigation in 20 weekly splits from 30 DAP to 180 DAP."
+    },
+    {
+      "stage": "3_4_DAP",
+      "risk": "medium",
+      "content": "Spray Atrazine @ 2 kg/acre or Metribuzin @ 600 g/acre in 200 L water on 3-4 DAP depending on soil moisture."
+    },
+    {
+      "stage": "summer_irrigation",
+      "risk": "medium",
+      "content": "Provide irrigation once in six days during summer season."
+    },
+    {
+      "stage": "november_to_harvest",
+      "risk": "medium",
+      "content": "Provide irrigation once in 15-21 days from November until harvest."
+    },
+    {
+      "stage": "grand_growth",
+      "risk": "medium",
+      "content": "Provide irrigation during grand growth stage when dry spell exceeds 15 days."
+    },
+    {
+      "stage": "30_DAP",
+      "risk": "medium",
+      "content": "Provide irrigation at 30 DAP if only one irrigation is possible during formative phase."
+    },
+    {
+      "stage": "3_DAP",
+      "risk": "low",
+      "content": "Apply trash mulching @ 1.25 t/acre three days after planting."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat susceptible sugarcane varieties like 87A298 and Co6907 with Propiconazole @ 1 ml/L or Hexaconazole @ 2 ml/L for 15 minutes before planting."
+    }
+  ],
+  "jowar": [
+    {
+      "stage": "variety_selection",
+      "risk": "medium",
+      "content": "Use high yielding jowar varieties N-15 and NTJ 5."
+    },
+    {
+      "stage": "seed_rate",
+      "risk": "medium",
+      "content": "Use 3-4 kg/acre seed rate for jowar cultivation."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat jowar seeds with Thiamethoxam @ 3 g/kg seed to control sorghum shoot fly."
+    },
+    {
+      "stage": "intercropping",
+      "risk": "medium",
+      "content": "Follow jowar and redgram intercropping in 1:2 ratio."
+    },
+    {
+      "stage": "intercropping",
+      "risk": "medium",
+      "content": "Intercropping sorghum with pigeonpea reduces wilt incidence and improves redgram productivity."
+    },
+    {
+      "stage": "fertilizer_application",
+      "risk": "medium",
+      "content": "Apply 32-40 kg nitrogen, 24 kg phosphorus, and 16 kg potash per acre under irrigated conditions."
+    },
+    {
+      "stage": "fertilizer_application",
+      "risk": "medium",
+      "content": "Apply 24-32 kg nitrogen, 16 kg phosphorus, and 12 kg potash per acre under rainfed conditions."
+    },
+    {
+      "stage": "striga_management",
+      "risk": "high",
+      "content": "Spray ammonium sulfate @ 50 g/L or urea @ 200 g/L or 2,4-D sodium salt @ 2 g/L water for Striga management."
+    }
+  ],
+  "bajra": [
+    {
+      "stage": "variety_selection",
+      "risk": "medium",
+      "content": "Use high yielding bajra varieties A.B.V.04, I.C.M.V.221, I.C.M.V.155, Raj 171, and PC 612."
+    },
+    {
+      "stage": "seed_rate",
+      "risk": "medium",
+      "content": "Use bajra seed rate @ 1.6 kg/acre with spacing of 45 cm x 15 cm."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "medium",
+      "content": "Soak bajra seeds in 2% salt water solution for 10 minutes and remove floating inert material."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat bajra seeds with Metalaxyl @ 6 g/kg seed after drying."
+    },
+    {
+      "stage": "intercropping",
+      "risk": "medium",
+      "content": "Follow bajra and redgram or groundnut intercropping in 2:1 ratio."
+    }
+  ],
+  "finger_millet": [
+    {
+      "stage": "variety_selection",
+      "risk": "medium",
+      "content": "Cultivate blast tolerant finger millet varieties Vegavathi, CFMV 4, Indravathi, Suvarnamuki, and Gosthani."
+    },
+    {
+      "stage": "intercropping",
+      "risk": "medium",
+      "content": "Follow finger millet and redgram intercropping in 8:2 ratio."
+    },
+    {
+      "stage": "intercropping",
+      "risk": "medium",
+      "content": "Follow finger millet and field bean intercropping in 8:1 ratio."
+    }
+  ],
+  "foxtail_millet": [
+    {
+      "stage": "contingency_cropping",
+      "risk": "medium",
+      "content": "Use foxtail millet as a contingency crop after July during delayed monsoon conditions."
+    },
+    {
+      "stage": "cropping_system",
+      "risk": "medium",
+      "content": "Use foxtail millet as a preceding crop before chickpea in rainfed systems."
+    },
+    {
+      "stage": "variety_selection",
+      "risk": "medium",
+      "content": "Cultivate high yielding foxtail millet varieties SIA 3156, Renadu, Mahanandi, and Garuda."
+    },
+    {
+      "stage": "variety_selection",
+      "risk": "medium",
+      "content": "Cultivate short duration foxtail millet variety SIA 3222 (Garuda) in rainfed black soils."
+    }
+  ],
+  "little_millet": [
+    {
+      "stage": "variety_selection",
+      "risk": "medium",
+      "content": "Cultivate little millet varieties BL 6, DHLM 36-3, and OLM 203 for higher productivity."
+    }
+  ],
+  "cashew": [
+    {
+      "stage": "june_july",
+      "risk": "medium",
+      "content": "Prune cashew trees during June-July."
+    },
+    {
+      "stage": "june_july",
+      "risk": "medium",
+      "content": "Carry out ploughing in bearing cashew orchards during June-July."
+    }
+  ],
+  "coconut": [
+    {
+      "stage": "intercropping",
+      "risk": "medium",
+      "content": "Cultivate turmeric, ginger, yam, colocasia, seasonal vegetables, pulses, and groundnut as intercrops in coconut gardens below 5 years age."
+    },
+    {
+      "stage": "intercropping",
+      "risk": "medium",
+      "content": "Cultivate cocoa, banana, pepper, pineapple, papaya, and heliconia as intercrops in old and bearing coconut gardens."
+    }
+  ],
+  "oilpalm": [
+    {
+      "stage": "intercropping",
+      "risk": "medium",
+      "content": "Cultivate vegetables, dwarf banana varieties, flower crops, chilli, ginger, turmeric, and pineapple as intercrops in young oilpalm gardens."
+    },
+    {
+      "stage": "intercropping",
+      "risk": "medium",
+      "content": "Cultivate cocoa and pepper as intercrops in old and bearing oilpalm gardens."
+    },
+    {
+      "stage": "harvesting",
+      "risk": "medium",
+      "content": "Use harvesting poles in oilpalm plantations to reduce labour use."
+    },
+    {
+      "stage": "harvesting",
+      "risk": "medium",
+      "content": "Harvest matured oilpalm bunches on time to avoid damage during kharif rains."
+    }
+  ],
+  "mango": [
+    {
+      "stage": "monitoring",
+      "risk": "high",
+      "content": "Install pheromone traps @ 12 per hectare in mango orchards for fruit fly management."
+    },
+    {
+      "stage": "post_harvest",
+      "risk": "medium",
+      "content": "Irrigate mango orchards after harvest and allow 50 days rest period."
+    },
+    {
+      "stage": "post_harvest",
+      "risk": "high",
+      "content": "Dust mango basins with Methyl Parathion dust after harvest."
+    },
+    {
+      "stage": "june_july",
+      "risk": "medium",
+      "content": "Prune crisscross branches, dried branches, and leftover fruit stalks during June-July."
+    },
+    {
+      "stage": "june_july",
+      "risk": "high",
+      "content": "Spray 1% Bordeaux mixture after mango pruning during June-July."
+    },
+    {
+      "stage": "fertilizer_application",
+      "risk": "medium",
+      "content": "Apply 1 kg each of nitrogen, phosphorus, and potassium to full bearing mango trees above 10 years age using 2.2 kg urea, 1.6 kg MOP, and 6 kg SSP."
+    },
+    {
+      "stage": "fertilizer_application",
+      "risk": "medium",
+      "content": "Apply fertilizers in mango basins at 1.5-2 m distance from the main trunk."
+    },
+    {
+      "stage": "micronutrient_management",
+      "risk": "medium",
+      "content": "Spray Zinc Sulphate @ 5 g, Ferrous Sulphate @ 2.5 g, Borax @ 2 g, Calcium Sulphate @ 2 g, and Magnesium Sulphate @ 3 g three times yearly during June-July, September-October, and December-January."
+    }
+  ],
+  "acid_lime": [
+    {
+      "stage": "green_manure",
+      "risk": "low",
+      "content": "Sow green manure crops in interspaces after first rain and incorporate at 50% flowering stage."
+    },
+    {
+      "stage": "vegetative_flush",
+      "risk": "medium",
+      "content": "Spray micronutrients on newly emerged vegetative flush in acid lime."
+    },
+    {
+      "stage": "disease_management",
+      "risk": "high",
+      "content": "Spray Copper oxychloride @ 30 g plus Streptocycline @ 1 g in 10 L water to control citrus bacterial canker."
+    },
+    {
+      "stage": "vegetative_flush",
+      "risk": "high",
+      "content": "Apply Cartap hydrochloride @ 1 g/L after emergence of new vegetative flush to control leaf miner damage."
+    },
+    {
+      "stage": "disease_management",
+      "risk": "high",
+      "content": "Spray Carbendazim @ 1 g/L to control gummosis in acid lime."
+    }
+  ],
+  "banana": [
+    {
+      "stage": "planting_material_selection",
+      "risk": "medium",
+      "content": "Procure healthy banana planting material from virus-free fields."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat banana suckers with Mancozeb @ 3 g/L and Dimethoate @ 2 ml/L before planting."
+    },
+    {
+      "stage": "planting",
+      "risk": "low",
+      "content": "Apply Trichoderma viride @ 5 kg plus FYM @ 100 kg during banana planting."
+    },
+    {
+      "stage": "green_manure",
+      "risk": "low",
+      "content": "Incorporate green manure crops in banana fields."
+    },
+    {
+      "stage": "40_DAP",
+      "risk": "medium",
+      "content": "Apply 110 g urea and 80 g MOP per plant in 10 cm trenches on both sides of Grand Naine banana plants after 40 days of planting."
+    }
+  ],
+  "tomato": [
+    {
+      "stage": "may_june",
+      "risk": "medium",
+      "content": "Raise tomato nursery during May-June using hybrids Arka Abhed, Arka Samrat, and Arka Rakshak in protrays to prevent damping off."
+    },
+    {
+      "stage": "seed_rate",
+      "risk": "medium",
+      "content": "Use 60-80 g/acre seed rate for tomato hybrids and 200 g/acre for varieties."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat tomato seeds with Imidacloprid @ 5 g/kg to prevent sucking pests."
+    },
+    {
+      "stage": "soil_application",
+      "risk": "high",
+      "content": "Apply Trichoderma viride @ 5 kg/ha and Pseudomonas fluorescence @ 5 kg/ha after curing with 225 kg FYM and 25 kg neem cake for soil borne disease and nematode management."
+    },
+    {
+      "stage": "monitoring",
+      "risk": "high",
+      "content": "Install pheromone traps @ 25/ha for South American pin worm management in tomato."
+    }
+  ],
+  "brinjal": [
+    {
+      "stage": "may_june",
+      "risk": "medium",
+      "content": "Raise brinjal nursery during May-June using varieties Arka Anand and VNR-51 in protrays to prevent damping off."
+    },
+    {
+      "stage": "seed_rate",
+      "risk": "medium",
+      "content": "Use 120 g/acre seed rate for brinjal hybrids and 260 g/acre for varieties."
+    },
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat brinjal seeds with Imidacloprid @ 5 g/kg to prevent sucking pests."
+    },
+    {
+      "stage": "soil_application",
+      "risk": "high",
+      "content": "Apply Trichoderma viride @ 5 kg/ha and Pseudomonas fluorescence @ 5 kg/ha after curing with 225 kg FYM and 25 kg neem cake for soil borne disease and nematode management."
+    },
+    {
+      "stage": "monitoring",
+      "risk": "high",
+      "content": "Install pheromone traps @ 25/ha to manage shoot and fruit borer in brinjal."
+    },
+    {
+      "stage": "soil_application",
+      "risk": "medium",
+      "content": "Apply Arka Microbial Consortium @ 12.5 kg/ha along with 25 t FYM/ha and 75% RDF (75:45:100 kg N:P2O5:K2O/ha)."
+    }
+  ],
+  "turmeric": [
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat turmeric seed material with Mancozeb @ 3 g/L and Imidacloprid @ 1 ml/L to prevent rhizome rot and collar rot."
+    },
+    {
+      "stage": "planting",
+      "risk": "medium",
+      "content": "Grow turmeric on ridges to avoid rhizome rot and collar rot."
+    },
+    {
+      "stage": "planting",
+      "risk": "low",
+      "content": "Apply Trichoderma viride @ 5 kg plus FYM @ 100 kg during turmeric planting."
+    }
+  ],
+  "yam": [
+    {
+      "stage": "seed_treatment",
+      "risk": "high",
+      "content": "Treat yam seed material with Mancozeb @ 3 g/L and Imidacloprid @ 1 ml/L to prevent rhizome rot and collar rot."
+    },
+    {
+      "stage": "planting",
+      "risk": "medium",
+      "content": "Grow yam on ridges to avoid rhizome rot and collar rot."
+    },
+    {
+      "stage": "planting",
+      "risk": "low",
+      "content": "Apply Trichoderma viride @ 5 kg plus FYM @ 100 kg during yam planting."
+    }
+  ]
+}

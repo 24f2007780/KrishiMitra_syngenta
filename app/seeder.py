@@ -71,7 +71,7 @@ def seed_farmers(db: Session):
             latitude=round(data['lat'] + random.uniform(-0.02, 0.02), 4),
             longitude=round(data['lon'] + random.uniform(-0.02, 0.02), 4),
             acres=round(random.uniform(0.5, 12.0), 1),
-            crops="rice" if i % 2 == 0 else "cotton", # Simplified to match example
+            crops="rice" if i % 2 == 0 else "cotton", # Simplified to match examples
             device_type=device,
             connectivity=conn,
             whatsapp_enabled=whatsapp,

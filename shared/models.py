@@ -80,16 +80,25 @@ class SignalBundle(BaseModel):
     active_pest: Optional[str]   # "fungal" / "aphid" / "stem_borer"
     weather_anomaly_flag: bool
 
-class CropStageInfo(BaseModel):
+class FarmerStage(BaseModel):
     confirmed_stage: str         # sowing / vegetative / flowering / harvest
     days_in_stage: int
     vulnerability: str           # low / medium / high
     days_to_next_stage: int
 
+class CropStageInfo(BaseModel):
+    state: str
+    crop: str
+    month: str
+    stage: str
+    vulnerability: str
+    days_to_next: int
+    recommendations: List[str] = []
+
 class FarmerContext(BaseModel):
     profile: FarmerProfile
     signals: SignalBundle
-    crop_stage: CropStageInfo
+    crop_stage: FarmerStage
     assembled_at: str
 
 class ScoredContext(BaseModel):
