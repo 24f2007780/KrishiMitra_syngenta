@@ -1,0 +1,275 @@
+{
+    "date": "2026-05-13",
+    "data": [
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Bajra(Pearl Millet/Cumbu)",
+            "msp_rs_quintal": "2775.00",
+            "today_price_rs_quintal": "2186.58",
+            "today_arrival_metric_tonnes": "1459.93",
+            "trend": "down",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Barley(Jau)",
+            "msp_rs_quintal": "2150.00",
+            "today_price_rs_quintal": "2140.24",
+            "today_arrival_metric_tonnes": "846.66",
+            "trend": "down",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Jowar(Sorghum)",
+            "msp_rs_quintal": "3699.00",
+            "today_price_rs_quintal": "4176.36",
+            "today_arrival_metric_tonnes": "351.90",
+            "trend": "up",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Maize",
+            "msp_rs_quintal": "2400.00",
+            "today_price_rs_quintal": "1876.45",
+            "today_arrival_metric_tonnes": "20635.89",
+            "trend": "down",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Paddy(Common)",
+            "msp_rs_quintal": "2369.00",
+            "today_price_rs_quintal": "2616.15",
+            "today_arrival_metric_tonnes": "17426.15",
+            "trend": "up",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Ragi(Finger Millet)",
+            "msp_rs_quintal": "4886.00",
+            "today_price_rs_quintal": "3632.21",
+            "today_arrival_metric_tonnes": "102.30",
+            "trend": "down",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Wheat",
+            "msp_rs_quintal": "2585.00",
+            "today_price_rs_quintal": "2452.42",
+            "today_arrival_metric_tonnes": "167255.07",
+            "trend": "down",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Fibre Crops",
+            "commodity": "Cotton",
+            "msp_rs_quintal": "7710.00",
+            "today_price_rs_quintal": "9319.91",
+            "today_arrival_metric_tonnes": "2223.44",
+            "trend": "up",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Oil Seeds",
+            "commodity": "Copra",
+            "msp_rs_quintal": "12100.00",
+            "today_price_rs_quintal": "19573.60",
+            "today_arrival_metric_tonnes": "70.50",
+            "trend": "up",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Oil Seeds",
+            "commodity": "Groundnut",
+            "msp_rs_quintal": "7263.00",
+            "today_price_rs_quintal": "7178.53",
+            "today_arrival_metric_tonnes": "1651.99",
+            "trend": "down",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Bajra(Pearl Millet/Cumbu)",
+            "msp_rs_quintal": "2775.00",
+            "today_price_rs_quintal": "2186.58",
+            "today_arrival_metric_tonnes": "1459.93",
+            "trend": "down",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Barley(Jau)",
+            "msp_rs_quintal": "2150.00",
+            "today_price_rs_quintal": "2140.24",
+            "today_arrival_metric_tonnes": "846.66",
+            "trend": "down",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Jowar(Sorghum)",
+            "msp_rs_quintal": "3699.00",
+            "today_price_rs_quintal": "4176.36",
+            "today_arrival_metric_tonnes": "351.90",
+            "trend": "up",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Maize",
+            "msp_rs_quintal": "2400.00",
+            "today_price_rs_quintal": "1876.45",
+            "today_arrival_metric_tonnes": "20635.89",
+            "trend": "down",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Paddy(Common)",
+            "msp_rs_quintal": "2369.00",
+            "today_price_rs_quintal": "2616.15",
+            "today_arrival_metric_tonnes": "17426.15",
+            "trend": "up",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Ragi(Finger Millet)",
+            "msp_rs_quintal": "4886.00",
+            "today_price_rs_quintal": "3632.21",
+            "today_arrival_metric_tonnes": "102.30",
+            "trend": "down",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Wheat",
+            "msp_rs_quintal": "2585.00",
+            "today_price_rs_quintal": "2452.42",
+            "today_arrival_metric_tonnes": "167255.07",
+            "trend": "down",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Fibre Crops",
+            "commodity": "Cotton",
+            "msp_rs_quintal": "7710.00",
+            "today_price_rs_quintal": "9319.91",
+            "today_arrival_metric_tonnes": "2223.44",
+            "trend": "up",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Oil Seeds",
+            "commodity": "Copra",
+            "msp_rs_quintal": "12100.00",
+            "today_price_rs_quintal": "19573.60",
+            "today_arrival_metric_tonnes": "70.50",
+            "trend": "up",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Oil Seeds",
+            "commodity": "Groundnut",
+            "msp_rs_quintal": "7263.00",
+            "today_price_rs_quintal": "7178.53",
+            "today_arrival_metric_tonnes": "1651.99",
+            "trend": "down",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Bajra(Pearl Millet/Cumbu)",
+            "msp_rs_quintal": "2775.00",
+            "today_price_rs_quintal": "2186.58",
+            "today_arrival_metric_tonnes": "1459.93",
+            "trend": "down",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Barley(Jau)",
+            "msp_rs_quintal": "2150.00",
+            "today_price_rs_quintal": "2140.24",
+            "today_arrival_metric_tonnes": "846.66",
+            "trend": "down",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Jowar(Sorghum)",
+            "msp_rs_quintal": "3699.00",
+            "today_price_rs_quintal": "4176.36",
+            "today_arrival_metric_tonnes": "351.90",
+            "trend": "up",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Maize",
+            "msp_rs_quintal": "2400.00",
+            "today_price_rs_quintal": "1876.45",
+            "today_arrival_metric_tonnes": "20635.89",
+            "trend": "down",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Paddy(Common)",
+            "msp_rs_quintal": "2369.00",
+            "today_price_rs_quintal": "2616.15",
+            "today_arrival_metric_tonnes": "17426.15",
+            "trend": "up",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Ragi(Finger Millet)",
+            "msp_rs_quintal": "4886.00",
+            "today_price_rs_quintal": "3632.21",
+            "today_arrival_metric_tonnes": "102.30",
+            "trend": "down",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Cereals",
+            "commodity": "Wheat",
+            "msp_rs_quintal": "2585.00",
+            "today_price_rs_quintal": "2452.42",
+            "today_arrival_metric_tonnes": "167255.07",
+            "trend": "down",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Fibre Crops",
+            "commodity": "Cotton",
+            "msp_rs_quintal": "7710.00",
+            "today_price_rs_quintal": "9319.91",
+            "today_arrival_metric_tonnes": "2223.44",
+            "trend": "up",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Oil Seeds",
+            "commodity": "Copra",
+            "msp_rs_quintal": "12100.00",
+            "today_price_rs_quintal": "19573.60",
+            "today_arrival_metric_tonnes": "70.50",
+            "trend": "up",
+            "reported_date": "11-05-2026"
+        },
+        {
+            "commodity_group": "Oil Seeds",
+            "commodity": "Groundnut",
+            "msp_rs_quintal": "7263.00",
+            "today_price_rs_quintal": "7178.53",
+            "today_arrival_metric_tonnes": "1651.99",
+            "trend": "down",
+            "reported_date": "11-05-2026"
+        }
+    ]
+}

@@ -131,6 +131,24 @@ def get_crop_calendar(
     stage, vulnerability, days_to_next = stage_data
     recommendations = load_recommendations(state, crop_norm, stage)
 
+    # Fetch Market Data (MSP, Price, Arrival) from Ranking Service (M3)
+    market_data = {"msp": None, "price": None, "arrival": None}
+    try:
+        import httpx
+        with httpx.Client(timeout=5.0) as client:
+            # Note: ranking_service is on port 8000
+            m_res = client.get(f"http://localhost:8000/commodity/{crop_norm}")
+            if m_res.status_code == 200:
+                m_json = m_res.json()
+                if m_json.get("data"):
+                    # Use the first record found
+                    first = m_json["data"][0]
+                    market_data["msp"] = first.get("msp_rs_quintal")
+                    market_data["price"] = first.get("today_price_rs_quintal")
+                    market_data["arrival"] = first.get("today_arrival_metric_tonnes")
+    except Exception as e:
+        print(f"Market data fetch failed: {e}")
+
     return models.CropStageInfo(
         state=state,
         crop=crop_norm,
@@ -138,7 +156,10 @@ def get_crop_calendar(
         stage=stage,
         vulnerability=vulnerability,
         days_to_next=days_to_next,
-        recommendations=recommendations
+        recommendations=recommendations,
+        msp_rs_quintal=market_data["msp"],
+        today_price_rs_quintal=market_data["price"],
+        today_arrival_metric_tonnes=market_data["arrival"]
     )
 
 @app.get("/health")

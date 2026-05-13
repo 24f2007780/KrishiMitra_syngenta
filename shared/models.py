@@ -57,6 +57,8 @@ class FarmerProfile(BaseModel):
     village: str
     acres: float
     crops: List[str]
+    latitude: float
+    longitude: float
     device_type: str
     connectivity: str
     whatsapp_enabled: bool
@@ -94,6 +96,9 @@ class CropStageInfo(BaseModel):
     vulnerability: str
     days_to_next: int
     recommendations: List[str] = []
+    msp_rs_quintal: Optional[str] = None
+    today_price_rs_quintal: Optional[str] = None
+    today_arrival_metric_tonnes: Optional[str] = None
 
 class FarmerContext(BaseModel):
     profile: FarmerProfile

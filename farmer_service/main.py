@@ -23,6 +23,8 @@ def db_farmer_to_profile(farmer: models.Farmer) -> models.FarmerProfile:
         village=farmer.village,
         acres=farmer.acres,
         crops=crops_list,
+        latitude=farmer.latitude,
+        longitude=farmer.longitude,
         device_type=farmer.device_type,
         connectivity=farmer.connectivity,
         whatsapp_enabled=farmer.whatsapp_enabled,
