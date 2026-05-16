@@ -1,0 +1,89 @@
+1. Twilio account setup
+Sign in: https://console.twilio.com/
+Copy Account SID and Auth Token (Home → Account Info).
+Get a Twilio phone number with SMS: Phone Numbers → Manage → Buy a number (trial includes credit).
+Trial only: verify the phone you’ll text: Phone Numbers → Verified Caller IDs → add +91 9150740978 (or your test mobile).
+Trial accounts can only SMS verified numbers.
+
+2. Configure .env
+cd ~/Desktop/syngenta/KrishiMitra_syngenta
+cp .env.example .env
+Edit .env:
+
+TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxxxxxxxxxxxx
+TWILIO_AUTH_TOKEN=your_auth_token_here
+TWILIO_PHONE_NUMBER=+1XXXXXXXXXX
+TEST_PHONE_NUMBER=+919150740978
+TWILIO_PHONE_NUMBER = your Twilio number (E.164, e.g. +1501...).
+TEST_PHONE_NUMBER = who receives the SMS (use full +91... for India).
+3. Install dependencies
+source .venv/bin/activate   # if you use a venv
+pip install twilio python-dotenv
+4. Test SMS
+Dry run (no charge, no send):
+
+python -m twilio_apps.sms.app \
+  --to +919150740978 \
+  --body "KrishiMitra test" \
+  --dry-run
+Real SMS:
+
+python -m twilio_apps.sms.app \
+  --to +919150740978 \
+  --body "KrishiMitra test"
+Interactive (prompts for number and text):
+
+python -m twilio_apps.sms.app
+Success looks like:
+
+{'dry_run': False, 'sid': 'SM...', 'status': 'queued', ...}
+Check the phone 9150740978 for the text. Also check Twilio Console → Monitor → Logs → Messaging.
+
+5. Use from your main app later
+from twilio_apps.sms.client import send_sms
+send_sms("+919150740978", sms_text_from_m10)
+
+
+
+-----------------------------------------------------------
+
+
+1. Go to the project and activate your venv (if you use one)
+cd ~/Desktop/syngenta/KrishiMitra_syngenta
+source .venv/bin/activate
+If you don’t use a venv, skip source.
+
+2. Dry run (no SMS sent, checks .env “from” number)
+python -m twilio_apps.sms.app \
+  --to +919150740978 \
+  --body "KrishiMitra test" \
+  --dry-run
+You should see JSON with "dry_run": true and your TWILIO_PHONE_NUMBER as from.
+
+3. Real SMS
+python -m twilio_apps.sms.app \
+  --to +919150740978 \
+  --body "KrishiMitra test"
+Use the full number you want to text, in E.164 (+91… for India).
+
+Trial account: that number must be verified in Twilio: Console → Phone Numbers → Verified caller IDs.
+
+4. Or interactive mode
+python -m twilio_apps.sms.app
+Answer the prompts; for “Dry run?” choose n to send for real.
+
+5. Confirm
+The phone should get the SMS within a few seconds.
+Console → Monitor → Logs → Messaging shows the message and any error.
+
+
+-----------------------------------------------------------
+Voice calls — if you see: Form data requires "python-multipart"
+
+Install once:
+  pip install python-multipart
+
+Or: pip install -r requirements.txt
+
+Dry run no longer loads the voice webhook, but real calls need python-multipart
+(Twilio POSTs form data to /voice/gather).

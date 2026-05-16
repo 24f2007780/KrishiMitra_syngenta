@@ -1,0 +1,98 @@
+WhatsApp Web support is in place under whatsapp_apps/ using Neonize (WhatsApp Web protocol — scan QR once, session saved locally).
+
+What was added
+File	Role
+whatsapp_apps/web/client.py	Connect, QR display, send_whatsapp(to, body)
+whatsapp_apps/web/app.py	CLI: login, send, or interactive
+whatsapp_apps/README.md	Full docs
+.env.example	TEST_WHATSAPP_NUMBER, session paths
+requirements.txt	neonize, qrcode
+.gitignore	Ignores whatsapp_apps/web/sessions/ (login secrets)
+How to test (step by step)
+1. Install
+cd /home/rajnish/Desktop/syngenta/KrishiMitra_syngenta
+python -m venv .venv
+source .venv/bin/activate
+pip install neonize qrcode python-dotenv
+2. Configure .env
+cp .env.example .env
+Edit .env:
+
+TEST_WHATSAPP_NUMBER=9876543210
+Use your mobile number (10 digits, or full +91...). For sending tests, use a second number you can message (friend’s phone or your other SIM).
+
+3. Link WhatsApp (first time only)
+python -m whatsapp_apps.web.app login
+Wait for a QR in the terminal (or a pairing string).
+On phone: WhatsApp → Linked devices → Link a device → scan QR.
+When you see WhatsApp Web: connected., press Ctrl+C.
+Session is saved in whatsapp_apps/web/sessions/krishimitra.sqlite3 — do not commit this file.
+4. Dry run (no real send)
+python -m whatsapp_apps.web.app send \
+  --to 9876543210 \
+  --body "KrishiMitra test" \
+  --dry-run
+You should see JSON with "dry_run": true.
+
+5. Real message
+python -m whatsapp_apps.web.app send \
+  --to 9876543210 \
+  --body "Hello from KrishiMitra — advisory test."
+Tips:
+
+Recipient should be a valid WhatsApp number (country code included or 10-digit Indian — code adds 91 automatically).
+Easiest test: send to your own number from the linked account (some setups only allow existing chats).
+If it times out, run login again and scan a fresh QR.
+6. Interactive mode
+python -m whatsapp_apps.web.app
+Prompts for number and message.
+
+Use in main app later
+from whatsapp_apps.web.client import send_whatsapp
+send_whatsapp(farmer.phone, generated_whatsapp_text)
+If something fails
+Problem	Fix
+ModuleNotFoundError: neonize	pip install neonize in your venv
+No QR / connect error	pip install -U neonize; use Python 3.10+
+Timeout	Run login first; scan QR within ~60 seconds
+Message not received	Use full number with country code; try messaging that contact once manually from your phone
+Broken session	Delete files in whatsapp_apps/web/sessions/ and run login again
+Demo warning: This is an unofficial WhatsApp Web client. Fine for hackathon demos; Meta can limit accounts. Don’t use your primary business number if you can avoid it.
+
+
+
+
+
+------------------------------------------------------------------
+
+
+Before you send
+Link WhatsApp once (if you haven’t, or after deleting the session file):
+
+cd ~/Desktop/syngenta/KrishiMitra_syngenta
+source .venv/bin/activate   # if you use a venv
+python -m whatsapp_apps.web.app login
+Scan QR → wait for WhatsApp Web: connected. → Ctrl+C.
+
+On your phone (same WhatsApp account you linked): open chat with +91 9150740978 and send one normal message (e.g. “hi”).
+This helps encryption for first-time / cold contacts.
+
+Confirm 9150740978 is a real WhatsApp number (yours or someone who can check their phone).
+
+Step 1 — Dry run (no WhatsApp send)
+python -m whatsapp_apps.web.app send \
+  --to 9150740978 \
+  --body "KrishiMitra test" \
+  --dry-run
+You should see 'to': '919150740978' and 'status': 'dry_run'. That only checks formatting.
+
+Step 2 — Real send
+python -m whatsapp_apps.web.app send \
+  --to 9150740978 \
+  --body "KrishiMitra test"
+Do not use --dry-run.
+
+Wait for:
+
+WhatsApp Web: connected.
+No Failed to encrypt / no signal session lines

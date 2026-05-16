@@ -17,6 +17,9 @@ dist/
 # Environment
 .env
 
+# WhatsApp Web session (contains login credentials)
+whatsapp_apps/web/sessions/
+
 # IDEs
 .vscode/
 .idea/

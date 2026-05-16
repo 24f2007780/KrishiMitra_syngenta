@@ -1,10 +1,15 @@
 fastapi
 uvicorn
+python-multipart
 sqlalchemy
 httpx
 geopy
 pydantic
 python-dotenv
+twilio>=9.0.0
+anthropic>=0.28.0
+neonize>=0.3.16
+qrcode>=7.4.0
 attrs==23.1.0
 beautifulsoup4==4.12.2
 blinker==1.7.0

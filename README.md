@@ -1,49 +1,80 @@
 # KrishiMitra AI
 
-**Kisan Context Intelligence Engine** — a hackathon project for **SYNGENTA × IITM BS**, Track 1: *AI-powered agricultural marketing at scale*.
+**Kisan Context Intelligence Engine** — hackathon project for **SYNGENTA × IITM BS**, Track 1: *AI-powered agricultural marketing at scale*.
 
 ---
 
-## The problem
+## Problem
 
-Farmers often get **generic** or **untimely** messages. What they need is different:
+Farmers often get **generic** or **untimely** messages. What actually matters:
 
-- **Who** is this for? (this farmer, this crop, this place)
-- **Why now?** (weather, pest risk, crop stage — not random promos)
-- **What** should they do? (clear, advisory tone)
-- **How** do they receive it? (SMS, WhatsApp, or voice — based on phone and network)
-- **When** should it land? (sensible hours, less spam)
+- **Who** — this farmer, this crop, this place  
+- **Why now** — weather, pest risk, crop stage — not random promos  
+- **What to do** — clear, advisory tone  
+- **How** — SMS, WhatsApp, or voice — depends on phone and network  
+- **When** — sensible hours, not spam  
 
-So the real problem is not “write marketing copy.” It is **decide whether to reach someone, then what to say, in their language, on the right channel, at the right time.**
-
----
-
-## Our approach
-
-We treat this as a **small decision pipeline** with a message at the end:
-
-1. **Know the farmer** — profile, crops, language, device, how often we already messaged them.
-2. **Know the situation** — weather and pest signals, plus where the crop is in the season (calendar).
-3. **Score urgency** — math-based score and a **fatigue guard** so we do not spam.
-4. **Pick products** — rule-based match to our product catalog (not random picks).
-5. **Explain “why now”** — short reason in English and in the farmer’s language (AI helps here).
-6. **Create content** — SMS (short), WhatsApp (longer + image idea text), or **voice script** for simple phones.
-7. **Route and schedule** — choose channel from device/connectivity, pick send time in safe IST windows.
-8. **Log and demo** — store what we “sent” and simulated outcomes; a **dashboard** shows the story for judges.
-
-Many small **services** talk to each other; one **orchestrator** runs the full path for one farmer or many. Everyone shares the same **data shapes** (farmer + signals + stage + scores) so modules stay compatible.
+So we are not building “another content generator.” We are building a **small decision system** that only then outputs a message: *should we reach this person now, and if yes, how?*
 
 ---
 
-## In one sentence
+## Solution (in plain words)
 
-**The right message, for the right farmer, at the right moment** — before the agronomic window closes.
+We combine **farmer data**, **weather/pest signals**, and a **crop calendar** into one picture. We **score how urgent** it is and **block sending** if the farmer was messaged too recently or too often. If we still send, we **match products**, use AI for a **“why now”** line and for **SMS / WhatsApp / voice** text, then **pick channel and time**, and **log** everything for the demo.
+
+**One line:** *The right message, for the right farmer, at the right moment* — before the agronomic window closes.
+
+---
+
+## How we solve it (one farmer, step by step)
+
+1. Load **profile** (crop, district, language, device, message history).  
+2. Load **weather + pest risk** for that district.  
+3. Load **growth stage** for their crop this month.  
+4. **Merge** into one object (**FarmerContext**) — same shape for every service.  
+5. **Urgency score** + **suppress** if fatigue rules say “do not send.”  
+6. If not suppressed: **rank products** from the catalog (rules, not random).  
+7. AI writes **why now** (English + farmer’s language).  
+8. AI writes **SMS**, **WhatsApp** (+ short image idea text), **voice script**.  
+9. **Router** picks SMS vs WhatsApp vs voice from device and connectivity.  
+10. **Timer** picks send time in allowed IST windows.  
+11. **Delivery log** stores the row; the **dashboard** can simulate outcomes.
+
+Many **small APIs** (modules) do one job each; **one orchestrator** runs the chain for one farmer or a batch.
+
+---
+
+## Modules — what each part does
+
+| # | Name | What it does |
+|---|------|----------------|
+| **M1** | Farmer DB | Stores farmers; get by id or list; seed demo data (SQLite). |
+| **M2** | Product catalog | Products linked to crop/pest/stage; APIs to query. |
+| **M3** | Shared models | **No HTTP** — shared Pydantic types so every module uses the same fields. Build this first. |
+| **M4** | Weather + pest | Weather API + pest file → risk-style signal bundle. |
+| **M5** | Crop calendar | State + crop + month → growth stage and vulnerability (JSON lookup). |
+| **M6** | Context assembler | Calls M1 + M4 + M5 → builds **FarmerContext** (with fallback if weather fails). |
+| **M7** | Urgency scorer | Score 0–1 + **suppress** when recency / message count says stop. |
+| **M8** | Product ranker | Top products for this context (rules from catalog). |
+| **M9** | Why-now explainer | AI: one clear “why now” in English + local language (template if API fails). |
+| **M10** | SMS generator | AI: very short SMS (length limit), local language. |
+| **M11** | WhatsApp generator | AI: longer text + one sentence describing an image idea (no real image file). |
+| **M12** | Voice script | AI: spoken-style script for farmers on simple phones. |
+| **M13** | Channel router | Chooses SMS vs WhatsApp vs voice from device + network (+ flags for high urgency). |
+| **M14** | Timing engine | Send time inside allowed IST windows (+ prefs / holidays). |
+| **M15** | Delivery log | Saves each send + outcomes for stats and dashboard. |
+| **M16** | Orchestrator | Runs the full pipeline per farmer; one failure does not kill the whole batch. |
+| **M17** | Dashboard | Streamlit UI for demo: farmer, score, messages, run campaign, fake outcomes. |
+
+Each service also exposes **`GET /health`** so the orchestrator can check that things are up.
 
 ---
 
 ## Tech (short)
 
-Python, FastAPI microservices, SQLite for farmers and delivery log, Pydantic for shared models, weather from Open-Meteo, Claude for multilingual explanations and message drafts, Streamlit for the demo UI.
+Python 3.11+, **FastAPI** microservices, **SQLite** (farmers + delivery log), **Pydantic** (shared models), **Open-Meteo** (weather), **Claude** (multilingual explanations and message drafts), **Streamlit** (demo dashboard).
+
+---
 
 ## M6 — Context Assembler
 ```json
@@ -175,12 +206,14 @@ Python, FastAPI microservices, SQLite for farmers and delivery log, Pydantic for
       },
       "assembled_at": "2026-05-13T14:11:14.052743"
     }
-  ],
+  ]
+}
 ```
 
 ## M8 — Product Ranker
 
 ```json
+{
   "ranking_tests": [
     {
       "input": {
