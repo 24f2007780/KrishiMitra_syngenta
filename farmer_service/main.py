@@ -60,8 +60,8 @@ def list_farmers(
 
 @app.post("/farmers/seed")
 def seed_farmers(db: Session = Depends(database.get_db)):
-    seeder.seed_farmers(db)
-    return {"message": "Successfully seeded 25 farmers."}
+    count = seeder.seed_farmers(db)
+    return {"message": f"Successfully seeded {count} farmers."}
 
 @app.get("/health")
 def health():

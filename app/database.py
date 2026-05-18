@@ -10,7 +10,12 @@ engine = create_engine(
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def init_db():
-    Base.metadata.create_all(bind=engine)
+    import sqlalchemy.exc
+    try:
+        Base.metadata.create_all(bind=engine)
+    except sqlalchemy.exc.OperationalError as e:
+        if "already exists" not in str(e):
+            raise
 
 def get_db():
     db = SessionLocal()

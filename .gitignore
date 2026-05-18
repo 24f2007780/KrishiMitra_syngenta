@@ -29,3 +29,4 @@ whatsapp_apps/web/sessions/
 # OS
 .DS_Store
 Thumbs.db
+syngenta_data/

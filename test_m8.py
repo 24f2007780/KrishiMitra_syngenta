@@ -3,7 +3,7 @@ import json
 
 BASE_URL = "http://localhost:8008"
 
-def test_rank(crop, pest, stage, urgency=0.5):
+def run_rank_test(crop, pest, stage, urgency=0.5):
     print(f"\nTesting: Crop={crop}, Pest={pest}, Stage={stage}, Urgency={urgency}")
     
     payload = {
@@ -61,13 +61,13 @@ def test_rank(crop, pest, stage, urgency=0.5):
 
 if __name__ == "__main__":
     # Scenario 1: Rice + Fungal (Blight)
-    test_rank("rice", "blight", "vegetative")
+    run_rank_test("rice", "blight", "vegetative")
     
     # Scenario 2: Cotton + Aphid
-    test_rank("cotton", "aphid", "flowering")
+    run_rank_test("cotton", "aphid", "flowering")
     
     # Scenario 3: Wheat + Rust
-    test_rank("wheat", "rust", "vegetative")
+    run_rank_test("wheat", "rust", "vegetative")
     
     # Scenario 4: Seed Treatment
-    test_rank("rice", "none", "seed_treatment")
+    run_rank_test("rice", "none", "seed_treatment")

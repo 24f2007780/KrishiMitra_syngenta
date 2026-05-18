@@ -1,96 +1,161 @@
 import json
-import random
 import os
-from datetime import datetime, timedelta
 from sqlalchemy.orm import Session
 from shared.models import Farmer, Product
 
 def seed_farmers(db: Session):
     db.query(Farmer).delete()
+
+    csv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "syngenta_data", "growers.csv")
     
-    # 25 Realistic Indian names
-    indian_names = [
-        "Rajan Kumar", "Suresh Reddy", "Vijay Patil", "Amit Singh", "Ramesh Kumar",
-        "Anil Sharma", "Sanjay Gupta", "Mahesh Babu", "Sunil Verma", "Ajay Meena",
-        "Vikram Singh", "Pankaj Yadav", "Santosh Mane", "Ganesh Hegde", "Sandeep Chaudhary",
-        "Manoj Tiwari", "Kishore Bhagat", "Harish Rao", "Pradeep Naik", "Nitin Gadkari",
-        "Deepak Deshmukh", "Arun Jaitley", "Kapil Dev", "Sachin Kulkarni", "Virat Chauhan"
-    ]
-    
-    # State-District mapping (Added Karnataka)
-    geo_data = {
-        "Tamil Nadu": {"district": "Thanjavur", "village": "Papanasam", "lat": 10.78, "lon": 79.13, "lang": "Tamil", "code": "TN"},
-        "Andhra Pradesh": {"district": "Guntur", "village": "Tenali", "lat": 16.30, "lon": 80.43, "lang": "Telugu", "code": "AP"},
-        "Maharashtra": {"district": "Jalna", "village": "Ambad", "lat": 19.84, "lon": 75.88, "lang": "Marathi", "code": "MH"},
-        "Uttar Pradesh": {"district": "Varanasi", "village": "Rohaniya", "lat": 25.31, "lon": 82.97, "lang": "Hindi", "code": "UP"},
-        "Karnataka": {"district": "Mandya", "village": "Maddur", "lat": 12.62, "lon": 77.04, "lang": "Kannada", "code": "KA"}
+    default_geo = {
+        "Rajasthan": (27.0238, 74.2179),
+        "Uttar Pradesh": (26.8467, 80.9462),
+        "Punjab": (31.1471, 75.3412),
+        "Maharashtra": (19.7515, 75.7139),
+        "Haryana": (29.0588, 76.0856),
+        "Gujarat": (22.2587, 71.1924),
+        "Madhya Pradesh": (23.4733, 77.9479),
+        "Karnataka": (15.3173, 75.7139),
+        "Bihar": (25.0961, 85.3131),
+        "West Bengal": (22.9868, 87.8550),
     }
-    
-    states_list = list(geo_data.keys())
+
+    def map_device(raw: str) -> str:
+        val = (raw or "").strip().lower()
+        if val == "keypad":
+            return "feature_phone"
+        if val == "smartphone":
+            return "android"
+        return "feature_phone"
+
+    def map_connectivity(raw: str) -> str:
+        val = (raw or "").strip().lower()
+        if val == "keypad":
+            return "2G"
+        if val == "smartphone":
+            return "4G"
+        return "3G"
+
     farmers = []
     
-    for i in range(25):
-        state_name = states_list[i % len(states_list)]
-        data = geo_data[state_name]
-        
-        # Mandatory Coverage Constraints
-        # 1. Urgency (5 farmers >= 0.7)
-        urgency = round(random.uniform(0.7, 0.95), 2) if i < 5 else round(random.uniform(0.1, 0.6), 2)
-        
-        # 2. Device Type (At least 3 feature phones)
-        if i < 3:
-            device = "feature_phone"
-        elif i % 5 == 0:
-            device = "ios"
-        else:
-            device = "android"
+    if not os.path.exists(csv_path):
+        raise FileNotFoundError(f"growers.csv not found at {csv_path}")
+
+    import csv
+    with open(csv_path, newline="", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for i, row in enumerate(reader):
+            state = row.get("state", "").strip() or "Unknown"
+            district = row.get("district", "").strip() or "Unknown"
+            tehsil = row.get("tehsil", "").strip()
+            language = row.get("language", "").strip() or "Hindi"
+            device_type = map_device(row.get("device_type", ""))
+            connectivity = map_connectivity(row.get("device_type", ""))
+            age = int(row.get("grower_age") or 35)
+            acres = float(row.get("grower_farm_size") or 1.0)
+            crop = "general"
+            if row.get("grower_crop_calendar"):
+                try:
+                    crop = (json.loads(row["grower_crop_calendar"]).get("crop") or "general").lower()
+                except (json.JSONDecodeError, TypeError):
+                    crop = "general"
+
+            recent_campaign_date = row.get("campaign_attendance_date", "").strip()
+            lat_base, lon_base = default_geo.get(state, (22.9734, 78.6569))
+            lat = round(lat_base, 4)
+            lon = round(lon_base, 4)
+            grower_id = (row.get("grower_id") or f"GRW_{i + 1:05d}").strip()
+            phone = f"+91-9{i:09d}"
+
+            farmers.append(Farmer(
+                farmer_id=grower_id,
+                name=f"Grower {grower_id}",
+                age=age,
+                phone=phone,
+                preferred_language=language,
+                state=state,
+                district=district,
+                village=tehsil or district,
+                latitude=lat,
+                longitude=lon,
+                acres=acres,
+                crops=crop,
+                device_type=device_type,
+                connectivity=connectivity,
+                whatsapp_enabled=device_type != "feature_phone",
+                last_message_sent_at=recent_campaign_date or None,
+                messages_received_last_30d=0,
+                messages_opened_last_30d=0,
+                preferred_contact_time="morning",
+                linked_retailer_id=f"RET-{200 + i:03d}",
+                linked_retailer_name=f"{district} Agro Center",
+                urgency_score=0.0
+            ))
+    # else:
+        # states_list = list(geo_data.keys())
+        # for i in range(25):
+        #     state_name = states_list[i % len(states_list)]
+        #     data = geo_data[state_name]
             
-        # 3. WhatsApp (At least 5 enabled)
-        whatsapp = True if (i < 5 or i > 15) else False
-        
-        # 4. Connectivity (2G / 3G / 4G / offline)
-        conn = random.choice(["2G", "3G", "4G", "offline"])
-        
-        # 5. Suppressed (3 messaged recently)
-        if i >= 20 and i < 23:
-            last_sent = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
-            msg_received = random.randint(8, 12) # High fatigue
-        else:
-            last_sent = (datetime.now() - timedelta(days=random.randint(5, 45))).strftime("%Y-%m-%d")
-            msg_received = random.randint(1, 6)
+        #     # Mandatory Coverage Constraints
+        #     # 1. Urgency (5 farmers >= 0.7)
+        #     urgency = round(random.uniform(0.7, 0.95), 2) if i < 5 else round(random.uniform(0.1, 0.6), 2)
             
-        farmers.append(Farmer(
-            farmer_id=f"{data['code']}-{100 + i:03d}",
-            name=indian_names[i],
-            age=random.randint(22, 68),
-            phone=f"+91-9876543{i:03d}",
-            preferred_language=data['lang'],
-            state=state_name,
-            district=data['district'],
-            village=data['village'],
-            latitude=round(data['lat'] + random.uniform(-0.02, 0.02), 4),
-            longitude=round(data['lon'] + random.uniform(-0.02, 0.02), 4),
-            acres=round(random.uniform(0.5, 12.0), 1),
-            crops="rice" if i % 2 == 0 else "cotton", # Simplified to match examples
-            device_type=device,
-            connectivity=conn,
-            whatsapp_enabled=whatsapp,
-            last_message_sent_at=last_sent,
-            messages_received_last_30d=msg_received,
-            messages_opened_last_30d=random.randint(0, msg_received),
-            preferred_contact_time=random.choice(["morning", "afternoon", "evening"]),
-            linked_retailer_id=f"RET-{random.randint(100, 999)}",
-            linked_retailer_name=f"{indian_names[(i+7)%25]} Agro Agency",
-            urgency_score=urgency
-        ))
-    
+        #     # 2. Device Type (At least 3 feature phones)
+        #     if i < 3:
+        #         device = "feature_phone"
+        #     elif i % 5 == 0:
+        #         device = "ios"
+        #     else:
+        #         device = "android"
+                
+        #     # 3. WhatsApp (At least 5 enabled)
+        #     whatsapp = True if (i < 5 or i > 15) else False
+            
+        #     # 4. Connectivity (2G / 3G / 4G / offline)
+        #     conn = random.choice(["2G", "3G", "4G", "offline"])
+            
+        #     # 5. Suppressed (3 messaged recently)
+        #     if i >= 20 and i < 23:
+        #         last_sent = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
+        #         msg_received = random.randint(8, 12) # High fatigue
+        #     else:
+        #         last_sent = (datetime.now() - timedelta(days=random.randint(5, 45))).strftime("%Y-%m-%d")
+        #         msg_received = random.randint(1, 6)
+                
+        #     farmers.append(Farmer(
+        #         farmer_id=f"{data['code']}-{100 + i:03d}",
+        #         name=indian_names[i],
+        #         age=random.randint(22, 68),
+        #         phone=f"+91-9876543{i:03d}",
+        #         preferred_language=data['lang'],
+        #         state=state_name,
+        #         district=data['district'],
+        #         village=data['village'],
+        #         latitude=round(data['lat'] + random.uniform(-0.02, 0.02), 4),
+        #         longitude=round(data['lon'] + random.uniform(-0.02, 0.02), 4),
+        #         acres=round(random.uniform(0.5, 12.0), 1),
+        #         crops="rice" if i % 2 == 0 else "cotton", # Simplified to match examples
+        #         device_type=device,
+        #         connectivity=conn,
+        #         whatsapp_enabled=whatsapp,
+        #         last_message_sent_at=last_sent,
+        #         messages_received_last_30d=msg_received,
+        #         messages_opened_last_30d=random.randint(0, msg_received),
+        #         preferred_contact_time=random.choice(["morning", "afternoon", "evening"]),
+        #         linked_retailer_id=f"RET-{random.randint(100, 999)}",
+        #         linked_retailer_name=f"{indian_names[(i+7)%25]} Agro Agency",
+        #         urgency_score=urgency
+        #     ))
     for f in farmers:
         db.add(f)
     db.commit()
+    return len(farmers)
 
 def seed_products(db: Session):
     db.query(Product).delete()
-    base_path = "/home/yashvi/codes/Syngenta/product-catalog"
+    base_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "product-catalog")
     files = [
         ("fungicides-productlist.json", "fungicide"),
         ("insectides-productlist.json", "insecticide"),

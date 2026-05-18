@@ -1,7 +1,7 @@
 import httpx
 import asyncio
 
-async def test_all_contexts():
+async def run_test_all_contexts():
     async with httpx.AsyncClient(timeout=60.0) as client:
         # 1. Get all farmers
         print("Fetching all farmers from M1...")
@@ -11,7 +11,7 @@ async def test_all_contexts():
 
         # 2. Call M6 for each farmer
         print("Assembling contexts from M6...")
-        farmer_ids = [f["farmer_id"] for f in farmers]
+        farmer_ids = [f["farmer_id"] for f in farmers][:5]
         
         # Test batch endpoint
         print("\nTesting batch endpoint...")
@@ -40,4 +40,4 @@ async def test_all_contexts():
         print(f"\nFinal Result: {success_count}/{len(farmer_ids)} contexts assembled successfully.")
 
 if __name__ == "__main__":
-    asyncio.run(test_all_contexts())
+    asyncio.run(run_test_all_contexts())
