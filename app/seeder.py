@@ -1,5 +1,6 @@
 import json
 import os
+import csv
 from sqlalchemy.orm import Session
 from shared.models import Farmer, Product
 
@@ -42,7 +43,6 @@ def seed_farmers(db: Session):
     if not os.path.exists(csv_path):
         raise FileNotFoundError(f"growers.csv not found at {csv_path}")
 
-    import csv
     with open(csv_path, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for i, row in enumerate(reader):
@@ -92,62 +92,7 @@ def seed_farmers(db: Session):
                 linked_retailer_name=f"{district} Agro Center",
                 urgency_score=0.0
             ))
-    # else:
-        # states_list = list(geo_data.keys())
-        # for i in range(25):
-        #     state_name = states_list[i % len(states_list)]
-        #     data = geo_data[state_name]
             
-        #     # Mandatory Coverage Constraints
-        #     # 1. Urgency (5 farmers >= 0.7)
-        #     urgency = round(random.uniform(0.7, 0.95), 2) if i < 5 else round(random.uniform(0.1, 0.6), 2)
-            
-        #     # 2. Device Type (At least 3 feature phones)
-        #     if i < 3:
-        #         device = "feature_phone"
-        #     elif i % 5 == 0:
-        #         device = "ios"
-        #     else:
-        #         device = "android"
-                
-        #     # 3. WhatsApp (At least 5 enabled)
-        #     whatsapp = True if (i < 5 or i > 15) else False
-            
-        #     # 4. Connectivity (2G / 3G / 4G / offline)
-        #     conn = random.choice(["2G", "3G", "4G", "offline"])
-            
-        #     # 5. Suppressed (3 messaged recently)
-        #     if i >= 20 and i < 23:
-        #         last_sent = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
-        #         msg_received = random.randint(8, 12) # High fatigue
-        #     else:
-        #         last_sent = (datetime.now() - timedelta(days=random.randint(5, 45))).strftime("%Y-%m-%d")
-        #         msg_received = random.randint(1, 6)
-                
-        #     farmers.append(Farmer(
-        #         farmer_id=f"{data['code']}-{100 + i:03d}",
-        #         name=indian_names[i],
-        #         age=random.randint(22, 68),
-        #         phone=f"+91-9876543{i:03d}",
-        #         preferred_language=data['lang'],
-        #         state=state_name,
-        #         district=data['district'],
-        #         village=data['village'],
-        #         latitude=round(data['lat'] + random.uniform(-0.02, 0.02), 4),
-        #         longitude=round(data['lon'] + random.uniform(-0.02, 0.02), 4),
-        #         acres=round(random.uniform(0.5, 12.0), 1),
-        #         crops="rice" if i % 2 == 0 else "cotton", # Simplified to match examples
-        #         device_type=device,
-        #         connectivity=conn,
-        #         whatsapp_enabled=whatsapp,
-        #         last_message_sent_at=last_sent,
-        #         messages_received_last_30d=msg_received,
-        #         messages_opened_last_30d=random.randint(0, msg_received),
-        #         preferred_contact_time=random.choice(["morning", "afternoon", "evening"]),
-        #         linked_retailer_id=f"RET-{random.randint(100, 999)}",
-        #         linked_retailer_name=f"{indian_names[(i+7)%25]} Agro Agency",
-        #         urgency_score=urgency
-        #     ))
     for f in farmers:
         db.add(f)
     db.commit()
