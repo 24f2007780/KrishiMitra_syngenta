@@ -14,7 +14,7 @@ echo "🚀 Starting Syngenta KrishiMitra Microservices..."
 # Tier 2: Signal Ingestion
 .venv/bin/python3 -m uvicorn weather_service.main:app --host 0.0.0.0 --port 8004 &
 .venv/bin/python3 -m uvicorn calendar_service.main:app --host 0.0.0.0 --port 8005 &
-# python3 -m uvicorn context_service.main:app --host 0.0.0.0 --port 8006 &
+.venv/bin/python3 -m uvicorn context_service.main:app --host 0.0.0.0 --port 8006 &
 
 # Tier 3: Intelligence Engine
 .venv/bin/python3 -m uvicorn ranking_service.main:app --host 0.0.0.0 --port 8008 &
@@ -34,5 +34,5 @@ echo "🚀 Starting Syngenta KrishiMitra Microservices..."
 # # Tier 6: Orchestration
 # python3 -m uvicorn orchestrator.main:app --host 0.0.0.0 --port 8016 &
 
-echo "✅ Active services (M1, M2, M4) initiated."
+echo "✅ Active services (M1, M2, M4, M5, M6, M8) initiated."
 echo "Use './stop_all.sh' to terminate all services."

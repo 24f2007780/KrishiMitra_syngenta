@@ -7,7 +7,7 @@ from shared.models import Farmer, Product
 def seed_farmers(db: Session):
     db.query(Farmer).delete()
 
-    csv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "Syngenta_data", "growers.csv")
+    csv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "syngenta_data", "growers.csv")
     default_geo = {
         "Rajasthan": (27.0238, 74.2179),
         "Uttar Pradesh": (26.8467, 80.9462),
@@ -18,6 +18,7 @@ def seed_farmers(db: Session):
         "Madhya Pradesh": (23.4733, 77.9479),
         "Karnataka": (15.3173, 75.7139),
         "Bihar": (25.0961, 85.3131),
+        "West Bengal": (22.9868, 87.8550),
     }
 
     def map_device(raw: str) -> str:
@@ -93,7 +94,7 @@ def seed_farmers(db: Session):
 
 def seed_products(db: Session):
     db.query(Product).delete()
-    base_path = "/home/yashvi/codes/Syngenta/product-catalog"
+    base_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "product-catalog")
     files = [
         ("fungicides-productlist.json", "fungicide"),
         ("insectides-productlist.json", "insecticide"),

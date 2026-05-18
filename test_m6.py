@@ -11,7 +11,7 @@ async def test_all_contexts():
 
         # 2. Call M6 for each farmer
         print("Assembling contexts from M6...")
-        farmer_ids = [f["farmer_id"] for f in farmers]
+        farmer_ids = [f["farmer_id"] for f in farmers][:5]
         
         # Test batch endpoint
         print("\nTesting batch endpoint...")

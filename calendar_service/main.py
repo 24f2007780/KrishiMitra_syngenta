@@ -97,7 +97,10 @@ async def get_crop_calendar(
     crop_norm = crop.lower().strip()
     # Fuzzy crop/cycle match
     all_crops = KHARIF_CROPS + RABI_CROPS
-    crop_match = next((c for c in all_crops if crop_norm in c or c in crop_norm), crop_norm)
+    crop_match = next((c for c in all_crops if crop_norm in c or c in crop_norm), None)
+    if not crop_match:
+        raise HTTPException(status_code=404, detail=f"Crop '{crop}' not supported")
+    
     cycle = KHARIF_CYCLE if crop_match in KHARIF_CROPS else RABI_CYCLE
     
     stage_data = cycle.get(month)
