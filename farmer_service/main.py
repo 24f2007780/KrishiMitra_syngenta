@@ -15,7 +15,7 @@ def db_farmer_to_profile(farmer: models.Farmer) -> models.FarmerProfile:
     return models.FarmerProfile(
         farmer_id=farmer.farmer_id,
         name=farmer.name,
-        age=farmer.age,
+        grower_age=farmer.grower_age,
         phone=farmer.phone,
         preferred_language=farmer.preferred_language,
         state=farmer.state,

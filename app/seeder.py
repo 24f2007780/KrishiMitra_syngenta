@@ -2,14 +2,83 @@ import json
 import os
 import csv
 import sys
+import random
 # Allow executing this file directly from anywhere in the project
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from sqlalchemy.orm import Session
-from shared.models import Farmer, Product
+from shared.models import Farmer, Product, WhatsAppCampaign, FarmerProfile, SignalBundle, FarmerStage, FarmerContext, CropType
+
+WEATHER_CACHE_PATH = os.path.join(
+    os.path.dirname(os.path.dirname(__file__)), "dataset", "weather_cache.csv"
+)
+GROWER_CACHE_PATH = os.path.join(
+    os.path.dirname(os.path.dirname(__file__)), "dataset", "grower_urgency_cache.csv"
+)
+
+def load_weather_cache() -> dict:
+    cache = {}
+    if os.path.exists(WEATHER_CACHE_PATH):
+        with open(WEATHER_CACHE_PATH, newline="", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                loc_key = row.get("location_key")
+                if loc_key:
+                    cache[loc_key] = {
+                        "district": row.get("district"),
+                        "state": row.get("state"),
+                        "humidity_7d_avg": float(row.get("humidity_7d_avg") or 0.0),
+                        "rainfall_deviation_pct": float(row.get("rainfall_deviation_pct") or 0.0),
+                        "temperature_anomaly": float(row.get("temperature_anomaly") or 0.0),
+                        "pest_risk_level": row.get("pest_risk_level") or "low",
+                        "active_pest": row.get("active_pest") or "None",
+                        "weather_anomaly_flag": str(row.get("weather_anomaly_flag")).lower() == "true",
+                    }
+    return cache
+
+def load_grower_cache() -> dict:
+    cache = {}
+    if os.path.exists(GROWER_CACHE_PATH):
+        with open(GROWER_CACHE_PATH, newline="", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                grower_id = row.get("grower_id")
+                if grower_id:
+                    cache[grower_id] = {
+                        "urgency_score": float(row.get("urgency_score") or 0.0),
+                        "recommended_channel": row.get("recommended_channel")
+                    }
+    return cache
+
+def write_weather_cache(rows):
+    file_exists = os.path.exists(WEATHER_CACHE_PATH)
+    fieldnames = [
+        "location_key", "district", "state", "humidity_7d_avg", 
+        "rainfall_deviation_pct", "temperature_anomaly", 
+        "pest_risk_level", "active_pest", "weather_anomaly_flag"
+    ]
+    with open(WEATHER_CACHE_PATH, "a", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        if not file_exists:
+            writer.writeheader()
+        writer.writerows(rows)
+
+def write_grower_cache(rows):
+    file_exists = os.path.exists(GROWER_CACHE_PATH)
+    fieldnames = ["grower_id", "urgency_score", "recommended_channel"]
+    with open(GROWER_CACHE_PATH, "a", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        if not file_exists:
+            writer.writeheader()
+        writer.writerows(rows)
 
 def seed_farmers(db: Session):
     db.query(Farmer).delete()
+
+    weather_cache = load_weather_cache()
+    grower_cache = load_grower_cache()
+    new_weather_rows = []
+    new_grower_rows = []
 
     wa_counts = {}
     wa_csv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "dataset", "whatsapp_campaign.csv")
@@ -97,16 +166,12 @@ def seed_farmers(db: Session):
             grower_id = (row.get("grower_id") or f"GRW_{i + 1:05d}").strip()
             phone = f"+91-9{i:09d}"
 
-            from shared.models import (
-                FarmerProfile, SignalBundle, FarmerStage, FarmerContext
-            )
             from urgency_scorer.app.scorer import compute_urgency
             import unittest.mock as mock
             import asyncio
             from weather_service import main as weather_main
 
             # Map Crop Type to valid CropType Enum
-            from shared.models import CropType
             crop_val = "wheat"
             for ct in CropType:
                 if ct.value == crop:
@@ -119,7 +184,7 @@ def seed_farmers(db: Session):
             profile_obj = FarmerProfile(
                 farmer_id=grower_id,
                 name=indian_names[i % len(indian_names)],
-                age=age,
+                grower_age=age,
                 phone=phone,
                 preferred_language=language,
                 state=state,
@@ -135,54 +200,127 @@ def seed_farmers(db: Session):
                 last_message_sent_at=recent_campaign_date or None,
                 messages_received_last_30d=received_last_30d,
                 messages_opened_last_30d=opened_last_30d,
-                preferred_contact_time="morning",
+                preferred_contact_time=random.choice(["morning", "afternoon", "evening"]),
                 linked_retailer_id=f"RET-{200 + i:03d}",
                 linked_retailer_name=f"{district} Agro Center",
             )
             
-            # Fetch weather signals using the weather service logic via mock patching
-            async def mock_coords(l_lat, l_lon):
-                return district, state
-
-            async def mock_historical(l_lat, l_lon, dist):
-                return 30.0, 50.0
-
-            async def mock_current(l_lat, l_lon):
-                return 32.0, 65.0, 10.0
-    
-            with mock.patch("weather_service.main.get_district_from_coords", mock_coords), \
-                 mock.patch("weather_service.main.get_historical_baselines", mock_historical), \
-                 mock.patch("weather_service.main.get_current_weather", mock_current):
-                signals_obj = asyncio.run(weather_main.get_weather_signals(lat, lon))
+            location_key = f"{round(lat, 2)},{round(lon, 2)}"
             
-            stage_obj = FarmerStage(
-                confirmed_stage="vegetative",
-                days_in_stage=0,
-                vulnerability="medium",
-                days_to_next_stage=30
-            )
-            
-            urgency_ctx = FarmerContext(
-                profile=profile_obj,
-                signals=signals_obj,
-                crop_stage=stage_obj,
-                assembled_at="2026-04-05T00:00:00"
-            )
+            # Weather signals logic
+            if location_key in weather_cache:
+                cached_w = weather_cache[location_key]
+                signals_obj = SignalBundle(
+                    district=district,
+                    state=state,
+                    humidity_7d_avg=cached_w["humidity_7d_avg"],
+                    rainfall_deviation_pct=cached_w["rainfall_deviation_pct"],
+                    temperature_anomaly=cached_w["temperature_anomaly"],
+                    pest_risk_level=cached_w["pest_risk_level"],
+                    active_pest=cached_w["active_pest"],
+                    weather_anomaly_flag=cached_w["weather_anomaly_flag"]
+                )
+            else:
+                from weather_service.main import (
+                    get_historical_baselines, get_current_weather, build_signal_bundle, get_pest_risk
+                )
+                async def fetch_weather():
+                    return await asyncio.gather(
+                        get_historical_baselines(lat, lon),
+                        get_current_weather(lat, lon)
+                    )
+                try:
+                    (hist_temp, hist_rain), (curr_temp, humidity_avg, rain_7d) = asyncio.run(fetch_weather())
+                except Exception as e:
+                    print(f"Error fetching weather APIs for {location_key}: {e}")
+                    hist_temp, hist_rain = 30.0, 50.0
+                    curr_temp, humidity_avg, rain_7d = 32.0, 65.0, 10.0
 
-            urgency_score_val = 0.0
-            recommended_channel_val = None
+                pest_name, pest_risk = get_pest_risk(district)
+                signals_obj = build_signal_bundle(
+                    district=district,
+                    state=state,
+                    humidity_avg=humidity_avg,
+                    rain_7d=rain_7d,
+                    curr_temp=curr_temp,
+                    hist_temp=hist_temp,
+                    hist_rain=hist_rain,
+                    pest_name=pest_name,
+                    pest_risk=pest_risk
+                )
+                weather_cache[location_key] = {
+                    "district": district,
+                    "state": state,
+                    "humidity_7d_avg": signals_obj.humidity_7d_avg,
+                    "rainfall_deviation_pct": signals_obj.rainfall_deviation_pct,
+                    "temperature_anomaly": signals_obj.temperature_anomaly,
+                    "pest_risk_level": signals_obj.pest_risk_level,
+                    "active_pest": signals_obj.active_pest,
+                    "weather_anomaly_flag": signals_obj.weather_anomaly_flag
+                }
+                new_weather_rows.append({
+                    "location_key": location_key,
+                    "district": district,
+                    "state": state,
+                    "humidity_7d_avg": signals_obj.humidity_7d_avg,
+                    "rainfall_deviation_pct": signals_obj.rainfall_deviation_pct,
+                    "temperature_anomaly": signals_obj.temperature_anomaly,
+                    "pest_risk_level": signals_obj.pest_risk_level,
+                    "active_pest": signals_obj.active_pest,
+                    "weather_anomaly_flag": str(signals_obj.weather_anomaly_flag)
+                })
 
-            try:
-                urgency_res = compute_urgency(urgency_ctx)
-                urgency_score_val = urgency_res.urgency_score
-                recommended_channel_val = urgency_res.recommended_channel.value
-            except Exception as exc:
-                print(f"Error computing urgency for {grower_id} during seeding: {exc}")
+            # Urgency logic
+            if grower_id in grower_cache:
+                cached_g = grower_cache[grower_id]
+                urgency_score_val = cached_g["urgency_score"]
+                recommended_channel_val = cached_g["recommended_channel"]
+            else:
+                stage_obj = FarmerStage(
+                    confirmed_stage="vegetative",
+                    days_in_stage=0,
+                    vulnerability="medium",
+                    days_to_next_stage=30
+                )
+                
+                urgency_ctx = FarmerContext(
+                    profile=profile_obj,
+                    signals=signals_obj,
+                    crop_stage=stage_obj,
+                    assembled_at="2026-04-05T00:00:00"
+                )
+
+                urgency_score_val = 0.0
+                recommended_channel_val = None
+
+                try:
+                    urgency_res = compute_urgency(urgency_ctx)
+                    urgency_score_val = urgency_res.urgency_score
+                    recommended_channel_val = urgency_res.recommended_channel.value
+                except Exception as exc:
+                    print(f"Error computing urgency for {grower_id} during seeding: {exc}")
+
+                grower_cache[grower_id] = {
+                    "urgency_score": urgency_score_val,
+                    "recommended_channel": recommended_channel_val
+                }
+                new_grower_rows.append({
+                    "grower_id": grower_id,
+                    "urgency_score": urgency_score_val,
+                    "recommended_channel": recommended_channel_val
+                })
+
+            if len(new_weather_rows) >= 50:
+                write_weather_cache(new_weather_rows)
+                new_weather_rows.clear()
+
+            if len(new_grower_rows) >= 50:
+                write_grower_cache(new_grower_rows)
+                new_grower_rows.clear()
 
             farmers.append(Farmer(
                 farmer_id=grower_id,
                 name=indian_names[i % len(indian_names)],
-                age=age,
                 phone=phone,
                 preferred_language=language,
                 state=state,
@@ -197,7 +335,7 @@ def seed_farmers(db: Session):
                 last_message_sent_at=recent_campaign_date or None,
                 messages_received_last_30d=received_last_30d,
                 messages_opened_last_30d=opened_last_30d,
-                preferred_contact_time="morning",
+                preferred_contact_time=random.choice(["morning", "afternoon", "evening"]),
                 linked_retailer_id=f"RET-{200 + i:03d}",
                 linked_retailer_name=f"{district} Agro Center",
                 urgency_score=urgency_score_val,
@@ -213,6 +351,11 @@ def seed_farmers(db: Session):
                 campaign_attendance_date=row.get("campaign_attendance_date")
             ))
             
+    if new_weather_rows:
+        write_weather_cache(new_weather_rows)
+    if new_grower_rows:
+        write_grower_cache(new_grower_rows)
+
     for f in farmers:
         db.add(f)
     db.commit()
@@ -274,7 +417,6 @@ if __name__ == "__main__":
         print(f"Successfully seeded {products_count} products.")
         
         print("Seeding WhatsApp campaigns...")
-        from shared.models import WhatsAppCampaign
         db.query(WhatsAppCampaign).delete()
         
         wa_csv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "dataset", "whatsapp_campaign.csv")

@@ -6,6 +6,7 @@ from fastapi import FastAPI, HTTPException, Query
 from typing import Optional
 from geopy.geocoders import Nominatim
 from shared.models import SignalBundle
+from datetime import datetime
 
 app = FastAPI(title="Syngenta Coordinate-Based Weather API")
 
@@ -36,30 +37,66 @@ async def get_district_from_coords(lat: float, lon: float):
     except Exception: pass
     return None, None
 
-async def get_historical_baselines(lat: float, lon: float, district: str = None):
-    """Fetch historical baselines from NASA POWER or Fallback."""
-    cache_key = f"{round(lat, 2)},{round(lon, 2)}"
-    if cache_key in BASELINE_CACHE: return BASELINE_CACHE[cache_key]
+BASELINE_CACHE = {}
 
-    url = f"https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M,PRECTOTCORR&community=AG&longitude={lon}&latitude={lat}&format=JSON"
-    print(f"DEBUG: NASA POWER URL: {url}")
-    async with httpx.AsyncClient() as client:
-        try:
-            response = await client.get(url, timeout=10.0)
+async def get_historical_baselines(lat: float, lon: float):
+
+    try:
+
+        month_key = datetime.utcnow().strftime("%b").upper()
+
+        cache_key = f"{round(lat,2)},{round(lon,2)}:{month_key}"
+
+        if cache_key in BASELINE_CACHE:
+            print("DEBUG: CACHE HIT")
+            return BASELINE_CACHE[cache_key]
+
+        url = (
+            "https://power.larc.nasa.gov/api/temporal/climatology/point"
+            f"?parameters=T2M,PRECTOTCORR"
+            f"&community=AG"
+            f"&longitude={lon}"
+            f"&latitude={lat}"
+            f"&format=JSON"
+        )
+
+        print(f"DEBUG URL: {url}")
+
+        async with httpx.AsyncClient() as client:
+
+            response = await client.get(url, timeout=20)
+
+            print(f"DEBUG STATUS: {response.status_code}")
+
+            response.raise_for_status()
+
             data = response.json()
-            may_temp = data['properties']['parameter']['T2M']['5']
-            may_rain = data['properties']['parameter']['PRECTOTCORR']['5']
-            print(f"DEBUG: NASA Data Fetched -> Temp: {may_temp}, Rain: {may_rain}")
-            res = (float(may_temp), float(may_rain))
-            BASELINE_CACHE[cache_key] = res
-            return res
-        except Exception as e:
-            print(f"DEBUG: NASA POWER Error: {e}")
-            if district and district in SEASONAL_NORMALS:
-                n = SEASONAL_NORMALS[district]
-                return n['avg_temp_may'], n['avg_rainfall_may']
-            return 30.0, 50.0
 
+            print("DEBUG RESPONSE RECEIVED")
+
+            params = data["properties"]["parameter"]
+
+            print(f"DEBUG PARAM KEYS: {params.keys()}")
+
+            temp = params["T2M"][month_key]
+            rain = params["PRECTOTCORR"][month_key]
+
+            print(f"DEBUG TEMP={temp} RAIN={rain}")
+
+            result = (float(temp), float(rain))
+
+            BASELINE_CACHE[cache_key] = result
+
+            return result
+
+    except Exception as e:
+
+        print("NASA POWER ERROR")
+        print(type(e))
+        print(str(e))
+
+        raise
+        
 async def get_current_weather(lat: float, lon: float):
     """Fetch hourly conditions from Open-Meteo for 7-day average computation."""
     url = (
@@ -91,6 +128,32 @@ def get_pest_risk(district: str):
     except Exception: pass
     return "None", "low"
 
+def build_signal_bundle(
+    district: str,
+    state: str,
+    humidity_avg: float,
+    rain_7d: float,
+    curr_temp: float,
+    hist_temp: float,
+    hist_rain: float,
+    pest_name: str,
+    pest_risk: str
+) -> SignalBundle:
+    temp_anomaly = curr_temp - hist_temp
+    weekly_hist_rain = hist_rain / 4.0
+    rain_dev_pct = ((rain_7d - weekly_hist_rain) / weekly_hist_rain * 100) if weekly_hist_rain > 0 else 0.0
+    
+    return SignalBundle(
+        district=district,
+        state=state,
+        humidity_7d_avg=round(humidity_avg, 1),
+        rainfall_deviation_pct=round(rain_dev_pct, 1),
+        temperature_anomaly=round(temp_anomaly, 1),
+        pest_risk_level=pest_risk,
+        active_pest=pest_name,
+        weather_anomaly_flag=abs(temp_anomaly) > 3.5 or abs(rain_dev_pct) > 50.0
+    )
+
 @app.get("/signals/weather", response_model=SignalBundle)
 async def get_weather_signals(lat: float = Query(...), lon: float = Query(...)):
     """Primary weather endpoint: specific to latitude and longitude."""
@@ -105,19 +168,16 @@ async def get_weather_signals(lat: float = Query(...), lon: float = Query(...)):
     print("historical baselines" , hist_temp, hist_rain)
     pest_name, pest_risk = get_pest_risk(district)
     
-    temp_anomaly = curr_temp - hist_temp
-    weekly_hist_rain = hist_rain / 4.0
-    rain_dev_pct = ((rain_7d - weekly_hist_rain) / weekly_hist_rain * 100) if weekly_hist_rain > 0 else 0.0
-    
-    return SignalBundle(
+    return build_signal_bundle(
         district=district,
         state=state,
-        humidity_7d_avg=round(humidity_avg, 1),
-        rainfall_deviation_pct=round(rain_dev_pct, 1),
-        temperature_anomaly=round(temp_anomaly, 1),
-        pest_risk_level=pest_risk,
-        active_pest=pest_name,
-        weather_anomaly_flag=abs(temp_anomaly) > 3.5 or abs(rain_dev_pct) > 50.0
+        humidity_avg=humidity_avg,
+        rain_7d=rain_7d,
+        curr_temp=curr_temp,
+        hist_temp=hist_temp,
+        hist_rain=hist_rain,
+        pest_name=pest_name,
+        pest_risk=pest_risk
     )
 
 @app.get("/debug/weather")

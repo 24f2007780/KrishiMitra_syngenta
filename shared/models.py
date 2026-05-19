@@ -43,7 +43,6 @@ class Farmer(Base):
     grower_farm_size = Column(Float)
     offline_campaign_attended = Column(Boolean)
     campaign_attendance_date = Column(String)
-    preferred_retailer_id = Column(String)
     recommended_channel = Column(String, nullable=True)
 
 class WhatsAppCampaign(Base):
@@ -92,7 +91,7 @@ class Product(Base):
 class FarmerProfile(BaseModel):
     farmer_id: str
     name: str
-    age: int
+    grower_age: int
     phone: str
     preferred_language: str
     state: str

@@ -1,7 +1,7 @@
 import requests
 import json
 
-BASE_URL = "http://localhost:8008"
+BASE_URL = "http://localhost:8002"
 
 def run_rank_test(crop, pest, stage, urgency=0.5):
     print(f"\nTesting: Crop={crop}, Pest={pest}, Stage={stage}, Urgency={urgency}")
@@ -11,7 +11,7 @@ def run_rank_test(crop, pest, stage, urgency=0.5):
             "profile": {
                 "farmer_id": "TEST-001",
                 "name": "Test Farmer",
-                "age": 35,
+                "grower_age": 35,
                 "phone": "+91-0000000000",
                 "preferred_language": "English",
                 "state": "Tamil Nadu",
@@ -19,7 +19,7 @@ def run_rank_test(crop, pest, stage, urgency=0.5):
                 "tehsil": "Test Village",
                 "latitude": 10.78,
                 "longitude": 79.13,
-                "acres": 5.0,
+                "grower_farm_size": 5.0,
                 "crops": [crop],
                 "device_type": "android",
                 "connectivity": "4G",
@@ -51,7 +51,7 @@ def run_rank_test(crop, pest, stage, urgency=0.5):
     }
     
     try:
-        response = requests.post(f"{BASE_URL}/rank", json=payload)
+        response = requests.post(f"{BASE_URL}/rank", json=payload["context"])
         if response.status_code == 200:
             print("Response:", json.dumps(response.json(), indent=2))
         else:

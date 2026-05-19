@@ -15,7 +15,7 @@ import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import pytest
-from models import RankRequest, CropType, PestType, CropStage
+from shared.models import RankRequest, CropType, PestType, CropStage
 from ranker import rank_products
 from product_catalog import (
     PRODUCT_CATALOG, compute_efficacy_score,

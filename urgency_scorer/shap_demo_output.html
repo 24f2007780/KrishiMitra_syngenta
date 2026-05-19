@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHAP Explanation — Grower G_100</title>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        padding: 2rem;
+        color: #2c3e50;
+    }
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+    .header {
+        background: linear-gradient(135deg, #1a5e1f 0%, #2d8f33 100%);
+        color: white;
+        padding: 2rem 2.5rem;
+    }
+    .header h1 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+    }
+    .header .subtitle {
+        opacity: 0.85;
+        font-size: 0.9rem;
+    }
+    .score-panel {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        padding: 1.5rem 2.5rem;
+        background: #f8faf8;
+        border-bottom: 1px solid #e8ece8;
+    }
+    .score-circle {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: white;
+        flex-shrink: 0;
+    }
+    .score-low { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+    .score-mid { background: linear-gradient(135deg, #f39c12, #e67e22); }
+    .score-high { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+    .score-meta {
+        flex: 1;
+    }
+    .score-meta h2 {
+        font-size: 1.1rem;
+        color: #34495e;
+        margin-bottom: 0.4rem;
+    }
+    .badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .badge-suppress {
+        background: #fdecea;
+        color: #c0392b;
+        border: 1px solid #f5c6cb;
+    }
+    .badge-active {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+    .section {
+        padding: 1.5rem 2.5rem;
+    }
+    .section h3 {
+        font-size: 1rem;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #ecf0f1;
+    }
+    .waterfall-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .waterfall-row td {
+        padding: 0.6rem 0.5rem;
+        border-bottom: 1px solid #f0f0f0;
+        vertical-align: middle;
+    }
+    .waterfall-row:hover {
+        background: #f8f9fa;
+    }
+    .feat-name {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #34495e;
+        width: 220px;
+    }
+    .feat-val {
+        font-size: 0.8rem;
+        color: #7f8c8d;
+        width: 70px;
+        text-align: right;
+        font-family: 'Courier New', monospace;
+    }
+    .bar-cell {
+        width: 100%;
+    }
+    .bar-container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .bar {
+        height: 22px;
+        border-radius: 4px;
+        transition: width 0.3s ease;
+    }
+    .bar-pos { opacity: 0.85; }
+    .bar-neg { opacity: 0.85; }
+    .bar-label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        font-family: 'Courier New', monospace;
+        white-space: nowrap;
+    }
+    .legend {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 1rem;
+        padding: 0.75rem 1rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+        font-size: 0.8rem;
+    }
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .legend-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 3px;
+    }
+    .footer {
+        padding: 1rem 2.5rem;
+        background: #f8f9fa;
+        border-top: 1px solid #ecf0f1;
+        font-size: 0.75rem;
+        color: #95a5a6;
+        display: flex;
+        justify-content: space-between;
+    }
+    .output-score {
+        font-size: 0.9rem;
+        margin-top: 1rem;
+        padding: 0.75rem 1rem;
+        background: #fafafa;
+        border-left: 4px solid #2d8f33;
+        border-radius: 4px;
+    }
+    .output-score strong {
+        color: #2d8f33;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🌾 M7 Urgency Scorer — SHAP Explanation</h1>
+        <div class="subtitle">Grower: G_100 &nbsp;|&nbsp; Model: xgb-v1</div>
+    </div>
+
+    <div class="score-panel">
+        <div class="score-circle score-mid">
+            0.50
+        </div>
+        <div class="score-meta">
+            <h2>Urgency Score</h2>
+            <div><span class="badge badge-active">ACTIVE — Send Message</span></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Feature Contributions (SHAP Waterfall)</h3>
+        <table class="waterfall-table">
+            <thead>
+                <tr style="font-size:0.75rem; color:#95a5a6; text-transform:uppercase; letter-spacing:0.5px;">
+                    <td style="padding-bottom:0.5rem;">Feature</td>
+                    <td style="padding-bottom:0.5rem; text-align:right;">Value</td>
+                    <td style="padding-bottom:0.5rem;">SHAP Contribution</td>
+                </tr>
+            </thead>
+            <tbody>
+                
+        <tr class="waterfall-row">
+            <td class="feat-name">Weather Anomaly</td>
+            <td class="feat-val">0.600</td>
+            <td class="bar-cell">
+                <div class="bar-container">
+                    <div class="bar bar-neg"
+                         style="width: 280.0px; background: #3498db;">
+                    </div>
+                    <span class="bar-label" style="color: #3498db;">−0.3063</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="waterfall-row">
+            <td class="feat-name">Grower Age</td>
+            <td class="feat-val">42</td>
+            <td class="bar-cell">
+                <div class="bar-container">
+                    <div class="bar bar-pos"
+                         style="width: 173.2px; background: #e74c3c;">
+                    </div>
+                    <span class="bar-label" style="color: #e74c3c;">+0.1895</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="waterfall-row">
+            <td class="feat-name">Month of Year</td>
+            <td class="feat-val">2</td>
+            <td class="bar-cell">
+                <div class="bar-container">
+                    <div class="bar bar-neg"
+                         style="width: 116.6px; background: #3498db;">
+                    </div>
+                    <span class="bar-label" style="color: #3498db;">−0.1276</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="waterfall-row">
+            <td class="feat-name">Communication Recency Penalty</td>
+            <td class="feat-val">0</td>
+            <td class="bar-cell">
+                <div class="bar-container">
+                    <div class="bar bar-neg"
+                         style="width: 101.2px; background: #3498db;">
+                    </div>
+                    <span class="bar-label" style="color: #3498db;">−0.1107</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="waterfall-row">
+            <td class="feat-name">Crop: Potato</td>
+            <td class="feat-val">1</td>
+            <td class="bar-cell">
+                <div class="bar-container">
+                    <div class="bar bar-pos"
+                         style="width: 40.0px; background: #e74c3c;">
+                    </div>
+                    <span class="bar-label" style="color: #e74c3c;">+0.0438</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="waterfall-row">
+            <td class="feat-name">Farm Size (acres)</td>
+            <td class="feat-val">2</td>
+            <td class="bar-cell">
+                <div class="bar-container">
+                    <div class="bar bar-pos"
+                         style="width: 36.9px; background: #e74c3c;">
+                    </div>
+                    <span class="bar-label" style="color: #e74c3c;">+0.0403</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="waterfall-row">
+            <td class="feat-name">Pest Outbreak Risk</td>
+            <td class="feat-val">0.800</td>
+            <td class="bar-cell">
+                <div class="bar-container">
+                    <div class="bar bar-pos"
+                         style="width: 35.6px; background: #e74c3c;">
+                    </div>
+                    <span class="bar-label" style="color: #e74c3c;">+0.0389</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="waterfall-row">
+            <td class="feat-name">Offline Campaign Attendance</td>
+            <td class="feat-val">0</td>
+            <td class="bar-cell">
+                <div class="bar-container">
+                    <div class="bar bar-pos"
+                         style="width: 35.0px; background: #e74c3c;">
+                    </div>
+                    <span class="bar-label" style="color: #e74c3c;">+0.0382</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="waterfall-row">
+            <td class="feat-name">Crop: Chickpea</td>
+            <td class="feat-val">0</td>
+            <td class="bar-cell">
+                <div class="bar-container">
+                    <div class="bar bar-neg"
+                         style="width: 28.1px; background: #3498db;">
+                    </div>
+                    <span class="bar-label" style="color: #3498db;">−0.0308</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="waterfall-row">
+            <td class="feat-name">District Engagement Rate</td>
+            <td class="feat-val">0.050</td>
+            <td class="bar-cell">
+                <div class="bar-container">
+                    <div class="bar bar-neg"
+                         style="width: 15.5px; background: #3498db;">
+                    </div>
+                    <span class="bar-label" style="color: #3498db;">−0.0169</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="waterfall-row">
+            <td class="feat-name">Crop: Mustard</td>
+            <td class="feat-val">0</td>
+            <td class="bar-cell">
+                <div class="bar-container">
+                    <div class="bar bar-neg"
+                         style="width: 10.7px; background: #3498db;">
+                    </div>
+                    <span class="bar-label" style="color: #3498db;">−0.0117</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="waterfall-row">
+            <td class="feat-name">Week of Rabi Season</td>
+            <td class="feat-val">13</td>
+            <td class="bar-cell">
+                <div class="bar-container">
+                    <div class="bar bar-pos"
+                         style="width: 5.6px; background: #e74c3c;">
+                    </div>
+                    <span class="bar-label" style="color: #e74c3c;">+0.0061</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="waterfall-row">
+            <td class="feat-name">Seasonal Product Demand</td>
+            <td class="feat-val">0.700</td>
+            <td class="bar-cell">
+                <div class="bar-container">
+                    <div class="bar bar-pos"
+                         style="width: 2.9px; background: #e74c3c;">
+                    </div>
+                    <span class="bar-label" style="color: #e74c3c;">+0.0032</span>
+                </div>
+            </td>
+        </tr>
+            </tbody>
+        </table>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-dot" style="background:#e74c3c;"></div>
+                <span>Pushes score UP (increases urgency)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot" style="background:#3498db;"></div>
+                <span>Pushes score DOWN (decreases urgency)</span>
+            </div>
+        </div>
+
+        <div class="output-score">
+            <strong>Base value:</strong> 0.0000 &nbsp;→&nbsp;
+            <strong>Final output:</strong> 0.5000
+            &nbsp;(Σ contributions = -0.2438)
+        </div>
+    </div>
+
+    <div class="footer">
+        <span>Syngenta IITM Hackathon 2026 — M7 Intelligence Engine</span>
+        <span>Generated with SHAP (TreeExplainer)</span>
+    </div>
+</div>
+</body>
+</html>
