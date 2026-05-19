@@ -16,7 +16,7 @@ def run_rank_test(crop, pest, stage, urgency=0.5):
                 "preferred_language": "English",
                 "state": "Tamil Nadu",
                 "district": "Thanjavur",
-                "village": "Test Village",
+                "tehsil": "Test Village",
                 "latitude": 10.78,
                 "longitude": 79.13,
                 "acres": 5.0,

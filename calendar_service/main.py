@@ -83,8 +83,8 @@ def read_root():
 
 @app.get("/calendar", response_model=models.CropStageInfo)
 async def get_crop_calendar(
-    state: str = Query(..., example="Tamil Nadu"),
-    crop: str = Query(..., example="rice"),
+    state: str = Query(..., examples=["Tamil Nadu"]),
+    crop: str = Query(..., examples=["rice"]),
     month: Optional[int] = Query(None)
 ):
     month = month or datetime.now().month

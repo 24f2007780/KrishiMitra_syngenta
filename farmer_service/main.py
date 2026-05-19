@@ -20,8 +20,8 @@ def db_farmer_to_profile(farmer: models.Farmer) -> models.FarmerProfile:
         preferred_language=farmer.preferred_language,
         state=farmer.state,
         district=farmer.district,
-        village=farmer.village,
-        acres=farmer.acres,
+        tehsil=farmer.tehsil,
+        grower_farm_size=farmer.grower_farm_size,
         crops=crops_list,
         latitude=farmer.latitude,
         longitude=farmer.longitude,
@@ -33,7 +33,9 @@ def db_farmer_to_profile(farmer: models.Farmer) -> models.FarmerProfile:
         messages_opened_last_30d=farmer.messages_opened_last_30d,
         preferred_contact_time=farmer.preferred_contact_time,
         linked_retailer_id=farmer.linked_retailer_id,
-        linked_retailer_name=farmer.linked_retailer_name
+        linked_retailer_name=farmer.linked_retailer_name,
+        urgency_score=farmer.urgency_score,
+        recommended_channel=farmer.recommended_channel
     )
 
 @app.get("/farmer/{farmer_id}", response_model=models.FarmerProfile)

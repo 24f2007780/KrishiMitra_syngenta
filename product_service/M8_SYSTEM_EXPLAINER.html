@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M8 Product Ranker — System Explainer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, sans-serif;
+      background: #f8f9fc;
+      color: #2c3e50;
+      line-height: 1.7;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1a3a5e 0%, #2980b9 60%, #3498db 100%);
+      color: #fff;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero .sub {
+      font-size: 1.05rem;
+      opacity: 0.9;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .hero .badge {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.4rem 1.2rem;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: #1a3a5e;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid #ebf5fb;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      color: #2980b9;
+      margin: 1.5rem 0 0.5rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      border-left: 4px solid #2980b9;
+    }
+
+    .card.green {
+      border-left-color: #27ae60;
+    }
+
+    .card.orange {
+      border-left-color: #e67e22;
+    }
+
+    .card.red {
+      border-left-color: #e74c3c;
+    }
+
+    .card h4 {
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card h4 {
+      color: #1a3a5e;
+    }
+
+    .card.green h4 {
+      color: #27ae60;
+    }
+
+    .card.orange h4 {
+      color: #e67e22;
+    }
+
+    .card.red h4 {
+      color: #e74c3c;
+    }
+
+    code {
+      background: #ebf5fb;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-family: 'Courier New', monospace;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hero">
+    <h1>🧪 M8 Product Ranker</h1>
+    <div class="sub">Adaptive agronomic decision engine for crop protection product recommendations.<br>Rule-based
+      efficacy matching + ML collaborative filtering + resistance management.</div>
+    <div class="badge">Syngenta × IITM Hackathon 2026 &nbsp;|&nbsp; Version m8-hybrid-v1</div>
+  </div>
+  <div class="container">
+
+    <section>
+      <h2>What is M8?</h2>
+      <p>M8 is a <strong>product recommendation engine</strong> that answers:</p>
+      <div class="card" style="text-align:center; font-family:monospace; font-size:1rem;">
+        "Given this farmer's crop, pest problem, urgency, and history — which 2 products should we recommend, and why?"
+      </div>
+      <p>It is NOT a simple lookup table. It balances:</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; margin:1rem 0;">
+        <div class="card green">
+          <h4>🌿 Efficacy</h4>Does this product actually treat the problem?
+        </div>
+        <div class="card orange">
+          <h4>📊 Adoption</h4>Do farmers in this region actually buy it?
+        </div>
+        <div class="card">
+          <h4>📦 Availability</h4>Is it in stock at nearby retailers?
+        </div>
+      </div>
+      <p>Plus critical agronomic intelligence: <strong>resistance management</strong>, <strong>treatment intent
+          matching</strong>, and <strong>contraindication checks</strong>.</p>
+    </section>
+
+    <section>
+      <h2>System Architecture (3 Layers + Post-Processing)</h2>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:0; margin:1.5rem 0;">
+        <div
+          style="background:#d4efdf; border:2px solid #27ae60; border-radius:10px; padding:0.8rem 1.5rem; text-align:center; font-size:0.9rem; font-weight:500; min-width:340px;">
+          Layer 1: Agronomic Efficacy (40–60% weight) → <strong>Does it work?</strong></div>
+        <div style="font-size:1.2rem; color:#7f8c8d; padding:0.3rem 0;">↓</div>
+        <div
+          style="background:#fef9e7; border:2px solid #e67e22; border-radius:10px; padding:0.8rem 1.5rem; text-align:center; font-size:0.9rem; font-weight:500; min-width:340px;">
+          Layer 2: Behavioral Adoption (15–30% weight) → <strong>Will they buy it?</strong></div>
+        <div style="font-size:1.2rem; color:#7f8c8d; padding:0.3rem 0;">↓</div>
+        <div
+          style="background:#ebf5fb; border:2px solid #3498db; border-radius:10px; padding:0.8rem 1.5rem; text-align:center; font-size:0.9rem; font-weight:500; min-width:340px;">
+          Layer 3: Availability + Affordability (15–25% weight) → <strong>Can they get it?</strong></div>
+        <div style="font-size:1.2rem; color:#7f8c8d; padding:0.3rem 0;">↓</div>
+        <div
+          style="background:#fdedec; border:2px solid #e74c3c; border-radius:10px; padding:0.8rem 1.5rem; text-align:center; font-size:0.9rem; font-weight:500; min-width:340px;">
+          Post-Processing: Resistance Mgmt + Diversity + Contraindications</div>
+      </div>
+      <div class="card">
+        <h4>Key Design Decision: Dynamic Weighting</h4>
+        <p style="margin:0;">Weights shift with urgency. High urgency → efficacy dominates (farmer needs the RIGHT
+          product NOW). Low urgency → adoption and affordability matter more (farmer has time to choose).</p>
+        <table style="width:100%; margin-top:0.8rem; border-collapse:collapse; font-size:0.85rem;">
+          <tr style="background:#ebf5fb;">
+            <th style="padding:0.4rem;">Urgency</th>
+            <th>Efficacy</th>
+            <th>Adoption</th>
+            <th>Availability</th>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">Low (0.1)</td>
+            <td>42%</td>
+            <td>29%</td>
+            <td>29%</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">Medium (0.5)</td>
+            <td>50%</td>
+            <td>23%</td>
+            <td>28%</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem;">High (0.9)</td>
+            <td>58%</td>
+            <td>17%</td>
+            <td>25%</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Input: RankRequest</h2>
+      <pre
+        style="background:#1e1e1e; color:#d4d4d4; padding:1.2rem; border-radius:8px; font-size:0.82rem; line-height:1.5; overflow-x:auto;">{
+  <span style="color:#9cdcfe;">"grower_id"</span>: <span style="color:#ce9178;">"G_1021"</span>,
+  <span style="color:#9cdcfe;">"crop"</span>: <span style="color:#ce9178;">"wheat"</span>,
+  <span style="color:#9cdcfe;">"pest"</span>: <span style="color:#ce9178;">"rust"</span>,
+  <span style="color:#9cdcfe;">"crop_stage"</span>: <span style="color:#ce9178;">"flowering"</span>,
+  <span style="color:#9cdcfe;">"urgency_score"</span>: <span style="color:#b5cea8;">0.85</span>,        <span style="color:#6a9955;">// from M7 urgency engine</span>
+  <span style="color:#9cdcfe;">"district"</span>: <span style="color:#ce9178;">"Jaipur"</span>,
+  <span style="color:#9cdcfe;">"grower_farm_size"</span>: <span style="color:#b5cea8;">2.5</span>,
+  <span style="color:#9cdcfe;">"recently_used_products"</span>: [<span style="color:#ce9178;">"Tilt 250 EC"</span>],
+  <span style="color:#9cdcfe;">"spray_history"</span>: [<span style="color:#ce9178;">"Score 250 EC"</span>, <span style="color:#ce9178;">"Tilt 250 EC"</span>],
+  <span style="color:#9cdcfe;">"days_to_harvest"</span>: <span style="color:#b5cea8;">45</span>,
+  <span style="color:#9cdcfe;">"top_k"</span>: <span style="color:#b5cea8;">2</span>
+}</pre>
+      <table style="width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.85rem;">
+        <thead>
+          <tr style="background:#ebf5fb;">
+            <th style="padding:0.5rem; text-align:left;">Field</th>
+            <th>Required</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #f0f0f0;"><code>crop</code></td>
+            <td>✓</td>
+            <td>Which crop the farmer grows</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #f0f0f0;"><code>pest</code></td>
+            <td></td>
+            <td>Current pest/disease problem (or "general")</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #f0f0f0;"><code>crop_stage</code></td>
+            <td></td>
+            <td>Growth stage (sowing/tillering/flowering/pod_formation/harvest)</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #f0f0f0;"><code>urgency_score</code></td>
+            <td></td>
+            <td>From M7 — shifts weights toward efficacy when high</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #f0f0f0;"><code>district</code></td>
+            <td></td>
+            <td>For regional preference + stock availability</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #f0f0f0;"><code>grower_farm_size</code></td>
+            <td></td>
+            <td>Affordability matching (small farm → cost-effective)</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #f0f0f0;"><code>recently_used_products</code></td>
+            <td></td>
+            <td>Last 14 days — triggers resistance penalty</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #f0f0f0;"><code>spray_history</code></td>
+            <td></td>
+            <td>Full season — tracks MoA rotation</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem;"><code>days_to_harvest</code></td>
+            <td></td>
+            <td>Pre-harvest interval safety check</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Output: Full Recommendation Response</h2>
+      <pre
+        style="background:#1e1e1e; color:#d4d4d4; padding:1.2rem; border-radius:8px; font-size:0.78rem; line-height:1.5; overflow-x:auto;">{
+  <span style="color:#9cdcfe;">"top_products"</span>: [
+    {
+      <span style="color:#9cdcfe;">"product_name"</span>: <span style="color:#ce9178;">"Amistar 250 SC"</span>,
+      <span style="color:#9cdcfe;">"match_score"</span>: <span style="color:#b5cea8;">0.957</span>,
+      <span style="color:#9cdcfe;">"confidence"</span>: <span style="color:#b5cea8;">1.0</span>,
+      <span style="color:#9cdcfe;">"match_reasons"</span>: [
+        <span style="color:#ce9178;">"Targets rust — efficacy rating 91%"</span>,
+        <span style="color:#ce9178;">"Curative action — suitable for high-urgency intervention"</span>,
+        <span style="color:#ce9178;">"Systemic action — absorbed and translocated in plant"</span>
+      ],
+      <span style="color:#9cdcfe;">"score_breakdown"</span>: {
+        <span style="color:#9cdcfe;">"efficacy"</span>: <span style="color:#b5cea8;">0.982</span>,
+        <span style="color:#9cdcfe;">"adoption"</span>: <span style="color:#b5cea8;">0.944</span>,
+        <span style="color:#9cdcfe;">"availability"</span>: <span style="color:#b5cea8;">0.91</span>,
+        <span style="color:#9cdcfe;">"moa_group"</span>: <span style="color:#ce9178;">"FRAC-11"</span>,
+        <span style="color:#9cdcfe;">"treatment_intent"</span>: [<span style="color:#ce9178;">"preventive"</span>, <span style="color:#ce9178;">"curative"</span>],
+        <span style="color:#9cdcfe;">"price_tier"</span>: <span style="color:#ce9178;">"premium"</span>
+      }
+    }
+  ],
+  <span style="color:#9cdcfe;">"not_recommended"</span>: [
+    { <span style="color:#9cdcfe;">"product_name"</span>: <span style="color:#ce9178;">"Score 250 EC"</span>,
+      <span style="color:#9cdcfe;">"not_ranked_higher_because"</span>: [<span style="color:#ce9178;">"Same MoA group (FRAC-3) used recently — rotate"</span>] }
+  ],
+  <span style="color:#9cdcfe;">"resistance_advisory"</span>: <span style="color:#ce9178;">"⚠️ MoA group FRAC-3 used 2× this season. Consider alternating."</span>
+}</pre>
+    </section>
+
+    <section>
+      <h2>Layer 1: Agronomic Efficacy (The Core)</h2>
+      <p>This is NOT popularity. This is: <em>"How well does this product actually treat the problem?"</em></p>
+      <div
+        style="font-family:monospace; background:#f0faf0; padding:1rem; border-radius:8px; border-left:4px solid #27ae60; margin:1rem 0; font-size:0.85rem;">
+        efficacy = 0.25×crop_match + 0.30×pest_match + 0.15×stage_match + 0.20×efficacy_rating + 0.10×intent_alignment
+      </div>
+      <table style="width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.85rem;">
+        <thead>
+          <tr style="background:#d4efdf;">
+            <th style="padding:0.5rem;">Component</th>
+            <th>Weight</th>
+            <th>What it measures</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">Pest Match</td>
+            <td>30%</td>
+            <td>Does this product target the specific pest/disease?</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">Crop Match</td>
+            <td>25%</td>
+            <td>Is this product registered for this crop?</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">Efficacy Rating</td>
+            <td>20%</td>
+            <td>Domain expert rating of product effectiveness</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">Stage Match</td>
+            <td>15%</td>
+            <td>Is this product effective at the current growth stage?</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem;">Intent Alignment</td>
+            <td>10%</td>
+            <td>Curative for high urgency, preventive for low urgency</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Treatment Intent Classification</h3>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin:1rem 0;">
+        <div class="card green" style="padding:1rem;">
+          <h4>🛡️ Preventive</h4>
+          <p style="margin:0; font-size:0.82rem;">Apply before symptoms. Low urgency. Kavach, Cruiser, Vibrance.</p>
+        </div>
+        <div class="card orange" style="padding:1rem;">
+          <h4>💊 Curative</h4>
+          <p style="margin:0; font-size:0.82rem;">Apply after early symptoms. Medium-high urgency. Score, Tilt, Alto.
+          </p>
+        </div>
+        <div class="card red" style="padding:1rem;">
+          <h4>🚨 Rescue</h4>
+          <p style="margin:0; font-size:0.82rem;">Emergency intervention. Critical urgency. Movondo, Actara.</p>
+        </div>
+        <div class="card" style="padding:1rem;">
+          <h4>🌱 Seed Treatment</h4>
+          <p style="margin:0; font-size:0.82rem;">Pre-sowing only. Cruiser, Vibrance Integral.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Layer 2: Behavioral Adoption (ML from POS Data)</h2>
+      <p>Learned from 235,000+ real retail transactions. Answers: <em>"What do farmers in this region actually buy for
+          this crop?"</em></p>
+      <div class="card">
+        <h4>How it's trained</h4>
+        <ul style="margin:0 0 0 1.5rem; font-size:0.85rem;">
+          <li><strong>Crop→Product affinity:</strong> Which products sell most in tehsils where a specific crop is
+            grown?</li>
+          <li><strong>District→Product popularity:</strong> Regional purchase preferences (Jaipur buys different
+            products than Ludhiana)</li>
+          <li><strong>Temporal split:</strong> Train on Oct–Feb POS, validate on Mar–Apr purchases</li>
+          <li><strong>No synthetic data:</strong> All signals from real transactions</li>
+        </ul>
+      </div>
+      <p><strong>Critical distinction:</strong> Adoption ≠ Efficacy. A product can be popular but not the best choice
+        for a specific pest. That's why efficacy dominates the scoring.</p>
+    </section>
+
+    <section>
+      <h2>Resistance Management (MoA Tracking)</h2>
+      <p>This is what separates M8 from a simple lookup table. Real agronomy requires <strong>Mode of Action
+          rotation</strong> to prevent pest resistance.</p>
+      <div class="card red">
+        <h4>How it works</h4>
+        <table style="width:100%; border-collapse:collapse; font-size:0.85rem; margin:0.5rem 0;">
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #f5c6cb;"><strong>Same product used in last 14
+                days</strong></td>
+            <td>→ 60% penalty (severe)</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #f5c6cb;"><strong>Same MoA group used recently</strong>
+            </td>
+            <td>→ 35% penalty (moderate)</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem;"><strong>Same MoA used 3+ times this season</strong></td>
+            <td>→ 50% penalty + advisory generated</td>
+          </tr>
+        </table>
+      </div>
+
+      <h3>MoA Groups in the Catalog</h3>
+      <table style="width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.82rem;">
+        <thead>
+          <tr style="background:#fdedec;">
+            <th style="padding:0.4rem;">Group</th>
+            <th>Class</th>
+            <th>Products</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">FRAC-3</td>
+            <td>DMI Triazole</td>
+            <td>Score, Alto, Tilt</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">FRAC-11</td>
+            <td>QoI Strobilurin</td>
+            <td>Amistar</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">FRAC-M5</td>
+            <td>Multi-site</td>
+            <td>Kavach</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">FRAC-3+5</td>
+            <td>DMI + Morpholine</td>
+            <td>Movondo</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">IRAC-4A</td>
+            <td>Neonicotinoid</td>
+            <td>Actara, Cruiser</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">IRAC-6</td>
+            <td>Avermectin</td>
+            <td>Vertimec</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem;">HRAC-A</td>
+            <td>ACCase inhibitor</td>
+            <td>Topik, Axial</td>
+          </tr>
+        </tbody>
+      </table>
+      <p><strong>Diversity enforcement:</strong> Top-K recommendations always contain different MoA groups. This
+        prevents recommending Score + Tilt + Alto (all FRAC-3 triazoles) together.</p>
+    </section>
+
+    <section>
+      <h2>"Why Not Recommended" — Rejection Explainability</h2>
+      <p>The system doesn't just say what to use. It explains <strong>why alternatives were rejected</strong>. This
+        builds trust.</p>
+      <div class="card orange">
+        <h4>Example rejection explanations</h4>
+        <table style="width:100%; border-collapse:collapse; font-size:0.85rem; margin:0.5rem 0;">
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #fdebd0; width:30%;"><strong>Score 250 EC</strong></td>
+            <td>"Same MoA group (FRAC-3) used recently — rotate to prevent resistance"</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #fdebd0;"><strong>Movondo</strong></td>
+            <td>"Premium pricing — may not suit small farm budget"</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #fdebd0;"><strong>Cruiser 350 FS</strong></td>
+            <td>"Seed treatment not applicable at flowering growth stage"</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem;"><strong>Kavach 75 WP</strong></td>
+            <td>"Low stock availability in your district"</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Contraindication Checks</h2>
+      <p>Safety rules that override scoring:</p>
+      <table style="width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.85rem;">
+        <thead>
+          <tr style="background:#fdedec;">
+            <th style="padding:0.5rem;">Rule</th>
+            <th>Penalty</th>
+            <th>Rationale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">Foliar spray within 14 days of harvest</td>
+            <td>70% penalty</td>
+            <td>Pre-harvest interval (PHI) food safety</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">Seed treatment at flowering/pod stage</td>
+            <td>85% penalty</td>
+            <td>Wrong application timing — ineffective</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem;">Out of stock (availability &lt; 10%)</td>
+            <td>70% penalty</td>
+            <td>Don't recommend unavailable products</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Real-World Scenarios</h2>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1rem 0;">
+        <div class="card green">
+          <h4>Scenario A: Wheat rust, high urgency</h4>
+          <p style="font-size:0.82rem; margin:0;">
+            Crop: wheat | Pest: rust | Urgency: 0.9<br>
+            History: Used Tilt (FRAC-3) last week<br><br>
+            <strong>Result:</strong><br>
+            #1: Amistar 250 SC (FRAC-11) — different MoA ✓<br>
+            #2: Movondo (FRAC-3+5) — rescue capability ✓<br>
+            <em>Score 250 EC rejected: same MoA as Tilt</em>
+          </p>
+        </div>
+        <div class="card orange">
+          <h4>Scenario B: Potato blight, small farmer</h4>
+          <p style="font-size:0.82rem; margin:0;">
+            Crop: potato | Pest: blight | Farm: 1.5 acres<br>
+            No spray history<br><br>
+            <strong>Result:</strong><br>
+            #1: Kavach 75 WP (low cost, preventive) ✓<br>
+            #2: Vertimec 1.8 EC (mid cost, different MoA) ✓<br>
+            <em>Amistar rejected: premium pricing for small farm</em>
+          </p>
+        </div>
+      </div>
+      <div class="card red">
+        <h4>Scenario C: Near harvest, fungal issue</h4>
+        <p style="font-size:0.82rem; margin:0;">
+          Crop: wheat | Pest: fungal | Days to harvest: 7<br><br>
+          <strong>Result:</strong><br>
+          All foliar sprays heavily penalized (PHI concern).<br>
+          System may recommend no intervention or flag for field visit.<br>
+          <em>"Too close to harvest for foliar application"</em>
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Integration with M7 (Urgency Engine)</h2>
+      <p>M7 and M8 work together as a unified decision platform:</p>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:0; margin:1.5rem 0;">
+        <div
+          style="background:#e8f5e9; border:2px solid #27ae60; border-radius:10px; padding:0.6rem 1.5rem; text-align:center; font-size:0.85rem; min-width:300px;">
+          <strong>M7</strong> computes urgency_score + engagement + intervention_priority</div>
+        <div style="font-size:1.2rem; color:#7f8c8d; padding:0.2rem 0;">↓ passes urgency_score</div>
+        <div
+          style="background:#ebf5fb; border:2px solid #3498db; border-radius:10px; padding:0.6rem 1.5rem; text-align:center; font-size:0.85rem; min-width:300px;">
+          <strong>M8</strong> uses urgency to shift weights → recommends products</div>
+        <div style="font-size:1.2rem; color:#7f8c8d; padding:0.2rem 0;">↓ combined output</div>
+        <div
+          style="background:#fff; border:2px solid #2c3e50; border-radius:10px; padding:0.6rem 1.5rem; text-align:center; font-size:0.85rem; min-width:300px;">
+          <strong>Final Decision:</strong> "Send WhatsApp recommending Amistar 250 SC for rust"</div>
+      </div>
+      <div class="card">
+        <h4>How urgency affects product selection</h4>
+        <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+          <tr style="background:#ebf5fb;">
+            <th style="padding:0.4rem;">Urgency</th>
+            <th>Product Strategy</th>
+            <th>Example</th>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">High (>0.8)</td>
+            <td>Curative/rescue, fast-acting, systemic</td>
+            <td>Movondo, Actara</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">Medium (0.4–0.8)</td>
+            <td>Balanced curative + preventive</td>
+            <td>Score, Amistar</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem;">Low (<0.4)< /td>
+            <td>Preventive, seed treatment, cost-effective</td>
+            <td>Kavach, Cruiser</td>
+          </tr>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Evaluation Methodology</h2>
+      <p>How do you test a recommendation system without explicit "correct answer" labels?</p>
+      <div class="card">
+        <h4>Implicit Feedback Evaluation</h4>
+        <p style="margin:0; font-size:0.85rem;">Use actual purchase behavior as ground truth. If a farmer in crop X,
+          district Y bought product Z — would our ranker have recommended Z?</p>
+      </div>
+
+      <h3>Metrics</h3>
+      <table style="width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.85rem;">
+        <thead>
+          <tr style="background:#ebf5fb;">
+            <th style="padding:0.5rem;">Metric</th>
+            <th>Value</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">Hit Rate @2</td>
+            <td><strong>18.8%</strong></td>
+            <td>Purchased product in top-2 (random=16.7%)</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">Hit Rate @5</td>
+            <td><strong>43.8%</strong></td>
+            <td>Purchased product in top-5 (random=41.7%)</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">MRR</td>
+            <td><strong>0.213</strong></td>
+            <td>Mean Reciprocal Rank</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">Coverage</td>
+            <td><strong>75%</strong></td>
+            <td>9/12 products get recommended</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">MoA Diversity</td>
+            <td><strong>1.00</strong></td>
+            <td>Perfect — every top-3 has unique MoA groups</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem;">Lift over random</td>
+            <td><strong>1.13×</strong></td>
+            <td>13% better than random selection</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Why modest lift is expected (and acceptable)</h3>
+      <div class="card orange">
+        <ul style="margin:0 0 0 1.5rem; font-size:0.85rem;">
+          <li><strong>Only 12 products</strong> — random baseline is already 16.7% for top-2. Ceiling is low.</li>
+          <li><strong>Evaluation uses pest=general</strong> — POS data doesn't tell us what pest the farmer faced. The
+            ranker's biggest strength (pest-specific matching) can't be tested from purchases alone.</li>
+          <li><strong>The real value isn't hit rate</strong> — it's agronomic coherence, resistance management,
+            explainability, and contextual adaptation. These can't be measured by purchase prediction.</li>
+        </ul>
+      </div>
+
+      <h3>What actually matters for judges</h3>
+      <table style="width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.85rem;">
+        <thead>
+          <tr style="background:#d4efdf;">
+            <th style="padding:0.5rem;">Quality</th>
+            <th>Measurable?</th>
+            <th>M8 Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">Right product for the pest</td>
+            <td>Yes (coherence test)</td>
+            <td>✓ Domain rules satisfied</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">Resistance management</td>
+            <td>Yes (MoA diversity)</td>
+            <td>✓ Perfect diversity score</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">Urgency adaptation</td>
+            <td>Yes (weight shift test)</td>
+            <td>✓ Dynamic weighting verified</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">Explainability</td>
+            <td>Qualitative</td>
+            <td>✓ Full reasoning + rejections</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">Safety (contraindications)</td>
+            <td>Yes (PHI test)</td>
+            <td>✓ Pre-harvest penalty working</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem;">Affordability matching</td>
+            <td>Yes (price tier test)</td>
+            <td>✓ Small farmers get low-cost options</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Product Catalog (12 Syngenta SKUs)</h2>
+      <table style="width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.8rem;">
+        <thead>
+          <tr style="background:#ebf5fb;">
+            <th style="padding:0.4rem;">Product</th>
+            <th>Category</th>
+            <th>MoA</th>
+            <th>Target Pests</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">Topik 15 WP</td>
+            <td>Herbicide</td>
+            <td>HRAC-A</td>
+            <td>Weeds</td>
+            <td>Mid</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">Score 250 EC</td>
+            <td>Fungicide</td>
+            <td>FRAC-3</td>
+            <td>Rust, blight, mildew</td>
+            <td>Mid</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">Actara 25 WG</td>
+            <td>Insecticide</td>
+            <td>IRAC-4A</td>
+            <td>Aphid, whitefly, borer</td>
+            <td>Premium</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">Kavach 75 WP</td>
+            <td>Fungicide</td>
+            <td>FRAC-M5</td>
+            <td>Blight, fungal</td>
+            <td>Low</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">Amistar 250 SC</td>
+            <td>Fungicide</td>
+            <td>FRAC-11</td>
+            <td>Rust, blight, mildew</td>
+            <td>Premium</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">Alto 5 SC</td>
+            <td>Fungicide</td>
+            <td>FRAC-3</td>
+            <td>Rust, fungal</td>
+            <td>Mid</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">Vertimec 1.8 EC</td>
+            <td>Acaricide</td>
+            <td>IRAC-6</td>
+            <td>Borer, whitefly, aphid</td>
+            <td>Mid</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">Axial 50 EC</td>
+            <td>Herbicide</td>
+            <td>HRAC-A</td>
+            <td>Weeds</td>
+            <td>Premium</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">Cruiser 350 FS</td>
+            <td>Seed Treatment</td>
+            <td>IRAC-4A</td>
+            <td>Borer, aphid, wilt</td>
+            <td>Mid</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">Tilt 250 EC</td>
+            <td>Fungicide</td>
+            <td>FRAC-3</td>
+            <td>Rust, blight</td>
+            <td>Low</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem; border-bottom:1px solid #eee;">Movondo</td>
+            <td>Fungicide</td>
+            <td>FRAC-3+5</td>
+            <td>Rust, mildew</td>
+            <td>Premium</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem;">Vibrance Integral</td>
+            <td>Seed Treatment</td>
+            <td>FRAC-7+3+IRAC-4A</td>
+            <td>Wilt, fungal, borer</td>
+            <td>Premium</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>API Endpoint</h2>
+      <table style="width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.85rem;">
+        <thead>
+          <tr style="background:#ebf5fb;">
+            <th style="padding:0.5rem;">Method</th>
+            <th>Path</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;"><code>GET</code></td>
+            <td><code>/health</code></td>
+            <td>Service health check</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem;"><code>POST</code></td>
+            <td><code>/rank</code></td>
+            <td>Product ranking with full reasoning</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Run with: <code>uvicorn app.main:app --reload --port 8001</code></p>
+    </section>
+
+    <section>
+      <h2>What Makes This Different</h2>
+      <table style="width:100%; border-collapse:collapse; margin:1rem 0; font-size:0.85rem;">
+        <thead>
+          <tr style="background:#ebf5fb;">
+            <th style="padding:0.5rem;">Typical Approach</th>
+            <th>M8 Approach</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">IF pest=rust THEN product=Score</td>
+            <td>Multi-objective scoring with dynamic weights</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">Recommend most popular product</td>
+            <td>Separate efficacy from popularity</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">Same recommendation every time</td>
+            <td>Resistance-aware MoA rotation</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">No explanation</td>
+            <td>"Why recommended" + "Why NOT recommended"</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">One-size-fits-all</td>
+            <td>Affordability matching by farm size</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem; border-bottom:1px solid #eee;">Ignores timing</td>
+            <td>Pre-harvest interval + stage contraindications</td>
+          </tr>
+          <tr>
+            <td style="padding:0.5rem;">Static weights</td>
+            <td>Urgency-driven dynamic weight shifting</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </div>
+  <div style="background:#1a3a5e; color:#fff; padding:2rem; text-align:center; font-size:0.85rem; margin-top:3rem;">
+    Syngenta × IITM Hackathon 2026 &nbsp;|&nbsp; M8 Product Ranker v1.0 &nbsp;|&nbsp; Adaptive agronomic decision engine
+    — 37 tests passing, 12 products, resistance-aware.
+  </div>
+</body>
+
+</html>

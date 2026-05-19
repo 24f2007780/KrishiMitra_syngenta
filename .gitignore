@@ -29,4 +29,6 @@ whatsapp_apps/web/sessions/
 # OS
 .DS_Store
 Thumbs.db
-syngenta_data/
+dataset/
+m8_product_ranker/
+m7_urgency_scorer/

@@ -1,13 +1,35 @@
 import json
 import os
 import csv
+import sys
+# Allow executing this file directly from anywhere in the project
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from sqlalchemy.orm import Session
 from shared.models import Farmer, Product
 
 def seed_farmers(db: Session):
     db.query(Farmer).delete()
 
-    csv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "syngenta_data", "growers.csv")
+    wa_counts = {}
+    wa_csv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "dataset", "whatsapp_campaign.csv")
+    if os.path.exists(wa_csv_path):
+        with open(wa_csv_path, newline="", encoding="utf-8") as f_wa:
+            reader = csv.DictReader(f_wa)
+            for row in reader:
+                g_id = row.get("grower_id", "").strip()
+                if not g_id:
+                    continue
+                delivered = str(row.get("delivered_status")).lower() == 'true'
+                opened = str(row.get("opened_status")).lower() == 'true'
+                if g_id not in wa_counts:
+                    wa_counts[g_id] = {"received": 0, "opened": 0}
+                if delivered:
+                    wa_counts[g_id]["received"] += 1
+                if opened:
+                    wa_counts[g_id]["opened"] += 1
+
+    csv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "dataset", "growers.csv")
     
     default_geo = {
         "Rajasthan": (27.0238, 74.2179),
@@ -38,6 +60,13 @@ def seed_farmers(db: Session):
             return "4G"
         return "3G"
 
+    indian_names = [
+        "Rajan Kumar", "Suresh Reddy", "Vijay Patil", "Amit Singh", "Ramesh Kumar",
+        "Anil Sharma", "Sanjay Gupta", "Mahesh Babu", "Sunil Verma", "Ajay Meena",
+        "Vikram Singh", "Pankaj Yadav", "Santosh Mane", "Ganesh Hegde", "Sandeep Chaudhary",
+        "Manoj Tiwari", "Kishore Bhagat", "Harish Rao", "Pradeep Naik", "Nitin Gadkari",
+        "Deepak Deshmukh", "Arun Jaitley", "Kapil Dev", "Sachin Kulkarni", "Virat Chauhan"
+    ]
     farmers = []
     
     if not os.path.exists(csv_path):
@@ -68,29 +97,120 @@ def seed_farmers(db: Session):
             grower_id = (row.get("grower_id") or f"GRW_{i + 1:05d}").strip()
             phone = f"+91-9{i:09d}"
 
-            farmers.append(Farmer(
+            from shared.models import (
+                FarmerProfile, SignalBundle, FarmerStage, FarmerContext
+            )
+            from urgency_scorer.app.scorer import compute_urgency
+            import unittest.mock as mock
+            import asyncio
+            from weather_service import main as weather_main
+
+            # Map Crop Type to valid CropType Enum
+            from shared.models import CropType
+            crop_val = "wheat"
+            for ct in CropType:
+                if ct.value == crop:
+                    crop_val = crop
+                    break
+
+            received_last_30d = wa_counts.get(grower_id, {}).get("received", 0)
+            opened_last_30d = wa_counts.get(grower_id, {}).get("opened", 0)
+
+            profile_obj = FarmerProfile(
                 farmer_id=grower_id,
-                name=f"Grower {grower_id}",
+                name=indian_names[i % len(indian_names)],
                 age=age,
                 phone=phone,
                 preferred_language=language,
                 state=state,
                 district=district,
-                village=tehsil or district,
+                tehsil=tehsil,
+                grower_farm_size=acres,
+                crops=[crop_val],
                 latitude=lat,
                 longitude=lon,
-                acres=acres,
+                device_type=device_type,
+                connectivity=connectivity,
+                whatsapp_enabled=device_type != "feature_phone",
+                last_message_sent_at=recent_campaign_date or None,
+                messages_received_last_30d=received_last_30d,
+                messages_opened_last_30d=opened_last_30d,
+                preferred_contact_time="morning",
+                linked_retailer_id=f"RET-{200 + i:03d}",
+                linked_retailer_name=f"{district} Agro Center",
+            )
+            
+            # Fetch weather signals using the weather service logic via mock patching
+            async def mock_coords(l_lat, l_lon):
+                return district, state
+
+            async def mock_historical(l_lat, l_lon, dist):
+                return 30.0, 50.0
+
+            async def mock_current(l_lat, l_lon):
+                return 32.0, 65.0, 10.0
+    
+            with mock.patch("weather_service.main.get_district_from_coords", mock_coords), \
+                 mock.patch("weather_service.main.get_historical_baselines", mock_historical), \
+                 mock.patch("weather_service.main.get_current_weather", mock_current):
+                signals_obj = asyncio.run(weather_main.get_weather_signals(lat, lon))
+            
+            stage_obj = FarmerStage(
+                confirmed_stage="vegetative",
+                days_in_stage=0,
+                vulnerability="medium",
+                days_to_next_stage=30
+            )
+            
+            urgency_ctx = FarmerContext(
+                profile=profile_obj,
+                signals=signals_obj,
+                crop_stage=stage_obj,
+                assembled_at="2026-04-05T00:00:00"
+            )
+
+            urgency_score_val = 0.0
+            recommended_channel_val = None
+
+            try:
+                urgency_res = compute_urgency(urgency_ctx)
+                urgency_score_val = urgency_res.urgency_score
+                recommended_channel_val = urgency_res.recommended_channel.value
+            except Exception as exc:
+                print(f"Error computing urgency for {grower_id} during seeding: {exc}")
+
+            farmers.append(Farmer(
+                farmer_id=grower_id,
+                name=indian_names[i % len(indian_names)],
+                age=age,
+                phone=phone,
+                preferred_language=language,
+                state=state,
+                district=district,
+                latitude=lat,
+                longitude=lon,
+                grower_farm_size=acres,
                 crops=crop,
                 device_type=device_type,
                 connectivity=connectivity,
                 whatsapp_enabled=device_type != "feature_phone",
                 last_message_sent_at=recent_campaign_date or None,
-                messages_received_last_30d=0,
-                messages_opened_last_30d=0,
+                messages_received_last_30d=received_last_30d,
+                messages_opened_last_30d=opened_last_30d,
                 preferred_contact_time="morning",
                 linked_retailer_id=f"RET-{200 + i:03d}",
                 linked_retailer_name=f"{district} Agro Center",
-                urgency_score=0.0
+                urgency_score=urgency_score_val,
+                recommended_channel=recommended_channel_val,
+                tehsil=tehsil,
+                grower_age=age,
+                gender=row.get("gender"),
+                grower_crop_calendar=row.get("grower_crop_calendar"),
+                product_scan=str(row.get("product_scan")).lower() == 'true',
+                product_name=row.get("product_name"),
+                product_scan_datetime=row.get("product_scan_datetime"),
+                offline_campaign_attended=str(row.get("offline_campaign_attended")).lower() == 'true',
+                campaign_attendance_date=row.get("campaign_attendance_date")
             ))
             
     for f in farmers:
@@ -100,31 +220,86 @@ def seed_farmers(db: Session):
 
 def seed_products(db: Session):
     db.query(Product).delete()
-    base_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "product-catalog")
-    files = [
-        ("fungicides-productlist.json", "fungicide"),
-        ("insectides-productlist.json", "insecticide"),
-        ("herbicides-productslist.json", "herbicide"),
-        ("seed-productslist.json", "seed")
-    ]
+    
+    file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "product-catalog", "canonical_products.json")
+    
     product_objects = []
-    for filename, p_type in files:
-        file_path = os.path.join(base_path, filename)
-        if os.path.exists(file_path):
-            with open(file_path, "r") as f:
-                data = json.load(f)
-                for item in data:
-                    desc = item.get("description", "").lower()
-                    found_crops = [c for c in ["rice", "cotton", "wheat", "soybean", "corn"] if c in desc]
-                    found_pests = [p for p in ["blast", "blight", "rust", "bollworm", "aphid"] if p in desc]
-                    product_objects.append(Product(
-                        name=item.get("name"),
-                        type=p_type,
-                        active_ingredients=item.get("active_ingredients"),
-                        description=item.get("description"),
-                        target_crop=", ".join(found_crops) if found_crops else "general",
-                        target_pest=", ".join(found_pests) if found_pests else "general"
-                    ))
-    db.bulk_save_objects(product_objects)
-    db.commit()
+    
+    if os.path.exists(file_path):
+        with open(file_path, "r") as f:
+            data = json.load(f)
+            for item in data:
+                product_objects.append(Product(
+                    name=item.get("name"),
+                    type=item.get("type"),
+                    active_ingredients=item.get("active_ingredients"),
+                    description=item.get("description"),
+                    target_crop=item.get("target_crop"),
+                    target_pest=item.get("target_pest"),
+                    effective_stages=item.get("effective_stages"),
+                    treatment_intent=item.get("treatment_intent"),
+                    efficacy_rating=item.get("efficacy_rating"),
+                    price_tier=item.get("price_tier"),
+                    application_mode=item.get("application_mode"),
+                    systemic=item.get("systemic"),
+                    rain_sensitive_hours=item.get("rain_sensitive_hours"),
+                    moa_group=item.get("moa_group"),
+                    moa_class=item.get("moa_class"),
+                    resistance_management=item.get("resistance_management"),
+                    epa_number=item.get("epa_number"),
+                    logo_url=item.get("logo_url"),
+                    product_url=item.get("product_url"),
+                    directions=item.get("directions")
+                ))
+                
+        db.bulk_save_objects(product_objects)
+        db.commit()
+    else:
+        print(f"Warning: {file_path} not found.")
+        
     return len(product_objects)
+
+if __name__ == "__main__":
+    from app.database import init_db, SessionLocal
+    print("Initializing database...")
+    init_db()
+    db = SessionLocal()
+    try:
+        print("Seeding farmers...")
+        farmers_count = seed_farmers(db)
+        print(f"Successfully seeded {farmers_count} farmers.")
+        
+        print("Seeding products...")
+        products_count = seed_products(db)
+        print(f"Successfully seeded {products_count} products.")
+        
+        print("Seeding WhatsApp campaigns...")
+        from shared.models import WhatsAppCampaign
+        db.query(WhatsAppCampaign).delete()
+        
+        wa_csv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "dataset", "whatsapp_campaign.csv")
+        wa_campaigns = []
+        if os.path.exists(wa_csv_path):
+            with open(wa_csv_path, newline="", encoding="utf-8") as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    wa_campaigns.append(WhatsAppCampaign(
+                        id=row.get("id"),
+                        campaign_product=row.get("campaign_product"),
+                        campaign_crop=row.get("campaign_crop"),
+                        grower_id=row.get("grower_id"),
+                        message_sent_date=row.get("message_sent_date"),
+                        delivered_status=str(row.get("delivered_status")).lower() == 'true',
+                        opened_status=str(row.get("opened_status")).lower() == 'true',
+                        clicked_status=str(row.get("clicked_status")).lower() == 'true'
+                    ))
+            db.bulk_save_objects(wa_campaigns)
+            db.commit()
+            print(f"Successfully seeded {len(wa_campaigns)} WhatsApp campaigns.")
+        else:
+            print(f"Warning: {wa_csv_path} not found.")
+            
+    except Exception as e:
+        print(f"Error seeding database: {e}")
+    finally:
+        db.close()

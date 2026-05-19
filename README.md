@@ -28,7 +28,7 @@ We combine **farmer data**, **weather/pest signals**, and a **crop calendar** in
 
 ## How we solve it (one farmer, step by step)
 
-1. Load **profile** (crop, district, language, device, message history).  
+1. Load **profile** (crop, district, preferred_language, device, message history).  
 2. Load **weather + pest risk** for that district.  
 3. Load **growth stage** for their crop this month.  
 4. **Merge** into one object (**FarmerContext**) — same shape for every service.  
@@ -128,79 +128,113 @@ Python 3.11+, **FastAPI** microservices, **SQLite** (farmers + delivery log), **
 
 ```json
 {
-  "ranking_tests": [
+  "grower_id": "GRW_00001",
+  "crop": "wheat",
+  "pest": "rust",
+  "top_products": [
     {
-      "input": {
-        "crop": "rice",
-        "pest": "blight",
-        "stage": "vegetative",
-        "urgency": 0.5
-      },
-      "response": {
-        "top_products": [
-          "Vibrance RST",
-          "Amistar Top"
+      "product_name": "Score 250 EC",
+      "match_score": 0.746,
+      "confidence": 0.7,
+      "match_reasons": [
+        "Registered for wheat crop protection",
+        "Effective at general growth stage",
+        "Preventive protection — ideal for proactive care",
+        "Systemic action — absorbed and translocated in plant"
+      ],
+      "score_breakdown": {
+        "efficacy": 0.98,
+        "adoption": 0.5,
+        "availability": 0.62,
+        "moa_group": "FRAC-3",
+        "treatment_intent": [
+          "preventive",
+          "curative"
         ],
-        "match_reasons": [
-          "Direct match for blight",
-          "Direct match for blight"
-        ]
+        "price_tier": "mid",
+        "weights_used": {
+          "efficacy": 0.44,
+          "adoption": 0.27,
+          "availability": 0.29
+        }
       }
     },
     {
-      "input": {
-        "crop": "cotton",
-        "pest": "aphid",
-        "stage": "flowering",
-        "urgency": 0.5
-      },
-      "response": {
-        "top_products": [
-          "Ridomil Gold GR",
-          "Amistar Top"
+      "product_name": "Amistar 250 SC",
+      "match_score": 0.729,
+      "confidence": 0.7,
+      "match_reasons": [
+        "Registered for wheat crop protection",
+        "Targets rust — efficacy rating 91%",
+        "Effective at general growth stage",
+        "Preventive protection — ideal for proactive care",
+        "Systemic action — absorbed and translocated in plant"
+      ],
+      "score_breakdown": {
+        "efficacy": 0.982,
+        "adoption": 0.5,
+        "availability": 0.56,
+        "moa_group": "FRAC-11",
+        "treatment_intent": [
+          "preventive",
+          "curative"
         ],
-        "match_reasons": [
-          "Protects crop during critical flowering growth",
-          "Protects crop during critical flowering growth"
-        ]
+        "price_tier": "premium",
+        "weights_used": {
+          "efficacy": 0.44,
+          "adoption": 0.27,
+          "availability": 0.29
+        }
       }
     },
     {
-      "input": {
-        "crop": "wheat",
-        "pest": "rust",
-        "stage": "vegetative",
-        "urgency": 0.5
-      },
-      "response": {
-        "top_products": [
-          "Trivapro",
-          "Miravis Ace"
+      "product_name": "Kavach 75 WP",
+      "match_score": 0.622,
+      "confidence": 0.66,
+      "match_reasons": [
+        "Targets rust — efficacy rating 84%",
+        "Effective at general growth stage",
+        "Preventive protection — ideal for proactive care"
+      ],
+      "score_breakdown": {
+        "efficacy": 0.718,
+        "adoption": 0.5,
+        "availability": 0.59,
+        "moa_group": "FRAC-M5",
+        "treatment_intent": [
+          "preventive"
         ],
-        "match_reasons": [
-          "Direct match for rust",
-          "Protects crop during critical vegetative growth"
-        ]
-      }
-    },
-    {
-      "input": {
-        "crop": "rice",
-        "pest": "none",
-        "stage": "seed_treatment",
-        "urgency": 0.5
-      },
-      "response": {
-        "top_products": [
-          "Vibrance RST",
-          "Adage"
-        ],
-        "match_reasons": [
-          "Specifically formulated for seed protection",
-          "Ideal for your current seed_treatment stage"
-        ]
+        "price_tier": "low",
+        "weights_used": {
+          "efficacy": 0.44,
+          "adoption": 0.27,
+          "availability": 0.29
+        }
       }
     }
-  ]
+  ],
+  "not_recommended": [
+    {
+      "product_name": "Tilt 250 EC",
+      "not_ranked_higher_because": [
+        "Same MoA group (FRAC-3) already represented in recommendations"
+      ]
+    },
+    {
+      "product_name": "Alto 5 SC",
+      "not_ranked_higher_because": [
+        "Same MoA group (FRAC-3) already represented in recommendations"
+      ]
+    },
+    {
+      "product_name": "Movondo",
+      "not_ranked_higher_because": [
+        "Lower combined score than selected alternatives"
+      ]
+    }
+  ],
+  "resistance_advisory": null,
+  "fallback_used": false,
+  "model_version": "m8-hybrid-v1"
 }
 ```
