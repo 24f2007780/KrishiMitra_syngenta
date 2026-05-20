@@ -40,19 +40,34 @@ logger = logging.getLogger(__name__)
 class _UrgencyContext:
     def __init__(self, shared_ctx):
         if hasattr(shared_ctx, 'profile'):
-            self.grower_id = shared_ctx.profile.farmer_id
+            self.grower_id = shared_ctx.profile.grower_id
             crop_val = shared_ctx.profile.crops[0] if shared_ctx.profile.crops else "wheat"
             try:
                 self.crop = CropType(crop_val.lower())
             except ValueError:
                 self.crop = CropType.wheat
             
-            pest_risk_map = {"high": 0.8, "medium": 0.5, "low": 0.2}
-            self.pest_risk = pest_risk_map.get(shared_ctx.signals.pest_risk_level.lower(), 0.2)
-            self.weather_anomaly = 0.8 if shared_ctx.signals.weather_anomaly_flag else 0.2
-            
-            vuln_map = {"high": 0.8, "medium": 0.5, "low": 0.2}
-            self.crop_vulnerability = vuln_map.get(shared_ctx.crop_stage.vulnerability.lower(), 0.2)
+            # Direct float assignment with fallback
+            if hasattr(shared_ctx.signals, 'pest_risk') and isinstance(shared_ctx.signals.pest_risk, (int, float)):
+                self.pest_risk = float(shared_ctx.signals.pest_risk)
+            elif hasattr(shared_ctx.signals, 'pest_risk_level') and shared_ctx.signals.pest_risk_level:
+                pest_risk_map = {"high": 0.8, "medium": 0.5, "low": 0.2}
+                self.pest_risk = pest_risk_map.get(str(shared_ctx.signals.pest_risk_level).lower(), 0.2)
+            else:
+                self.pest_risk = 0.2
+
+            if hasattr(shared_ctx.signals, 'weather_anomaly') and isinstance(shared_ctx.signals.weather_anomaly, (int, float)):
+                self.weather_anomaly = float(shared_ctx.signals.weather_anomaly)
+            else:
+                self.weather_anomaly = 0.8 if getattr(shared_ctx.signals, 'weather_anomaly_flag', False) else 0.2
+
+            if hasattr(shared_ctx.crop_stage, 'crop_vulnerability') and isinstance(shared_ctx.crop_stage.crop_vulnerability, (int, float)):
+                self.crop_vulnerability = float(shared_ctx.crop_stage.crop_vulnerability)
+            elif hasattr(shared_ctx.crop_stage, 'vulnerability') and shared_ctx.crop_stage.vulnerability:
+                vuln_map = {"high": 0.8, "medium": 0.5, "low": 0.2}
+                self.crop_vulnerability = vuln_map.get(str(shared_ctx.crop_stage.vulnerability).lower(), 0.2)
+            else:
+                self.crop_vulnerability = 0.2
             
             self.last_message_date = None
             if shared_ctx.profile.last_message_sent_at:

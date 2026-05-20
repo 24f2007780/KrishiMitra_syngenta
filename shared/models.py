@@ -11,7 +11,7 @@ Base = declarative_base()
 class Farmer(Base):
     __tablename__ = "farmers"
 
-    farmer_id = Column(String, primary_key=True, index=True)
+    grower_id = Column(String, primary_key=True, index=True)
     name = Column(String)
     age = Column(Integer)
     phone = Column(String, unique=True, index=True)
@@ -89,7 +89,7 @@ class Product(Base):
 # Pydantic Schemas (M3 Shared Models)
 
 class FarmerProfile(BaseModel):
-    farmer_id: str
+    grower_id: str
     name: str
     grower_age: int
     phone: str
@@ -123,15 +123,15 @@ class SignalBundle(BaseModel):
     state: Optional[str] = None
     humidity_7d_avg: float
     rainfall_deviation_pct: float
-    temperature_anomaly: float
-    pest_risk_level: str         # low / medium / high
+    weather_anomaly: float
+    pest_risk: float             # float [0,1] instead of pest_risk_level
     active_pest: Optional[str]   # "fungal" / "aphid" / "stem_borer"
     weather_anomaly_flag: bool
 
 class FarmerStage(BaseModel):
     confirmed_stage: str         # sowing / vegetative / flowering / harvest
     days_in_stage: int
-    vulnerability: str           # low / medium / high
+    crop_vulnerability: float    # float [0,1] instead of vulnerability (str)
     days_to_next_stage: int
 
 class CropStageInfo(BaseModel):
@@ -139,7 +139,7 @@ class CropStageInfo(BaseModel):
     crop: str
     month: str
     stage: str
-    vulnerability: str
+    crop_vulnerability: float    # float [0,1]
     days_to_next: int
     recommendations: List[str] = []
     msp_rs_quintal: Optional[str] = None
@@ -161,7 +161,7 @@ class ScoredContext(BaseModel):
     why_now_reason_local: str    # Farmer's language rationale
 
 class GeneratedContent(BaseModel):
-    farmer_id: str
+    grower_id: str
     sms_text: str
     whatsapp_text: str
     image_concept: str
@@ -169,7 +169,7 @@ class GeneratedContent(BaseModel):
     language: str
 
 class DeliveryRecord(BaseModel):
-    farmer_id: str
+    grower_id: str
     channel: str
     scheduled_at: str
     content_type: str
@@ -319,4 +319,83 @@ class RankResponse(BaseModel):
         None, description="MoA rotation advice based on spray history"
     )
     fallback_used: bool = Field(False, description="True if no direct match found")
+    model_version: str
+
+
+# M9 Campaign Receptivity Models
+
+class FarmerSegment(str, Enum):
+    """Behavioral segments derived from engagement patterns."""
+    digital_active = "digital_active"       # Opens + clicks regularly
+    digital_passive = "digital_passive"     # Opens but rarely clicks
+    offline_only = "offline_only"           # Never engages digitally
+    new_farmer = "new_farmer"              # No engagement history
+
+
+class CampaignFormat(str, Enum):
+    """Creative format options."""
+    whatsapp_text = "whatsapp_text"
+    whatsapp_image = "whatsapp_image"
+    whatsapp_video = "whatsapp_video"
+    sms_short = "sms_short"
+    voice_ivr = "voice_ivr"
+    field_demo = "field_demo"
+
+
+class ReceptivityRequest(BaseModel):
+    """Input for campaign receptivity prediction."""
+    grower_id: Optional[str] = Field(None, description="For personalized prediction")
+    crop: CropType
+    district: Optional[str] = None
+    device_type: DeviceType = DeviceType.unknown
+    farm_size_acres: Optional[float] = Field(None, ge=0)
+    grower_age: Optional[int] = Field(None, ge=18, le=100)
+    campaign_product: Optional[str] = Field(None, description="Product being promoted")
+    scoring_date: date = Field(default_factory=date.today)
+
+    # Historical engagement (if known)
+    historical_open_rate: Optional[float] = Field(None, ge=0, le=1)
+    historical_click_rate: Optional[float] = Field(None, ge=0, le=1)
+    messages_received_last_30d: Optional[int] = Field(None, ge=0)
+    previously_clicked: Optional[bool] = None
+    product_scanned: Optional[bool] = None
+    offline_campaign_attended: Optional[bool] = None
+
+
+class FormatRecommendation(BaseModel):
+    """Predicted receptivity for a specific format."""
+    format: CampaignFormat
+    predicted_engagement: float = Field(..., description="Predicted engagement rate [0–1]")
+    confidence: float = Field(..., description="Prediction confidence [0–1]")
+    reasoning: str
+
+
+class ReceptivityResponse(BaseModel):
+    """Full campaign receptivity prediction."""
+    grower_id: Optional[str]
+    segment: FarmerSegment
+    segment_confidence: float
+
+    # Overall receptivity
+    receptivity_score: float = Field(
+        ..., description="Overall campaign receptivity [0–1]. High = likely to engage."
+    )
+
+    # Best format recommendations
+    recommended_formats: List[FormatRecommendation] = Field(
+        ..., description="Ranked format recommendations"
+    )
+
+    # Timing intelligence
+    best_day_of_week: Optional[str] = None
+    best_time_window: Optional[str] = None
+
+    # Campaign strategy
+    fatigue_risk: float = Field(
+        ..., description="Risk of message fatigue [0–1]. High = back off."
+    )
+    creative_suggestions: List[str] = Field(
+        ..., description="Actionable creative strategy suggestions"
+    )
+
     model_version: str

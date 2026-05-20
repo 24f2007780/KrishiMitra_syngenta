@@ -7,7 +7,7 @@ import json
 
 app = FastAPI()
 
-CACHE_FILE = "ranking_service/cache.json"
+CACHE_FILE = "cache.json"
 
 def load_cache():
     if os.path.exists(CACHE_FILE):

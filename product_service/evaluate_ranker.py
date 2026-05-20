@@ -61,8 +61,33 @@ pos_df = pd.read_csv(DATA_DIR / "retailer_pos.csv")
 pos_df["transaction_date"] = pd.to_datetime(pos_df["transaction_date"])
 
 # Map retailers to districts
-retailer_district = retailers_df[["retailer_id", "district", "tehsil"]].drop_duplicates()
+retailer_district = retailers_df[["retailer_id", "state", "district", "tehsil"]].drop_duplicates()
 pos_geo = pos_df.merge(retailer_district, on="retailer_id", how="inner")
+
+# Map tehsils/districts/states to lists of growers for deterministic alignment
+tehsil_to_growers = growers_df.groupby("tehsil")["grower_id"].apply(list).to_dict()
+district_to_growers = growers_df.groupby("district")["grower_id"].apply(list).to_dict()
+state_to_growers = growers_df.groupby("state")["grower_id"].apply(list).to_dict()
+all_growers = growers_df["grower_id"].tolist()
+
+grower_ids = []
+for idx, row in pos_geo.iterrows():
+    teh = row["tehsil"]
+    dist = row["district"]
+    st = row["state"]
+    
+    g_list = tehsil_to_growers.get(teh)
+    if not g_list:
+        g_list = district_to_growers.get(dist)
+    if not g_list:
+        g_list = state_to_growers.get(st)
+    if not g_list:
+        g_list = all_growers
+        
+    g_idx = hash(row["transaction_id"]) % len(g_list)
+    grower_ids.append(g_list[g_idx])
+
+pos_geo["grower_id"] = grower_ids
 
 # Map growers to crops
 def parse_crop(cal):
@@ -74,6 +99,7 @@ def parse_crop(cal):
 
 growers_df["crop"] = growers_df["grower_crop_calendar"].apply(parse_crop)
 grower_info = growers_df[["grower_id", "crop", "district", "tehsil", "grower_farm_size"]].copy()
+grower_farm_sizes = growers_df.set_index("grower_id")["grower_farm_size"].to_dict()
 
 print(f"    POS transactions: {len(pos_df)}")
 print(f"    Growers: {len(growers_df)}")
@@ -183,6 +209,7 @@ for _, row in eval_pos.iterrows():
         "crop": crop,
         "purchased_product": product,
         "date": row["transaction_date"],
+        "grower_farm_size": grower_farm_sizes.get(row["grower_id"]),
     })
 
 print(f"    Valid evaluation queries: {len(eval_queries)}")
@@ -273,6 +300,7 @@ for i, query in enumerate(sampled_queries):
         pest=pest_enum,
         district=query["district"],
         urgency_score=0.5,  # neutral
+        grower_farm_size=None if pd.isna(query["grower_farm_size"]) else float(query["grower_farm_size"]),
         recently_used_products=recently_used if recently_used else None,
         spray_history=spray_history if spray_history else None,
         top_k=5,

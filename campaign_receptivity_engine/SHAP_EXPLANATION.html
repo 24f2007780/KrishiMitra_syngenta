@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campaign Receptivity — SHAP Explanation</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',-apple-system,sans-serif;background:linear-gradient(135deg,#f0f4f8 0%,#d9e2ec 100%);min-height:100vh;padding:1.5rem;color:#2c3e50;}
+.container{max-width:960px;margin:0 auto;background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.08);overflow:hidden;}
+.header{background:linear-gradient(135deg,#2c3e50 0%,#3498db 100%);color:#fff;padding:2rem 2.5rem;}
+.header h1{font-size:1.5rem;font-weight:600;}
+.header .sub{opacity:0.85;font-size:0.85rem;margin-top:0.3rem;}
+.scores-row{display:flex;gap:1rem;padding:1.5rem 2rem;background:#f8fafc;border-bottom:1px solid #e2e8f0;flex-wrap:wrap;}
+.score-card{flex:1;min-width:130px;text-align:center;padding:1rem;border-radius:10px;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.04);}
+.score-card .lbl{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.5px;color:#7f8c8d;margin-bottom:0.3rem;}
+.score-card .val{font-size:1.7rem;font-weight:700;}
+.score-high .val{color:#e74c3c;}
+.score-mid .val{color:#f39c12;}
+.score-low .val{color:#27ae60;}
+.section{padding:1.5rem 2rem;border-bottom:1px solid #f0f0f0;}
+.section:last-child{border-bottom:none;}
+.section h3{font-size:1rem;color:#2c3e50;margin-bottom:1rem;padding-bottom:0.4rem;border-bottom:2px solid #ebf5fb;}
+.seg-badge{display:inline-block;padding:0.4rem 1rem;border-radius:20px;font-size:0.8rem;font-weight:600;color:#fff;background:#27ae60;}
+.seg-desc{font-size:0.85rem;color:#555;margin-top:0.5rem;}
+table.wf{width:100%;border-collapse:collapse;}
+.wf-row td{padding:0.5rem 0.4rem;border-bottom:1px solid #f5f5f5;vertical-align:middle;}
+.wf-row:hover td{background:#fafbfc;}
+.wf-name{font-size:0.82rem;font-weight:500;color:#34495e;width:200px;}
+.wf-val{font-size:0.78rem;color:#7f8c8d;width:60px;text-align:right;font-family:monospace;}
+.wf-bar{width:100%;}
+.bar-wrap{display:flex;align-items:center;gap:8px;}
+.bar{height:20px;border-radius:4px;opacity:0.85;}
+.bar-lbl{font-size:0.72rem;font-weight:600;font-family:monospace;white-space:nowrap;}
+.legend{display:flex;gap:1.5rem;margin-top:1rem;padding:0.6rem 1rem;background:#f8f9fa;border-radius:6px;font-size:0.78rem;}
+.legend-item{display:flex;align-items:center;gap:5px;}
+.legend-dot{width:12px;height:12px;border-radius:3px;}
+.fmt-row{display:flex;align-items:center;gap:1rem;padding:0.6rem 0;border-bottom:1px solid #f5f5f5;}
+.fmt-name{width:140px;font-size:0.82rem;font-weight:500;}
+.fmt-bar-wrap{display:flex;align-items:center;gap:6px;width:200px;}
+.fmt-bar{height:18px;background:linear-gradient(90deg,#3498db,#2980b9);border-radius:4px;}
+.fmt-pct{font-size:0.75rem;font-weight:600;color:#2980b9;}
+.fmt-reason{flex:1;font-size:0.78rem;color:#7f8c8d;}
+.fatigue-gauge{display:flex;align-items:center;gap:1rem;padding:1rem;background:#f8f9fa;border-radius:8px;margin:0.5rem 0;}
+.fatigue-bar-bg{flex:1;height:12px;background:#ecf0f1;border-radius:6px;overflow:hidden;}
+.fatigue-bar-fill{height:100%;border-radius:6px;transition:width 0.3s;background:#27ae60;}
+.fatigue-label{font-size:0.8rem;font-weight:600;color:#27ae60;min-width:120px;}
+.timing-card{display:flex;gap:2rem;padding:1rem;background:#f0faf0;border-radius:8px;margin:0.5rem 0;}
+.timing-item{font-size:0.85rem;}
+.timing-icon{font-size:1.1rem;}
+.suggestions{list-style:none;padding:0;}
+.suggestions li{padding:0.5rem 0;font-size:0.85rem;border-bottom:1px solid #f8f8f8;}
+.suggestions li::before{content:"💡 ";}
+.footer{padding:1rem 2rem;background:#f8f9fa;border-top:1px solid #ecf0f1;font-size:0.72rem;color:#95a5a6;display:flex;justify-content:space-between;}
+.detail-box{background:#fafbfc;border:1px solid #e8ecf0;border-radius:8px;padding:1rem;margin:0.8rem 0;font-size:0.82rem;}
+.detail-box h5{font-size:0.78rem;color:#2980b9;margin-bottom:0.4rem;text-transform:uppercase;letter-spacing:0.5px;}
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>📊 Campaign Receptivity — SHAP Explanation</h1>
+        <div class="sub">Grower: G_0042 &nbsp;|&nbsp; Crop: wheat &nbsp;|&nbsp; campaign-receptivity-v1</div>
+    </div>
+
+    <div class="scores-row">
+        <div class="score-card score-high">
+            <div class="lbl">Receptivity</div>
+            <div class="val">1.00</div>
+        </div>
+        <div class="score-card">
+            <div class="lbl">Segment</div>
+            <div class="val" style="font-size:0.9rem;">Digital Active</div>
+        </div>
+        <div class="score-card score-low">
+            <div class="lbl">Fatigue Risk</div>
+            <div class="val">0.10</div>
+        </div>
+        <div class="score-card">
+            <div class="lbl">Confidence</div>
+            <div class="val">0.90</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Farmer Segment Classification</h3>
+        <span class="seg-badge">DIGITAL ACTIVE</span>
+        <p class="seg-desc">High digital engagement — opens and clicks regularly. Best reached via rich media WhatsApp.</p>
+        <div class="detail-box">
+            <h5>How was this segment determined?</h5>
+            <p style="margin:0;">Based on historical click rate > 8%</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>SHAP Feature Contributions (What Drives Receptivity)</h3>
+        <table class="wf">
+            <thead><tr style="font-size:0.7rem;color:#95a5a6;text-transform:uppercase;letter-spacing:0.5px;">
+                <td style="padding-bottom:0.5rem;">Feature</td>
+                <td style="padding-bottom:0.5rem;text-align:right;">Value</td>
+                <td style="padding-bottom:0.5rem;">SHAP Contribution</td>
+            </tr></thead>
+            <tbody>
+        <tr class="wf-row">
+            <td class="wf-name">Behavioral Segment</td>
+            <td class="wf-val">3</td>
+            <td class="wf-bar">
+                <div class="bar-wrap">
+                    <div class="bar" style="width:260px;background:#e74c3c;"></div>
+                    <span class="bar-lbl" style="color:#e74c3c;">+6.2248</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="wf-row">
+            <td class="wf-name">District Engagement Rate</td>
+            <td class="wf-val">0.096</td>
+            <td class="wf-bar">
+                <div class="bar-wrap">
+                    <div class="bar" style="width:7px;background:#e74c3c;"></div>
+                    <span class="bar-lbl" style="color:#e74c3c;">+0.1785</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="wf-row">
+            <td class="wf-name">Offline Campaign Attended</td>
+            <td class="wf-val">0</td>
+            <td class="wf-bar">
+                <div class="bar-wrap">
+                    <div class="bar" style="width:3px;background:#e74c3c;"></div>
+                    <span class="bar-lbl" style="color:#e74c3c;">+0.0699</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="wf-row">
+            <td class="wf-name">Grower Age</td>
+            <td class="wf-val">35</td>
+            <td class="wf-bar">
+                <div class="bar-wrap">
+                    <div class="bar" style="width:3px;background:#e74c3c;"></div>
+                    <span class="bar-lbl" style="color:#e74c3c;">+0.0238</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="wf-row">
+            <td class="wf-name">Day of Week</td>
+            <td class="wf-val">1</td>
+            <td class="wf-bar">
+                <div class="bar-wrap">
+                    <div class="bar" style="width:3px;background:#e74c3c;"></div>
+                    <span class="bar-lbl" style="color:#e74c3c;">+0.0188</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="wf-row">
+            <td class="wf-name">Month of Year</td>
+            <td class="wf-val">1</td>
+            <td class="wf-bar">
+                <div class="bar-wrap">
+                    <div class="bar" style="width:3px;background:#3498db;"></div>
+                    <span class="bar-lbl" style="color:#3498db;">−0.0163</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="wf-row">
+            <td class="wf-name">Farm Size (acres)</td>
+            <td class="wf-val">3</td>
+            <td class="wf-bar">
+                <div class="bar-wrap">
+                    <div class="bar" style="width:3px;background:#3498db;"></div>
+                    <span class="bar-lbl" style="color:#3498db;">−0.0112</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="wf-row">
+            <td class="wf-name">Crop Engagement Rate</td>
+            <td class="wf-val">0.055</td>
+            <td class="wf-bar">
+                <div class="bar-wrap">
+                    <div class="bar" style="width:3px;background:#e74c3c;"></div>
+                    <span class="bar-lbl" style="color:#e74c3c;">+0.0063</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="wf-row">
+            <td class="wf-name">Product Scanned</td>
+            <td class="wf-val">1</td>
+            <td class="wf-bar">
+                <div class="bar-wrap">
+                    <div class="bar" style="width:3px;background:#e74c3c;"></div>
+                    <span class="bar-lbl" style="color:#e74c3c;">+0.0058</span>
+                </div>
+            </td>
+        </tr></tbody>
+        </table>
+        <div class="legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#e74c3c;"></div><span>Increases receptivity</span></div>
+            <div class="legend-item"><div class="legend-dot" style="background:#3498db;"></div><span>Decreases receptivity</span></div>
+        </div>
+        <div class="detail-box">
+            <h5>Interpretation</h5>
+            <p style="margin:0;">Each bar shows how much a feature pushes the receptivity prediction up (red) or down (blue) from the baseline. Longer bars = stronger influence on the final score.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Recommended Creative Formats</h3>
+        
+        <div class="fmt-row">
+            <div class="fmt-name">Whatsapp Image</div>
+            <div class="fmt-bar-wrap">
+                <div class="fmt-bar" style="width:216px;"></div>
+                <span class="fmt-pct">18.0%</span>
+            </div>
+            <div class="fmt-reason">Visual crop protection imagery drives highest digital engagement</div>
+        </div>
+        <div class="fmt-row">
+            <div class="fmt-name">Whatsapp Video</div>
+            <div class="fmt-bar-wrap">
+                <div class="fmt-bar" style="width:180px;"></div>
+                <span class="fmt-pct">15.0%</span>
+            </div>
+            <div class="fmt-reason">Short demo videos show application technique effectively</div>
+        </div>
+        <div class="fmt-row">
+            <div class="fmt-name">Field Demo</div>
+            <div class="fmt-bar-wrap">
+                <div class="fmt-bar" style="width:144px;"></div>
+                <span class="fmt-pct">12.0%</span>
+            </div>
+            <div class="fmt-reason">In-person demonstration builds trust for new products</div>
+        </div>
+        <div class="detail-box">
+            <h5>Why these formats?</h5>
+            <p style="margin:0;">Format recommendations are based on segment-level engagement patterns from historical campaign data. The digital active segment historically responds best to the formats shown above. </p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Fatigue Risk Assessment</h3>
+        <div class="fatigue-gauge">
+            <div class="fatigue-bar-bg"><div class="fatigue-bar-fill" style="width:10%;"></div></div>
+            <div class="fatigue-label">LOW — Safe to message</div>
+        </div>
+        <div class="detail-box">
+            <h5>Fatigue calculation</h5>
+            <p style="margin:0;">Messages received in last 30 days: <strong>2</strong>. Segment fatigue threshold: 6 messages. Within acceptable range.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Optimal Timing</h3>
+        
+    <div class="timing-card">
+        <div class="timing-item"><span class="timing-icon">📅</span> <strong>Best Days:</strong> Tuesday–Thursday</div>
+        <div class="timing-item"><span class="timing-icon">⏰</span> <strong>Best Time:</strong> 9:00–11:00 AM</div>
+    </div>
+        <div class="detail-box">
+            <h5>Why this timing?</h5>
+            <p style="margin:0;">Timing recommendations are derived from segment-level engagement patterns. The digital active segment shows highest open rates during Tuesday–Thursday in the 9:00–11:00 AM window. Agricultural workers are typically available before field work begins.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Creative Strategy Suggestions</h3>
+        <ul class="suggestions"><li>Use product comparison visuals — this segment responds to data-driven content</li><li>Reference their scanned product — personalized follow-up drives 2× engagement</li><li>Low fatigue — safe to increase message frequency this week</li><li>Wheat at critical stage — frame message around immediate crop protection need</li></ul>
+    </div>
+
+    <div class="footer">
+        <span>Syngenta IITM Hackathon 2026 — Campaign Receptivity Engine</span>
+        <span>SHAP TreeExplainer</span>
+    </div>
+</div>
+</body>
+</html>

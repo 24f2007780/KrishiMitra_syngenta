@@ -11,12 +11,12 @@ async def run_test_all_contexts():
 
         # 2. Call M6 for each farmer
         print("Assembling contexts from M6...")
-        farmer_ids = [f["farmer_id"] for f in farmers][:5]
+        grower_ids = [f["grower_id"] for f in farmers][:5]
         
         # Test batch endpoint
         print("\nTesting batch endpoint...")
         try:
-            batch_res = await client.post("http://localhost:8006/context/batch", json=farmer_ids)
+            batch_res = await client.post("http://localhost:8006/context/batch", json=grower_ids)
             batch_data = batch_res.json()
             print(f"Batch assembled {len(batch_data)} contexts.")
         except Exception as e:
@@ -25,7 +25,7 @@ async def run_test_all_contexts():
         # Test individual endpoint and check for errors
         print("\nTesting individual endpoints (sequentially)...")
         success_count = 0
-        for fid in farmer_ids:
+        for fid in grower_ids:
             try:
                 res = await client.get(f"http://localhost:8006/context/{fid}")
                 if res.status_code == 200:
@@ -37,7 +37,7 @@ async def run_test_all_contexts():
             except Exception as e:
                 print(f"❌ ERROR for farmer {fid}: {e}")
         
-        print(f"\nFinal Result: {success_count}/{len(farmer_ids)} contexts assembled successfully.")
+        print(f"\nFinal Result: {success_count}/{len(grower_ids)} contexts assembled successfully.")
 
 if __name__ == "__main__":
     asyncio.run(run_test_all_contexts())

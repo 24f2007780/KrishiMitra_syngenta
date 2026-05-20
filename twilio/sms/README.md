@@ -2,13 +2,13 @@
 
 ## Goal
 
-Outbound SMS: given **to number**, **message body**, and optional **metadata** (farmer_id, delivery_id), send via Twilio and return a message SID for logging.
+Outbound SMS: given **to number**, **message body**, and optional **metadata** (grower_id, delivery_id), send via Twilio and return a message SID for logging.
 
 ## Layout (you add files)
 
 Suggested files when you implement:
 
-- `app.py` — interactive CLI: prompts for number, message, optional farmer_id; calls Twilio; prints SID.
+- `app.py` — interactive CLI: prompts for number, message, optional grower_id; calls Twilio; prints SID.
 - `client.py` (optional) — thin wrapper used by both CLI and main app.
 - `tests/` — pytest with mocked Twilio client, or a `test_send_dry_run.py` that never calls the API.
 

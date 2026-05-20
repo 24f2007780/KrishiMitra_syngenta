@@ -22,4 +22,4 @@ Keep all secrets in project-root `.env` (gitignored). Add `.env.example` at repo
 
 ## Redis / workers
 
-Workers should call the **same functions** the CLI uses, with payloads: `to`, `body` or `context`, `delivery_id`, `farmer_id`.
+Workers should call the **same functions** the CLI uses, with payloads: `to`, `body` or `context`, `delivery_id`, `grower_id`.

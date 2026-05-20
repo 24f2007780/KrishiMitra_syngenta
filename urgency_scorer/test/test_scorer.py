@@ -15,7 +15,7 @@ import os
 from datetime import date, timedelta
 from unittest.mock import patch
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 import pytest
 from shared.models import CropType, DeviceType, ChannelRecommendation
@@ -24,7 +24,7 @@ class FarmerContext:
     def __init__(self, **kwargs):
         for k, v in kwargs.items():
             setattr(self, k, v)
-from urgency_scorer.app.scorer import (
+from urgency_scorer.scorer import (
     compute_urgency, score_urgency, score_engagement,
     compute_recency_penalty, check_suppress, recommend_channel,
 )
@@ -47,7 +47,7 @@ def make_ctx(**kwargs) -> FarmerContext:
 
 def score_without_ml(ctx: FarmerContext):
     """Force heuristic engagement by mocking out the model loader."""
-    with patch("urgency_scorer.app.scorer._load_model", return_value=None):
+    with patch("urgency_scorer.scorer._load_model", return_value=None):
         return compute_urgency(ctx)
 
 
@@ -117,7 +117,7 @@ class TestLayer2_Engagement:
     def test_heuristic_fallback_returns_score(self):
         """When no model exists, heuristic should still return a valid score."""
         ctx = make_ctx(device_type=DeviceType.smartphone)
-        with patch("urgency_scorer.app.scorer._load_model", return_value=None):
+        with patch("urgency_scorer.scorer._load_model", return_value=None):
             score, comps = score_engagement(ctx)
         assert 0.0 <= score <= 1.0
         assert comps["model_used"] is False
@@ -125,7 +125,7 @@ class TestLayer2_Engagement:
     def test_smartphone_boosts_engagement(self):
         ctx_smart = make_ctx(device_type=DeviceType.smartphone)
         ctx_keypad = make_ctx(device_type=DeviceType.keypad)
-        with patch("urgency_scorer.app.scorer._load_model", return_value=None):
+        with patch("urgency_scorer.scorer._load_model", return_value=None):
             s_smart, _ = score_engagement(ctx_smart)
             s_keypad, _ = score_engagement(ctx_keypad)
         assert s_smart > s_keypad
@@ -133,7 +133,7 @@ class TestLayer2_Engagement:
     def test_previously_clicked_boosts_engagement(self):
         ctx_clicked = make_ctx(previously_clicked_whatsapp=True, device_type=DeviceType.smartphone)
         ctx_no_click = make_ctx(previously_clicked_whatsapp=False, device_type=DeviceType.smartphone)
-        with patch("urgency_scorer.app.scorer._load_model", return_value=None):
+        with patch("urgency_scorer.scorer._load_model", return_value=None):
             s_clicked, _ = score_engagement(ctx_clicked)
             s_no_click, _ = score_engagement(ctx_no_click)
         assert s_clicked > s_no_click
@@ -160,7 +160,7 @@ class TestLayer2_Engagement:
             "feature_importances": {},
         }
         ctx = make_ctx(grower_id="NEW_FARMER_999")
-        with patch("urgency_scorer.app.scorer._load_model", return_value=mock_payload):
+        with patch("urgency_scorer.scorer._load_model", return_value=mock_payload):
             score, comps = score_engagement(ctx)
         assert 0.0 <= score <= 1.0
         assert comps["cold_start"] is True
@@ -346,3 +346,145 @@ class TestEndToEnd:
             comps["recency_term"]
         )
         assert abs(result.urgency_score - round(component_sum, 2)) <= 0.01
+
+
+class TestAPI:
+
+    @pytest.fixture(autouse=True)
+    def setup_client(self):
+        from fastapi.testclient import TestClient
+        from urgency_scorer.main import app
+        self.client = TestClient(app)
+
+    def test_post_score_api(self):
+        payload = {
+            "profile": {
+                "grower_id": "G_TEST_POST",
+                "name": "Amit Patel",
+                "grower_age": 38,
+                "phone": "+91-9999999999",
+                "preferred_language": "Hindi",
+                "state": "Gujarat",
+                "district": "Anand",
+                "tehsil": "Anand",
+                "grower_farm_size": 3.5,
+                "crops": ["wheat"],
+                "latitude": 22.5,
+                "longitude": 72.9,
+                "device_type": "smartphone",
+                "connectivity": "4G",
+                "whatsapp_enabled": True,
+                "messages_received_last_30d": 3,
+                "messages_opened_last_30d": 1,
+                "preferred_contact_time": "morning",
+                "linked_retailer_id": "RET-001",
+                "linked_retailer_name": "Anand Retail",
+                "urgency_score": 0.0,
+                "last_message_sent_at": None,
+                "recommended_channel": None
+            },
+            "signals": {
+                "district": "Anand",
+                "state": "Gujarat",
+                "humidity_7d_avg": 65.0,
+                "rainfall_deviation_pct": 10.0,
+                "weather_anomaly": 0.3,
+                "pest_risk": 0.4,
+                "active_pest": "aphid",
+                "weather_anomaly_flag": False
+            },
+            "crop_stage": {
+                "confirmed_stage": "vegetative",
+                "days_in_stage": 10,
+                "crop_vulnerability": 0.6,
+                "days_to_next_stage": 20
+            },
+            "assembled_at": "2026-05-20T10:00:00"
+        }
+        with patch("urgency_scorer.scorer._load_model", return_value=None):
+            response = self.client.post("/score", json=payload)
+            assert response.status_code == 200
+            data = response.json()
+            assert data["grower_id"] == "G_TEST_POST"
+            assert "urgency_score" in data
+            assert "recommended_channel" in data
+
+    def test_get_score_by_grower_id_api(self):
+        import json
+        from unittest.mock import MagicMock, patch
+        from shared.models import Farmer
+
+        mock_db = MagicMock()
+        mock_farmer = MagicMock()
+        mock_farmer.grower_id = "GRW_05989"
+        mock_farmer.name = "Vikram"
+        mock_farmer.grower_age = 45
+        mock_farmer.age = 45
+        mock_farmer.phone = "+91-9876543210"
+        mock_farmer.preferred_language = "Hindi"
+        mock_farmer.state = "Rajasthan"
+        mock_farmer.district = "Jaipur"
+        mock_farmer.tehsil = "Jaipur"
+        mock_farmer.grower_farm_size = 5.0
+        mock_farmer.crops = "wheat,mustard"
+        mock_farmer.latitude = 26.9
+        mock_farmer.longitude = 75.8
+        mock_farmer.device_type = "smartphone"
+        mock_farmer.connectivity = "4G"
+        mock_farmer.whatsapp_enabled = True
+        mock_farmer.messages_received_last_30d = 4
+        mock_farmer.messages_opened_last_30d = 2
+        mock_farmer.preferred_contact_time = "evening"
+        mock_farmer.linked_retailer_id = "RET-101"
+        mock_farmer.linked_retailer_name = "Jaipur Agro"
+        mock_farmer.urgency_score = 0.2
+        mock_farmer.last_message_sent_at = "2026-05-10"
+        mock_farmer.recommended_channel = "whatsapp"
+
+        mock_farmer.grower_crop_calendar = json.dumps({
+            "season": "Rabi_2025-26",
+            "crop": "wheat",
+            "sowing": {"start": "2026-05-01", "end": "2026-05-15"},
+            "harvest": {"start": "2026-09-20", "end": "2026-10-15"},
+            "stages": [{"stage": "tillering", "approx": "2026-06-15"}]
+        })
+
+        mock_db.query.return_value.filter.return_value.first.return_value = mock_farmer
+
+        mock_client_class = MagicMock()
+        mock_client_instance = mock_client_class.return_value.__enter__.return_value
+        mock_weather_response = MagicMock()
+        mock_weather_response.status_code = 200
+        mock_weather_response.json.return_value = {
+            "district": "Jaipur",
+            "state": "Rajasthan",
+            "humidity_7d_avg": 55.0,
+            "rainfall_deviation_pct": -20.0,
+            "weather_anomaly": 0.4,
+            "pest_risk": 0.5,
+            "active_pest": "None",
+            "weather_anomaly_flag": False
+        }
+        mock_client_instance.get.return_value = mock_weather_response
+
+        with patch("urgency_scorer.main.SessionLocal", return_value=mock_db), \
+             patch("urgency_scorer.main.httpx.Client", return_value=mock_client_instance), \
+             patch("urgency_scorer.scorer._load_model", return_value=None):
+
+            response = self.client.get("/score/GRW_05989")
+            assert response.status_code == 200
+            data = response.json()
+            assert data["grower_id"] == "GRW_05989"
+            assert "urgency_score" in data
+            assert "recommended_channel" in data
+
+    def test_get_score_by_grower_id_not_found(self):
+        from unittest.mock import MagicMock, patch
+
+        mock_db = MagicMock()
+        mock_db.query.return_value.filter.return_value.first.return_value = None
+
+        with patch("urgency_scorer.main.SessionLocal", return_value=mock_db):
+            response = self.client.get("/score/GRW_00486")
+            assert response.status_code == 404
+            assert "Farmer not found" in response.json()["detail"]

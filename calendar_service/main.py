@@ -106,7 +106,7 @@ async def get_crop_calendar(
     stage_data = cycle.get(month)
     if not stage_data: raise HTTPException(status_code=404, detail="Calendar data not found for this month")
 
-    stage, vulnerability, days_to_next = stage_data
+    stage, vulnerability_str, days_to_next = stage_data
     recommendations = load_recommendations(state, crop, stage)
 
     # Fetch Market Data
@@ -127,12 +127,15 @@ async def get_crop_calendar(
     except Exception as e:
         print(f"Market fetch failed for {crop_norm}: {e}")
 
+    vuln_map = {"high": 0.8, "medium": 0.5, "low": 0.2}
+    crop_vuln = vuln_map.get(vulnerability_str.lower(), 0.2)
+
     return models.CropStageInfo(
         state=state,
         crop=crop_norm,
         month=datetime(2024, month, 1).strftime("%B").lower(),
         stage=stage,
-        vulnerability=vulnerability,
+        crop_vulnerability=crop_vuln,
         days_to_next=days_to_next,
         recommendations=recommendations,
         msp_rs_quintal=market_data["msp"],

@@ -9,7 +9,7 @@ def run_rank_test(crop, pest, stage, urgency=0.5):
     payload = {
         "context": {
             "profile": {
-                "farmer_id": "TEST-001",
+                "grower_id": "TEST-001",
                 "name": "Test Farmer",
                 "grower_age": 35,
                 "phone": "+91-0000000000",
@@ -34,15 +34,15 @@ def run_rank_test(crop, pest, stage, urgency=0.5):
             "signals": {
                 "humidity_7d_avg": 85.0,
                 "rainfall_deviation_pct": 20.0,
-                "temperature_anomaly": 1.5,
-                "pest_risk_level": "high",
+                "weather_anomaly": 1.5,
+                "pest_risk": 0.8,
                 "active_pest": pest,
                 "weather_anomaly_flag": True
             },
             "crop_stage": {
                 "confirmed_stage": stage,
                 "days_in_stage": 10,
-                "vulnerability": "high",
+                "crop_vulnerability": 0.8,
                 "days_to_next_stage": 20
             },
             "assembled_at": "2026-05-13T18:00:00Z"

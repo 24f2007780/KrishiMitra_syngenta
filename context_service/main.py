@@ -16,21 +16,21 @@ M5_URL = "http://localhost:8005"
 MOCK_SIGNALS = models.SignalBundle(
     humidity_7d_avg=65.0,
     rainfall_deviation_pct=0.0,
-    temperature_anomaly=0.0,
-    pest_risk_level="low",
+    weather_anomaly=0.0,
+    pest_risk=0.2,
     active_pest="None",
     weather_anomaly_flag=False
 )
 
-async def fetch_farmer_context(farmer_id: str, client: httpx.AsyncClient) -> models.FarmerContext:
+async def fetch_farmer_context(grower_id: str, client: httpx.AsyncClient) -> models.FarmerContext:
     # 1. Fetch Farmer Profile (M1)
     try:
-        profile_res = await client.get(f"{M1_URL}/farmer/{farmer_id}")
+        profile_res = await client.get(f"{M1_URL}/farmer/{grower_id}")
         profile_res.raise_for_status()
         profile = models.FarmerProfile(**profile_res.json())
     except httpx.HTTPStatusError as e:
         if e.response.status_code == 404:
-            raise HTTPException(status_code=404, detail=f"Farmer {farmer_id} not found")
+            raise HTTPException(status_code=404, detail=f"Farmer {grower_id} not found")
         raise HTTPException(status_code=500, detail=f"M1 Service error: {e}")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to connect to M1: {e}")
@@ -45,7 +45,7 @@ async def fetch_farmer_context(farmer_id: str, client: httpx.AsyncClient) -> mod
         weather_res.raise_for_status()
         signals = models.SignalBundle(**weather_res.json())
     except Exception as e:
-        print(f"WARNING: M4 Service error for farmer {farmer_id}, using mock signals: {e}")
+        print(f"WARNING: M4 Service error for farmer {grower_id}, using mock signals: {e}")
         signals = MOCK_SIGNALS
         signals.district = profile.district
         signals.state = profile.state
@@ -65,16 +65,16 @@ async def fetch_farmer_context(farmer_id: str, client: httpx.AsyncClient) -> mod
         crop_stage = models.FarmerStage(
             confirmed_stage=cal_data["stage"],
             days_in_stage=0, # Defaulting as it's not provided by M5
-            vulnerability=cal_data["vulnerability"],
+            crop_vulnerability=cal_data["crop_vulnerability"],
             days_to_next_stage=cal_data["days_to_next"]
         )
     except Exception as e:
-        print(f"WARNING: M5 Service error for farmer {farmer_id}: {e}")
+        print(f"WARNING: M5 Service error for farmer {grower_id}: {e}")
         # Provide a safe default stage if M5 fails
         crop_stage = models.FarmerStage(
             confirmed_stage="vegetative",
             days_in_stage=0,
-            vulnerability="low",
+            crop_vulnerability=0.2,
             days_to_next_stage=30
         )
 
@@ -85,15 +85,15 @@ async def fetch_farmer_context(farmer_id: str, client: httpx.AsyncClient) -> mod
         assembled_at=datetime.now().isoformat()
     )
 
-@app.get("/context/{farmer_id}", response_model=models.FarmerContext)
-async def get_farmer_context(farmer_id: str):
+@app.get("/context/{grower_id}", response_model=models.FarmerContext)
+async def get_farmer_context(grower_id: str):
     async with httpx.AsyncClient() as client:
-        return await fetch_farmer_context(farmer_id, client)
+        return await fetch_farmer_context(grower_id, client)
 
 @app.post("/context/batch", response_model=List[models.FarmerContext])
-async def batch_context(farmer_ids: List[str]):
+async def batch_context(grower_ids: List[str]):
     async with httpx.AsyncClient() as client:
-        tasks = [fetch_farmer_context(fid, client) for fid in farmer_ids]
+        tasks = [fetch_farmer_context(fid, client) for fid in grower_ids]
         results = await asyncio.gather(*tasks, return_exceptions=True)
         
         # Filter out errors and return successful contexts

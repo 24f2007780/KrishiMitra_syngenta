@@ -76,65 +76,228 @@ Python 3.11+, **FastAPI** microservices, **SQLite** (farmers + delivery log), **
 
 ---
 
-## M6 — Context Assembler
-```json
-{
-    "profile": {
-        "farmer_id": "GRW_00005",
-        "name": "Grower GRW_00005",
-        "age": 26,
-        "phone": "+91-9000000005",
-        "preferred_language": "Hindi",
-        "state": "Uttar Pradesh",
-        "district": "Kanpur Nagar",
-        "village": "Kanpur_Nagar_T124",
-        "acres": 1.33,
-        "crops": [
-            "wheat"
-        ],
-        "latitude": 26.8467,
-        "longitude": 80.9462,
-        "device_type": "android",
-        "connectivity": "4G",
-        "whatsapp_enabled": True,
-        "last_message_sent_at": None,
-        "messages_received_last_30d": 0,
-        "messages_opened_last_30d": 0,
-        "preferred_contact_time": "morning",
-        "linked_retailer_id": "RET-204",
-        "linked_retailer_name": "Kanpur Nagar Agro Center"
-    },
-    "signals": {
-        "district": "Lucknow",
-        "state": "Uttar Pradesh",
-        "humidity_7d_avg": 31.5,
-        "rainfall_deviation_pct": -100.0,
-        "temperature_anomaly": 4.1,
-        "pest_risk_level": "low",
-        "active_pest": "None",
-        "weather_anomaly_flag": True
-    },
-    "crop_stage": {
-        "confirmed_stage": "vegetative",
-        "days_in_stage": 0,
-        "vulnerability": "low",
-        "days_to_next_stage": 30
-    },
-    "assembled_at": "2026-05-18T18: 18: 57.287747"
-}
+# API Documentation
+
+
+All services expose a common health-check endpoint:
+
+```http id="ykhh8u"
+GET /health
 ```
 
-## M8 — Product Ranker
+---
+## M1 — Farmer DB `http://localhost:8001/farmer/GRW_00001`
+
+| Port | Method | URL                   | Input                  | Output                                  |
+| ---- | ------ | --------------------- | ---------------------- | --------------------------------------- |
+| 8001 | GET    | `/farmer/{grower_id}` | `grower_id` path param | Farmer profile (`FarmerProfile`)        |
+| 8001 | GET    | `/farmers`            | None                   | List of all farmers                     |
+| 8001 | POST   | `/farmers/seed`       | None                   | Seeder execution status + seeded counts |
 
 ```json
 {
   "grower_id": "GRW_00001",
+  "name": "Rajan Kumar",
+  "grower_age": 67,
+  "phone": "+91-9000000000",
+  "preferred_language": "Hindi",
+  "state": "Rajasthan",
+  "district": "Bharatpur",
+  "tehsil": "Bharatpur_T023",
+  "grower_farm_size": 3.54,
+  "crops": [
+    "wheat"
+  ],
+  "latitude": 27.0238,
+  "longitude": 74.2179,
+  "device_type": "android",
+  "connectivity": "4G",
+  "whatsapp_enabled": true,
+  "last_message_sent_at": null,
+  "messages_received_last_30d": 1,
+  "messages_opened_last_30d": 0,
+  "preferred_contact_time": "evening",
+  "linked_retailer_id": "RET-200",
+  "linked_retailer_name": "Bharatpur Agro Center",
+  "urgency_score": 0.52,
+  "recommended_channel": "whatsapp"
+}
+
+```
+
+## M4 — Weather + Pest Signals `http://localhost:8004/signals/weather?lat=13.00663&lon=80.244193`
+
+| Port | Method | URL                | Input                     | Output                                  |
+| ---- | ------ | ------------------ | ------------------------- | --------------------------------------- |
+| 8004 | GET    | `/signals/weather` | `lat`, `lon` query params | Weather + pest signals (`SignalBundle`) |
+| 8004 | GET    | `/debug/weather`   | Optional debug parameters | Raw weather diagnostics                 |
+
+```json
+{
+  "district": "Chennai Corporation",
+  "state": "Tamil Nadu",
+  "humidity_7d_avg": 56.3,
+  "rainfall_deviation_pct": 659.8,
+  "weather_anomaly": 1,
+  "pest_risk": 0.2,
+  "active_pest": "None",
+  "weather_anomaly_flag": true
+}
+```
+
+## M5 — Crop Calendar `http://localhost:8005/calendar?state=Tamil+Nadu&crop=blackgram`
+
+
+| Port | Method | URL         | Input                        | Output                                               |
+| ---- | ------ | ----------- | ---------------------------- | ---------------------------------------------------- |
+| 8005 | GET    | `/`         | None                         | Crop calendar service metadata                       |
+| 8005 | GET    | `/calendar` | `state`, `crop` query params | Crop stage + MSP + recommendations (`CropStageInfo`) |
+
+```json
+{
+  "state": "Maharashtra",
+  "crop": "cotton",
+  "month": "may",
+  "stage": "seed_treatment",
+  "crop_vulnerability": 0.2,
+  "days_to_next": 15,
+  "recommendations": [
+    "Treat seeds with Imidacloprid or Thiamethoxam (7.5 g/kg), Thiram or Captan (3 g/kg), Azotobacter (25 g/kg), and PSB (20 g/kg)."
+  ],
+  "msp_rs_quintal": "7710.00",
+  "today_price_rs_quintal": "8255.09",
+  "today_arrival_metric_tonnes": "1928.91"
+}
+```
+MSP Minimum Support Price using https://api.agmarknet.gov.in/v1/dashboard-data/
+
+## M6 — Context Assembler `http://localhost:8006/context/GRW_00005`
+
+
+| Port | Method | URL                    | Input                  | Output                                           |
+| ---- | ------ | ---------------------- | ---------------------- | ------------------------------------------------ |
+| 8006 | GET    | `/context/{grower_id}` | `grower_id` path param | Fully assembled farmer context (`FarmerContext`) |
+| 8006 | POST   | `/context/batch`       | List of grower IDs     | Batch assembled farmer contexts                  |
+
+```json
+{
+  "profile": {
+    "grower_id": "GRW_00005",
+    "name": "Ramesh Kumar",
+    "grower_age": 26,
+    "phone": "+91-9000000004",
+    "preferred_language": "Hindi",
+    "state": "Uttar Pradesh",
+    "district": "Kanpur Nagar",
+    "tehsil": "Kanpur_Nagar_T124",
+    "grower_farm_size": 1.33,
+    "crops": [
+      "wheat"
+    ],
+    "latitude": 26.8467,
+    "longitude": 80.9462,
+    "device_type": "android",
+    "connectivity": "4G",
+    "whatsapp_enabled": true,
+    "last_message_sent_at": null,
+    "messages_received_last_30d": 1,
+    "messages_opened_last_30d": 0,
+    "preferred_contact_time": "morning",
+    "linked_retailer_id": "RET-204",
+    "linked_retailer_name": "Kanpur Nagar Agro Center",
+    "urgency_score": 0.52,
+    "recommended_channel": "whatsapp"
+  },
+  "signals": {
+    "district": "Kanpur Nagar",
+    "state": "Uttar Pradesh",
+    "humidity_7d_avg": 32.1,
+    "rainfall_deviation_pct": -100,
+    "weather_anomaly": 0.5,
+    "pest_risk": 0.2,
+    "active_pest": "None",
+    "weather_anomaly_flag": true
+  },
+  "crop_stage": {
+    "confirmed_stage": "vegetative",
+    "days_in_stage": 0,
+    "crop_vulnerability": 0.2,
+    "days_to_next_stage": 30
+  },
+  "assembled_at": "2026-05-20T06:00:13.953183"
+}
+```
+
+## M7 — Urgency Score gives `http://localhost:8007/score/GRW_05989` with farmer context gives a score (0-1)
+
+| Port | Method | URL        | Input                     | Output                                               |
+| ---- | ------ | ---------- | ------------------------- | ---------------------------------------------------- |
+| 8007 | POST   | `/score`   | `FarmerContext` JSON body | Urgency score + suppression + channel recommendation |
+| 8007 | POST   | `/explain` | `FarmerContext` JSON body | Why-now explanation + rationale                      |
+
+```json
+{
+  "grower_id": "GRW_05989",
+  "urgency_score": 0.22,
+  "urgency_components": {
+    "pest_risk_term": 0.08,
+    "weather_anomaly_term": 0,
+    "crop_vulnerability_term": 0.04,
+    "recency_term": 0.1,
+    "recency_penalty_raw": 0,
+    "weights_source": "default",
+    "weights_used": {
+      "pest_risk": 0.4,
+      "weather_anomaly": 0.3,
+      "crop_vulnerability": 0.2,
+      "communication_window": 0.1
+    },
+    "top_factors": [
+      "Communication Window Available",
+      "High Pest Outbreak Risk",
+      "Critical Crop Stage Vulnerability"
+    ]
+  },
+  "engagement_score": 0.15,
+  "engagement_components": {
+    "calibrated_probability": null,
+    "engagement_scaled": 0.15,
+    "top_factors": [
+      "Zero message opens (low responsiveness)",
+      "Baseline engagement estimate"
+    ],
+    "model_used": false
+  },
+  "intervention_priority": 0.21,
+  "recommended_channel": "whatsapp",
+  "suppress": false,
+  "suppress_reason": null,
+  "top_factors": [
+    "Communication Window Available",
+    "High Pest Outbreak Risk",
+    "Critical Crop Stage Vulnerability"
+  ],
+  "confidence": 0.5,
+  "expected_intervention_value": -0.017,
+  "model_version": "m7-hybrid-v2"
+}
+```
+## M8 — Product Ranker `http://localhost:8002/products/GRW_00012`
+
+| Port | Method | URL                     | Input                   | Output                                 |
+| ---- | ------ | ----------------------- | ----------------------- | -------------------------------------- |
+| 8002 | POST   | `/rank`                 | `RankRequest` JSON body | Ranked products (`RankResponse`)       |
+| 8002 | GET    | `/products/{grower_id}` | `grower_id` path param  | Personalized agronomic recommendations |
+
+```json
+{
+  "grower_id": "GRW_00012",
   "crop": "wheat",
   "pest": "rust",
   "top_products": [
     {
-      "product_name": "Score 250 EC",
-      "match_score": 0.746,
+      "product_name": "Tilt 250 EC",
+      "match_score": 0.753,
       "confidence": 0.7,
       "match_reasons": [
         "Registered for wheat crop protection",
@@ -143,15 +306,15 @@ Python 3.11+, **FastAPI** microservices, **SQLite** (farmers + delivery log), **
         "Systemic action — absorbed and translocated in plant"
       ],
       "score_breakdown": {
-        "efficacy": 0.98,
+        "efficacy": 0.972,
         "adoption": 0.5,
-        "availability": 0.62,
+        "availability": 0.65,
         "moa_group": "FRAC-3",
         "treatment_intent": [
           "preventive",
           "curative"
         ],
-        "price_tier": "mid",
+        "price_tier": "low",
         "weights_used": {
           "efficacy": 0.44,
           "adoption": 0.27,
@@ -161,7 +324,7 @@ Python 3.11+, **FastAPI** microservices, **SQLite** (farmers + delivery log), **
     },
     {
       "product_name": "Amistar 250 SC",
-      "match_score": 0.729,
+      "match_score": 0.705,
       "confidence": 0.7,
       "match_reasons": [
         "Registered for wheat crop protection",
@@ -173,7 +336,7 @@ Python 3.11+, **FastAPI** microservices, **SQLite** (farmers + delivery log), **
       "score_breakdown": {
         "efficacy": 0.982,
         "adoption": 0.5,
-        "availability": 0.56,
+        "availability": 0.47,
         "moa_group": "FRAC-11",
         "treatment_intent": [
           "preventive",
@@ -189,7 +352,7 @@ Python 3.11+, **FastAPI** microservices, **SQLite** (farmers + delivery log), **
     },
     {
       "product_name": "Kavach 75 WP",
-      "match_score": 0.622,
+      "match_score": 0.64,
       "confidence": 0.66,
       "match_reasons": [
         "Targets rust — efficacy rating 84%",
@@ -199,7 +362,7 @@ Python 3.11+, **FastAPI** microservices, **SQLite** (farmers + delivery log), **
       "score_breakdown": {
         "efficacy": 0.718,
         "adoption": 0.5,
-        "availability": 0.59,
+        "availability": 0.65,
         "moa_group": "FRAC-M5",
         "treatment_intent": [
           "preventive"
@@ -215,7 +378,7 @@ Python 3.11+, **FastAPI** microservices, **SQLite** (farmers + delivery log), **
   ],
   "not_recommended": [
     {
-      "product_name": "Tilt 250 EC",
+      "product_name": "Score 250 EC",
       "not_ranked_higher_because": [
         "Same MoA group (FRAC-3) already represented in recommendations"
       ]
@@ -227,7 +390,7 @@ Python 3.11+, **FastAPI** microservices, **SQLite** (farmers + delivery log), **
       ]
     },
     {
-      "product_name": "Movondo",
+      "product_name": "Cruiser 350 FS",
       "not_ranked_higher_because": [
         "Lower combined score than selected alternatives"
       ]
@@ -238,3 +401,114 @@ Python 3.11+, **FastAPI** microservices, **SQLite** (farmers + delivery log), **
   "model_version": "m8-hybrid-v1"
 }
 ```
+
+
+## M16 — Campaign Orchestrator `http://localhost:8008/predict/GRW_05989` 
+
+
+| Port | Method | URL                    | Input                             | Output                                 |
+| ---- | ------ | ---------------------- | --------------------------------- | -------------------------------------- |
+| 8008 | POST   | `/predict`             | `FarmerContext` or grower profile | Campaign orchestration prediction      |
+| 8008 | GET    | `/predict/{grower_id}` | `grower_id` path param            | Personalized campaign strategy         |
+| 8008 | POST   | `/explain`             | Campaign prediction JSON          | Human-readable orchestration reasoning |
+
+```json
+{
+  "grower_id": "GRW_05989",
+  "segment": "offline_only",
+  "segment_confidence": 0.8,
+  "receptivity_score": 0.15,
+  "recommended_formats": [
+    {
+      "format": "field_demo",
+      "predicted_engagement": 0.22,
+      "confidence": 0.7,
+      "reasoning": "In-person demonstration builds trust for new products"
+    },
+    {
+      "format": "voice_ivr",
+      "predicted_engagement": 0.12,
+      "confidence": 0.7,
+      "reasoning": "Voice in local language overcomes literacy barriers"
+    },
+    {
+      "format": "sms_short",
+      "predicted_engagement": 0.06,
+      "confidence": 0.7,
+      "reasoning": "Reaches keypad users; concise actionable message"
+    }
+  ],
+  "best_day_of_week": "Saturday",
+  "best_time_window": "10:00 AM–12:00 PM",
+  "fatigue_risk": 0.65,
+  "creative_suggestions": [
+    "Prioritize voice/IVR in local language over digital formats",
+    "Coordinate with field rep visit for in-person demonstration",
+    "⚠️ High fatigue risk — reduce frequency or switch to high-value content only",
+    "Low receptivity predicted — consider escalating to field visit or voice call"
+  ],
+  "model_version": "campaign-receptivity-v1"
+}
+
+```
+
+# Core Microservice Mapping
+
+| Module | Port | Responsibility                                  |
+| ------ | ---- | ----------------------------------------------- |
+| M1     | 8001 | Farmer profile database                         |
+| M4     | 8004 | Weather + pest intelligence                     |
+| M5     | 8005 | Crop calendar + MSP                             |
+| M6     | 8006 | Unified farmer context assembly                 |
+| M7     | 8007 | Urgency scoring + explainability                |
+| M8     | 8002 | Agronomic product ranking                       |
+| M16    | 8008 | Campaign orchestration + receptivity prediction |
+
+# Running the Services
+
+To manage the microservices during local development or testing, use the following commands in the project root:
+
+### Start All Microservices
+Run the startup script to launch all active microservice APIs (M1, M2, M4, M5, M6, M7, M8, M16) in the background:
+```bash
+./run_all.sh
+```
+
+### Stop All Microservices
+Run the teardown script to terminate all active `uvicorn` instances:
+```bash
+./stop_all.sh
+```
+
+M8 PRODUCT RANKER — PERFORMANCE EVALUATION
+
+    POS transactions: 235042
+    Growers: 6000
+    Products in catalog: 12
+    Valid evaluation queries: 37540
+    Unique districts: 33
+    Unique products purchased: 12
+    Completed 2000 evaluations.
+
+    ✓ wheat + rust → expects Score 250 EC: FOUND
+    ✓ wheat + weeds → expects Topik 15 WP: FOUND
+    ✓ potato + blight → expects Kavach 75 WP: FOUND
+    ✓ chickpea + aphid → expects Actara 25 WG: FOUND
+    ✓ mustard + fungal → expects Score 250 EC: FOUND
+
+    Coherence: 5/5 domain rules satisfied
+
+
+    Exact Hit Rate @2:     0.228 (random=0.173, lift=1.3×)
+    Agronomic Hit Rate @2: 0.647 (random=0.349, lift=1.9×)
+    MoA-aware Hit Rate @2: 0.466
+    Functional Recall @2:  0.831
+    Exact Hit Rate @5:     0.664
+    Agronomic Hit Rate @5: 0.861
+    MRR:                   0.279
+    Coverage:              100%
+    MoA Diversity:         0.92
+    Coherence:             5/5
+
+  ✓ Good catalog coverage — not stuck recommending same products.
+  ✓ Good MoA diversity — resistance management working.

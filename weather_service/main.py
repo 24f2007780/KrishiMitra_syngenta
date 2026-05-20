@@ -15,6 +15,56 @@ geolocator = Nominatim(user_agent="krishimitra_ai_hackathon")
 
 # Simple in-memory cache
 BASELINE_CACHE = {}
+WEATHER_CACHE = {}
+WEATHER_CACHE_PATH = os.path.join(
+    os.path.dirname(os.path.dirname(__file__)), "dataset", "weather_cache.csv"
+)
+
+def load_weather_cache():
+    global WEATHER_CACHE
+    if os.path.exists(WEATHER_CACHE_PATH):
+        try:
+            with open(WEATHER_CACHE_PATH, newline="", encoding="utf-8") as f:
+                reader = csv.DictReader(f)
+                for row in reader:
+                    loc_key = row.get("location_key")
+                    if loc_key:
+                        pest_val = row.get("pest_risk") or row.get("pest_risk_level") or "low"
+                        if pest_val in ["low", "medium", "high"]:
+                            pest_risk_float = {"high": 0.8, "medium": 0.5, "low": 0.2}[pest_val]
+                        else:
+                            try:
+                                pest_risk_float = float(pest_val)
+                            except ValueError:
+                                pest_risk_float = 0.2
+
+                        raw_wa = row.get("weather_anomaly") 
+                        try:
+                            raw_wa_val = float(raw_wa) if raw_wa is not None else 0.0
+                            if 0.0 <= raw_wa_val <= 1.0:
+                                wa_val = raw_wa_val
+                            else:
+                                wa_val = min(abs(raw_wa_val) / 5.0, 1.0)
+                        except ValueError:
+                            wa_val = 0.2
+
+                        WEATHER_CACHE[loc_key] = {
+                            "district": row.get("district"),
+                            "state": row.get("state"),
+                            "humidity_7d_avg": float(row.get("humidity_7d_avg") or 0.0),
+                            "rainfall_deviation_pct": float(row.get("rainfall_deviation_pct") or 0.0),
+                            "weather_anomaly": wa_val,
+                            "pest_risk": pest_risk_float,
+                            "active_pest": row.get("active_pest") or "None",
+                            "weather_anomaly_flag": str(row.get("weather_anomaly_flag")).lower() == "true",
+                        }
+            print(f"Loaded {len(WEATHER_CACHE)} weather cache entries.")
+        except Exception as e:
+            print(f"Error loading weather cache: {e}")
+
+@app.on_event("startup")
+def startup_event():
+    load_weather_cache()
 
 # Shortcut seasonal normals for demo fallback
 SEASONAL_NORMALS = {
@@ -143,13 +193,24 @@ def build_signal_bundle(
     weekly_hist_rain = hist_rain / 4.0
     rain_dev_pct = ((rain_7d - weekly_hist_rain) / weekly_hist_rain * 100) if weekly_hist_rain > 0 else 0.0
     
+    if isinstance(pest_risk, (int, float)):
+        pest_risk_float = float(pest_risk)
+    else:
+        pest_map = {"high": 0.8, "medium": 0.5, "low": 0.2}
+        pest_risk_float = pest_map.get(str(pest_risk).lower(), 0.2)
+
+    # Map temp & rain anomalies to a [0, 1] weather anomaly value
+    temp_dev = min(abs(temp_anomaly) / 5.0, 1.0)
+    rain_dev = min(abs(rain_dev_pct) / 100.0, 1.0)
+    weather_anomaly_val = max(temp_dev, rain_dev)
+
     return SignalBundle(
         district=district,
         state=state,
-        humidity_7d_avg=round(humidity_avg, 1),
-        rainfall_deviation_pct=round(rain_dev_pct, 1),
-        temperature_anomaly=round(temp_anomaly, 1),
-        pest_risk_level=pest_risk,
+        humidity_7d_avg=humidity_avg,
+        rainfall_deviation_pct=rain_dev_pct,
+        weather_anomaly=weather_anomaly_val,
+        pest_risk=pest_risk_float,
         active_pest=pest_name,
         weather_anomaly_flag=abs(temp_anomaly) > 3.5 or abs(rain_dev_pct) > 50.0
     )
@@ -157,14 +218,34 @@ def build_signal_bundle(
 @app.get("/signals/weather", response_model=SignalBundle)
 async def get_weather_signals(lat: float = Query(...), lon: float = Query(...)):
     """Primary weather endpoint: specific to latitude and longitude."""
+    location_key = f"{round(lat, 2)},{round(lon, 2)}"
+    if location_key in WEATHER_CACHE:
+        c = WEATHER_CACHE[location_key]
+        return SignalBundle(
+            district=c["district"],
+            state=c["state"],
+            humidity_7d_avg=c["humidity_7d_avg"],
+            rainfall_deviation_pct=c["rainfall_deviation_pct"],
+            weather_anomaly=c["weather_anomaly"],
+            pest_risk=c["pest_risk"],
+            active_pest=c["active_pest"],
+            weather_anomaly_flag=c["weather_anomaly_flag"]
+        )
+
     # 1. Reverse Geocode for District/State context
     district, state = await get_district_from_coords(lat, lon)
     
     # 2. Fetch Signals and Baselines
-    (hist_temp, hist_rain), (curr_temp, humidity_avg, rain_7d) = await asyncio.gather(
-        get_historical_baselines(lat, lon, district),
-        get_current_weather(lat, lon)
-    )
+    try:
+        (hist_temp, hist_rain), (curr_temp, humidity_avg, rain_7d) = await asyncio.gather(
+            get_historical_baselines(lat, lon),
+            get_current_weather(lat, lon)
+        )
+    except Exception as e:
+        print(f"Error fetching weather APIs: {e}")
+        hist_temp, hist_rain = 30.0, 50.0
+        curr_temp, humidity_avg, rain_7d = 32.0, 65.0, 10.0
+
     print("historical baselines" , hist_temp, hist_rain)
     pest_name, pest_risk = get_pest_risk(district)
     

@@ -16,7 +16,7 @@ from datetime import date
 
 import numpy as np
 
-from .models import FarmerContext
+from shared.models import FarmerContext
 from .scorer import compute_urgency, compute_recency_penalty, _clip
 
 logger = logging.getLogger(__name__)

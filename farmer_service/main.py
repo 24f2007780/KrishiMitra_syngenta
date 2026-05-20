@@ -13,7 +13,7 @@ def startup():
 def db_farmer_to_profile(farmer: models.Farmer) -> models.FarmerProfile:
     crops_list = [c.strip() for c in farmer.crops.split(",")] if farmer.crops else []
     return models.FarmerProfile(
-        farmer_id=farmer.farmer_id,
+        grower_id=farmer.grower_id,
         name=farmer.name,
         grower_age=farmer.grower_age,
         phone=farmer.phone,
@@ -38,9 +38,9 @@ def db_farmer_to_profile(farmer: models.Farmer) -> models.FarmerProfile:
         recommended_channel=farmer.recommended_channel
     )
 
-@app.get("/farmer/{farmer_id}", response_model=models.FarmerProfile)
-def get_farmer(farmer_id: str, db: Session = Depends(database.get_db)):
-    farmer = db.query(models.Farmer).filter(models.Farmer.farmer_id == farmer_id).first()
+@app.get("/farmer/{grower_id}", response_model=models.FarmerProfile)
+def get_farmer(grower_id: str, db: Session = Depends(database.get_db)):
+    farmer = db.query(models.Farmer).filter(models.Farmer.grower_id == grower_id).first()
     if not farmer:
         raise HTTPException(status_code=404, detail="Farmer not found")
     return db_farmer_to_profile(farmer)

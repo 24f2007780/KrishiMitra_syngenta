@@ -28,7 +28,7 @@ print()
 
 # Simulating input from an external system
 raw_input = {
-    "farmer_id": "F1021",
+    "grower_id": "F1021",
     "crop_type": "wheat",
     "district": "Nashik",
     "pest_risk": 0.82,
@@ -45,7 +45,7 @@ hours = raw_input["hours_since_last_message"]
 last_msg_date = scoring_date - timedelta(hours=hours) if hours else None
 
 ctx = FarmerContext(
-    grower_id=raw_input["farmer_id"],
+    grower_id=raw_input["grower_id"],
     crop=CropType.wheat,
     pest_risk=raw_input["pest_risk"],
     weather_anomaly=raw_input["weather_anomaly"],

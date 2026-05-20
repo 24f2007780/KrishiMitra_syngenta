@@ -24,13 +24,32 @@ def load_weather_cache() -> dict:
             for row in reader:
                 loc_key = row.get("location_key")
                 if loc_key:
+                    pest_val = row.get("pest_risk") or row.get("pest_risk_level") or "low"
+                    if pest_val in ["low", "medium", "high"]:
+                        pest_risk_float = {"high": 0.8, "medium": 0.5, "low": 0.2}[pest_val]
+                    else:
+                        try:
+                            pest_risk_float = float(pest_val)
+                        except ValueError:
+                            pest_risk_float = 0.2
+
+                    raw_wa = row.get("weather_anomaly") 
+                    try:
+                        raw_wa_val = float(raw_wa) if raw_wa is not None else 0.0
+                        if 0.0 <= raw_wa_val <= 1.0:
+                            wa_val = raw_wa_val
+                        else:
+                            wa_val = min(abs(raw_wa_val) / 5.0, 1.0)
+                    except ValueError:
+                        wa_val = 0.2
+
                     cache[loc_key] = {
                         "district": row.get("district"),
                         "state": row.get("state"),
                         "humidity_7d_avg": float(row.get("humidity_7d_avg") or 0.0),
                         "rainfall_deviation_pct": float(row.get("rainfall_deviation_pct") or 0.0),
-                        "temperature_anomaly": float(row.get("temperature_anomaly") or 0.0),
-                        "pest_risk_level": row.get("pest_risk_level") or "low",
+                        "weather_anomaly": wa_val,
+                        "pest_risk": pest_risk_float,
                         "active_pest": row.get("active_pest") or "None",
                         "weather_anomaly_flag": str(row.get("weather_anomaly_flag")).lower() == "true",
                     }
@@ -54,8 +73,8 @@ def write_weather_cache(rows):
     file_exists = os.path.exists(WEATHER_CACHE_PATH)
     fieldnames = [
         "location_key", "district", "state", "humidity_7d_avg", 
-        "rainfall_deviation_pct", "temperature_anomaly", 
-        "pest_risk_level", "active_pest", "weather_anomaly_flag"
+        "rainfall_deviation_pct", "weather_anomaly", 
+        "pest_risk", "active_pest", "weather_anomaly_flag"
     ]
     with open(WEATHER_CACHE_PATH, "a", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
@@ -166,7 +185,7 @@ def seed_farmers(db: Session):
             grower_id = (row.get("grower_id") or f"GRW_{i + 1:05d}").strip()
             phone = f"+91-9{i:09d}"
 
-            from urgency_scorer.app.scorer import compute_urgency
+            from urgency_scorer.scorer import compute_urgency
             import unittest.mock as mock
             import asyncio
             from weather_service import main as weather_main
@@ -182,7 +201,7 @@ def seed_farmers(db: Session):
             opened_last_30d = wa_counts.get(grower_id, {}).get("opened", 0)
 
             profile_obj = FarmerProfile(
-                farmer_id=grower_id,
+                grower_id=grower_id,
                 name=indian_names[i % len(indian_names)],
                 grower_age=age,
                 phone=phone,
@@ -215,8 +234,8 @@ def seed_farmers(db: Session):
                     state=state,
                     humidity_7d_avg=cached_w["humidity_7d_avg"],
                     rainfall_deviation_pct=cached_w["rainfall_deviation_pct"],
-                    temperature_anomaly=cached_w["temperature_anomaly"],
-                    pest_risk_level=cached_w["pest_risk_level"],
+                    weather_anomaly=cached_w["weather_anomaly"],
+                    pest_risk=cached_w["pest_risk"],
                     active_pest=cached_w["active_pest"],
                     weather_anomaly_flag=cached_w["weather_anomaly_flag"]
                 )
@@ -253,8 +272,8 @@ def seed_farmers(db: Session):
                     "state": state,
                     "humidity_7d_avg": signals_obj.humidity_7d_avg,
                     "rainfall_deviation_pct": signals_obj.rainfall_deviation_pct,
-                    "temperature_anomaly": signals_obj.temperature_anomaly,
-                    "pest_risk_level": signals_obj.pest_risk_level,
+                    "weather_anomaly": signals_obj.weather_anomaly,
+                    "pest_risk": signals_obj.pest_risk,
                     "active_pest": signals_obj.active_pest,
                     "weather_anomaly_flag": signals_obj.weather_anomaly_flag
                 }
@@ -264,8 +283,8 @@ def seed_farmers(db: Session):
                     "state": state,
                     "humidity_7d_avg": signals_obj.humidity_7d_avg,
                     "rainfall_deviation_pct": signals_obj.rainfall_deviation_pct,
-                    "temperature_anomaly": signals_obj.temperature_anomaly,
-                    "pest_risk_level": signals_obj.pest_risk_level,
+                    "weather_anomaly": signals_obj.weather_anomaly,
+                    "pest_risk": signals_obj.pest_risk,
                     "active_pest": signals_obj.active_pest,
                     "weather_anomaly_flag": str(signals_obj.weather_anomaly_flag)
                 })
@@ -279,7 +298,7 @@ def seed_farmers(db: Session):
                 stage_obj = FarmerStage(
                     confirmed_stage="vegetative",
                     days_in_stage=0,
-                    vulnerability="medium",
+                    crop_vulnerability=0.5,
                     days_to_next_stage=30
                 )
                 
@@ -319,7 +338,7 @@ def seed_farmers(db: Session):
                 new_grower_rows.clear()
 
             farmers.append(Farmer(
-                farmer_id=grower_id,
+                grower_id=grower_id,
                 name=indian_names[i % len(indian_names)],
                 phone=phone,
                 preferred_language=language,
