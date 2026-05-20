@@ -1,0 +1,6 @@
+.chrome_profile/
+qr.png
+.venv/
+__pycache__/
+*.pyc
+.env

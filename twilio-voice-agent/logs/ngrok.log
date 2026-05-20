@@ -1,0 +1,35 @@
+t=2026-05-18T22:17:41+0530 lvl=info msg="no configuration paths supplied"
+t=2026-05-18T22:17:41+0530 lvl=info msg="using configuration at default config path" path=/home/rajnish/.config/ngrok/ngrok.yml
+t=2026-05-18T22:17:41+0530 lvl=info msg="open config file" path=/home/rajnish/.config/ngrok/ngrok.yml err=nil
+t=2026-05-18T22:17:41+0530 lvl=info msg="FIPS 140 mode" enabled=false
+t=2026-05-18T22:17:41+0530 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4040 allow_hosts=[]
+t=2026-05-18T22:17:41+0530 lvl=info msg="client session established" obj=tunnels.session
+t=2026-05-18T22:17:41+0530 lvl=info msg="tunnel session started" obj=tunnels.session
+t=2026-05-18T22:17:42+0530 lvl=info msg=start pg=/api/tunnels id=4b62afb921023ef6
+t=2026-05-18T22:17:42+0530 lvl=info msg=end pg=/api/tunnels id=4b62afb921023ef6 status=200 dur=441.441µs
+t=2026-05-18T22:17:42+0530 lvl=info msg="started tunnel" obj=tunnels name=command_line addr=http://localhost:8000 url=https://d4f0-2401-4900-1f2d-20a5-279f-91fd-a07d-9dfc.ngrok-free.app
+t=2026-05-18T22:17:42+0530 lvl=info msg=start pg=/api/tunnels id=c5f7af525d5b4ac5
+t=2026-05-18T22:17:42+0530 lvl=info msg=end pg=/api/tunnels id=c5f7af525d5b4ac5 status=200 dur=372.101µs
+t=2026-05-18T22:17:42+0530 lvl=info msg="update available" obj=updater
+t=2026-05-18T22:17:50+0530 lvl=info msg="join connections" obj=join id=0ba0f323e56b l=127.0.0.1:8000 r=3.92.78.174:25732
+t=2026-05-18T22:17:51+0530 lvl=info msg="join connections" obj=join id=251e34783d81 l=127.0.0.1:8000 r=34.235.126.53:40536
+t=2026-05-18T22:17:52+0530 lvl=info msg="join connections" obj=join id=aecbeab75d8e l=127.0.0.1:8000 r=35.173.242.48:20070
+t=2026-05-18T22:18:03+0530 lvl=info msg="join connections" obj=join id=675df97f15ac l=127.0.0.1:8000 r=34.207.80.125:21632
+t=2026-05-18T22:18:04+0530 lvl=info msg="join connections" obj=join id=049f47f6b5d6 l=127.0.0.1:8000 r=3.90.174.69:53096
+t=2026-05-18T22:19:25+0530 lvl=info msg="join connections" obj=join id=2d81fabcb70a l=127.0.0.1:8000 r=52.6.201.89:36838
+t=2026-05-18T22:19:47+0530 lvl=info msg="join connections" obj=join id=e632681fe38c l=127.0.0.1:8000 r=54.211.1.203:57196
+t=2026-05-18T22:19:49+0530 lvl=info msg="join connections" obj=join id=7f5b9ac15480 l=127.0.0.1:8000 r=54.173.250.203:52576
+t=2026-05-18T22:19:49+0530 lvl=info msg="join connections" obj=join id=f27fd500c700 l=127.0.0.1:8000 r=54.147.172.3:39526
+t=2026-05-18T22:20:00+0530 lvl=info msg="join connections" obj=join id=fe4543f2c8dd l=127.0.0.1:8000 r=34.227.21.104:57908
+t=2026-05-18T22:20:01+0530 lvl=info msg="join connections" obj=join id=72a4a6411eba l=127.0.0.1:8000 r=98.81.93.208:33014
+t=2026-05-18T22:20:31+0530 lvl=info msg="join connections" obj=join id=1f5596be56b3 l=127.0.0.1:8000 r=52.87.248.94:30484
+t=2026-05-18T22:22:04+0530 lvl=info msg="join connections" obj=join id=414795a69585 l=127.0.0.1:8000 r=54.152.199.108:64422
+t=2026-05-18T22:22:05+0530 lvl=info msg="join connections" obj=join id=7f88399bf509 l=127.0.0.1:8000 r=52.87.163.84:40654
+t=2026-05-18T22:22:05+0530 lvl=info msg="join connections" obj=join id=f2eeeaa198bc l=127.0.0.1:8000 r=54.198.17.147:60688
+t=2026-05-18T22:22:11+0530 lvl=info msg="join connections" obj=join id=3f716d2f17c3 l=127.0.0.1:8000 r=13.220.79.94:28072
+t=2026-05-18T22:22:12+0530 lvl=info msg="join connections" obj=join id=3be740925d8d l=127.0.0.1:8000 r=32.192.206.200:44776
+t=2026-05-18T22:26:36+0530 lvl=info msg="join connections" obj=join id=3584d1e5cdce l=127.0.0.1:8000 r=34.207.80.125:40658
+t=2026-05-18T22:30:42+0530 lvl=eror msg="heartbeat timeout, terminating session" obj=tunnels.session obj=csess id=a29fe43f0e8c clientid=f72a28459e2b2f016256d3d5e6d609ee
+t=2026-05-18T22:30:42+0530 lvl=eror msg="session closed, starting reconnect loop" obj=tunnels.session obj=csess id=047b8a22e90d err="session closed"
+t=2026-05-18T22:30:42+0530 lvl=info msg="client session established" obj=tunnels.session
+t=2026-05-18T22:30:42+0530 lvl=info msg="tunnel session started" obj=tunnels.session

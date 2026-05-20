@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dcVoice | Ops login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #667eea;
+      --primary-dark: #5568d3;
+      --primary-light: #f0f3ff;
+      --secondary: #764ba2;
+      --dark: #2d3748;
+      --text: #4a5568;
+      --text-light: #718096;
+      --light: #f8f9fa;
+      --border: #e2e8f0;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 12px 24px -4px rgba(102, 126, 234, 0.12);
+    }
+
+    html { height: 100%; -webkit-font-smoothing: antialiased; }
+    body {
+      min-height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: var(--light);
+      color: var(--text);
+    }
+
+    .shell {
+      display: grid;
+      grid-template-columns: minmax(300px, 1fr) minmax(360px, 1.15fr);
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+
+    @media (max-width: 960px) {
+      .shell {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+      }
+      .brand-panel {
+        min-height: auto;
+        padding: 36px 28px 40px !important;
+      }
+      .brand-panel .brand-inner { max-width: 100%; }
+      .form-panel { padding: 28px 20px 40px !important; }
+    }
+
+    /* —— Brand column —— */
+    .brand-panel {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(40px, 6vw, 64px) clamp(32px, 5vw, 56px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: #fff;
+      background: linear-gradient(145deg, #5a6fd6 0%, var(--primary) 38%, var(--secondary) 100%);
+      box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.08);
+    }
+
+    .brand-panel::before {
+      content: '';
+      position: absolute;
+      width: 140%;
+      height: 80%;
+      top: -35%;
+      right: -45%;
+      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.14) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .brand-panel::after {
+      content: '';
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      bottom: -120px;
+      left: -80px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .brand-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 400px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(20px, 3vw, 28px);
+    }
+
+    .brand-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .mark {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      flex-shrink: 0;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-bottom: 6px;
+    }
+
+    .brand-panel h1 {
+      font-size: clamp(1.85rem, 4.2vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+    }
+
+    .brand-panel .lead {
+      font-size: 15px;
+      line-height: 1.65;
+      opacity: 0.92;
+      max-width: 36em;
+    }
+
+    .brand-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .brand-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      line-height: 1.5;
+      opacity: 0.94;
+    }
+
+    .brand-features li i {
+      width: 22px;
+      text-align: center;
+      margin-top: 2px;
+      opacity: 0.95;
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .brand-footer {
+      margin-top: auto;
+      padding-top: 28px;
+      font-size: 12px;
+      opacity: 0.72;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .brand-footer .dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: 0.5;
+    }
+
+    /* —— Form column —— */
+    .form-panel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(28px, 5vw, 48px) clamp(20px, 4vw, 40px);
+      background: linear-gradient(180deg, #fff 0%, var(--light) 100%);
+    }
+
+    .form-wrap {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .form-wrap > .back-ghost {
+      margin-bottom: 20px;
+    }
+
+    .back-ghost a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .back-ghost a:hover {
+      color: var(--primary);
+    }
+
+    .card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+
+    .card-accent {
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+
+    .card-body {
+      padding: 28px 28px 26px;
+    }
+
+    @media (max-width: 480px) {
+      .card-body { padding: 22px 20px 20px; }
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+
+    .card-sub {
+      font-size: 14px;
+      color: var(--text-light);
+      line-height: 1.5;
+      margin-bottom: 26px;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .input-shell {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-shell > i {
+      position: absolute;
+      left: 14px;
+      font-size: 15px;
+      color: var(--text-light);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .input-shell input {
+      width: 100%;
+      padding: 13px 14px 13px 42px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: #fafbfc;
+      color: var(--dark);
+      font-size: 15px;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+
+    .input-shell input::placeholder {
+      color: #a0aec0;
+    }
+
+    .input-shell input:hover {
+      border-color: #cbd5e0;
+      background: #fff;
+    }
+
+    .input-shell input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.18);
+    }
+
+    .btn {
+      width: 100%;
+      margin-top: 6px;
+      padding: 14px 18px;
+      border: none;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--primary) 0%, #6b74e0 50%, var(--primary-dark) 100%);
+      color: #fff;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 14px rgba(102, 126, 234, 0.35);
+      transition: transform 0.15s ease, box-shadow 0.2s, filter 0.2s;
+    }
+
+    .btn:hover {
+      filter: brightness(1.03);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .status {
+      margin-top: 16px;
+      font-size: 13px;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      display: none;
+      line-height: 1.45;
+    }
+
+    .status.error {
+      display: block;
+      background: #fff5f5;
+      color: #c53030;
+      border: 1px solid #fed7d7;
+    }
+
+    .divider {
+      margin: 22px 0 18px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border) 15%, var(--border) 85%, transparent);
+    }
+
+    .hint {
+      font-size: 12px;
+      color: var(--text-light);
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    .hint code {
+      font-family: ui-monospace, monospace;
+      font-size: 11px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .form-footer {
+      margin-top: 22px;
+      text-align: center;
+    }
+
+    .form-footer a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .form-footer a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="brand-panel" aria-label="dcVoice">
+      <div class="brand-inner">
+        <div class="brand-top">
+          <div class="mark" aria-hidden="true"><i class="fas fa-wave-square"></i></div>
+          <div>
+            <p class="eyebrow">Ops access</p>
+            <h1>dcVoice</h1>
+          </div>
+        </div>
+        <p class="lead">Your command center for every live call — transcripts, intent, and outcomes in real time.</p>
+        <ul class="brand-features">
+          <li>
+            <i class="fas fa-chart-line"></i>
+            <span>Live pipeline visibility. No guesswork.</span>
+          </li>
+          <li>
+            <i class="fas fa-lock"></i>
+            <span>Internal-only. Roles enforced. Zero noise.</span>
+          </li>
+          <li>
+            <i class="fas fa-layer-group"></i>
+            <span>One surface. Calls, context, and closure.</span>
+          </li>
+        </ul>
+        <div class="brand-footer">
+          <i class="fas fa-shield-alt" aria-hidden="true"></i>
+          <span>Session hardened</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>dcVoice</span>
+        </div>
+      </div>
+    </aside>
+
+    <div class="form-panel">
+      <div class="form-wrap">
+        <div class="back-ghost">
+          <a href="/"><i class="fas fa-arrow-left" aria-hidden="true"></i> Public site</a>
+        </div>
+
+        <div class="card">
+          <div class="card-accent" aria-hidden="true"></div>
+          <div class="card-body">
+            <h2 class="card-title">Open the dashboard</h2>
+            <p class="card-sub">Credentials only. You’re one step from live ops.</p>
+
+            <form id="loginForm">
+              <div class="field">
+                <label for="username">Username</label>
+                <div class="input-shell">
+                  <i class="fas fa-user" aria-hidden="true"></i>
+                  <input
+                    id="username"
+                    name="username"
+                    type="text"
+                    placeholder="you@team"
+                    required
+                    autocomplete="username"
+                  />
+                </div>
+              </div>
+              <div class="field">
+                <label for="password">Password</label>
+                <div class="input-shell">
+                  <i class="fas fa-key" aria-hidden="true"></i>
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="••••••••"
+                    required
+                    autocomplete="current-password"
+                  />
+                </div>
+              </div>
+              <button class="btn" id="loginBtn" type="submit">
+                <i class="fas fa-right-to-bracket" aria-hidden="true"></i>
+                Enter
+              </button>
+              <div id="status" class="status" role="alert"></div>
+            </form>
+
+            <div class="divider" aria-hidden="true"></div>
+            <!-- <p class="hint">Sandbox default: <code>Test@1234</code> — swap when you go production.</p> -->
+
+            <div class="form-footer">
+              <a href="/"><i class="fas fa-home" aria-hidden="true"></i> dcVoice home</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const btn = document.getElementById('loginBtn');
+    const statusDiv = document.getElementById('status');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      statusDiv.className = 'status';
+      statusDiv.style.display = 'none';
+      statusDiv.textContent = '';
+      btn.disabled = true;
+      const formData = new FormData(form);
+      try {
+        const res = await fetch('/auth/login', { method: 'POST', body: formData });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) {
+          statusDiv.className = 'status error';
+          statusDiv.textContent = data.error || 'Login failed';
+          statusDiv.style.display = 'block';
+        } else {
+          window.location.href = '/dashboard';
+        }
+      } catch (err) {
+        statusDiv.className = 'status error';
+        statusDiv.textContent = 'Network error';
+        statusDiv.style.display = 'block';
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

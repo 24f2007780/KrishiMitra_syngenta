@@ -1,0 +1,10 @@
+# WhatsApp Web (Selenium) — see https://pypi.org/project/redshot/
+redshot>=0.1.1
+selenium>=4.15.0
+
+# Same LLM stack as parent project
+google-genai>=1.56.0
+python-dotenv>=1.2.0
+
+# Lightweight local retrieval (no torch)
+rank-bm25>=0.2.2

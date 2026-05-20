@@ -1,0 +1,22 @@
+{
+  "to_number": "+919152155576",
+  "farmer_id": "GJ-014",
+  "farmer_name": "Mayur",
+  "preferred_language": "Gujarati",
+  "state": "Gujarat",
+  "district": "Anand",
+  "village": "Boriavi",
+  "crops": ["cotton"],
+  "crop": "cotton",
+  "crop_stage": "flowering",
+  "pest_risk_level": "high",
+  "active_pest": "whitefly",
+  "why_now": "Humidity has been high in Anand district; whitefly pressure on flowering cotton can reduce yield if not treated in time.",
+  "recommended_product": "Amistar",
+  "retailer_name": "Shree Krushi Udyog Kendra",
+  "urgency_score": 0.78,
+  "intro_script": "નમસ્કાર મયુર ભાઈ. તમારા કપાસના ખેતર, બોરિયાવી, આણંદમાં, હમણાં ફૂલના તબક્કામાં છે. છેલ્લા કેટલાક દિવસથી ભેજ વધુ છે, એથી સફેદ માખીનો ભય વધ્યો છે. સમયસર એમિસ્ટાર છંટકાવ અને શ્રી કૃષિ ઉદ્યોગ કેન્દ્રથી સલાહ લો. કોઈ પ્રશ્ન હોય તો પૂછો, હું સાંભળી રહ્યો છું.",
+  "example_message_en": "Hello Mayur bhai. Your cotton field in Boriavi, Anand is in the flowering stage. Humid weather lately has increased whitefly risk. Timely Amistar spray and advice from Shree Krushi Udyog Kendra can help. If you have any question, ask now — I am listening.",
+  "sms_script": "KrishiMitra: Namaste Mayur bhai. Boriavi, Anand ma tamaro kapas ful na tabakka ma chhe. Bhij thi safed makhi no khatro vadhyo chhe. Samay par Amistar chhintavo ane Shree Krushi Udyog Kendra thi salah lo.",
+  "whatsapp_script": "નમસ્કાર મયુર ભાઈ 🌾\n\nતમારા કપાસના ખેતર, બોરિયાવી (આણંદ), હમણાં ફૂલના તબક્કામાં છે. છેલ્લા કેટલાક દિવસથી ભેજ વધુ છે — સફેદ માખીનો ભય વધ્યો છે.\n\n✅ સમયસર એમિસ્ટાર છંટકાવ\n✅ શ્રી કૃષિ ઉદ્યોગ કેન્દ્રથી સલાહ લો\n\nકોઈ પ્રશ્ન હોય તો જવાબ આપો — KrishiMitra."
+}

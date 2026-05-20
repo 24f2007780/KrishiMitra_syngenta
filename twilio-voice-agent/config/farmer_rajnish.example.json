@@ -1,0 +1,20 @@
+{
+  "to_number": "+919471961925",
+  "farmer_id": "BR-001",
+  "farmer_name": "Rajnish",
+  "preferred_language": "Bhojpuri",
+  "state": "Bihar",
+  "district": "Patna",
+  "village": "Danapur",
+  "crops": ["rice"],
+  "crop": "rice",
+  "crop_stage": "vegetative",
+  "pest_risk_level": "medium",
+  "active_pest": "stem borer",
+  "why_now": "Humidity has stayed high for several days; stem borer pressure is rising on rice in vegetative stage near Patna.",
+  "recommended_product": "Actara",
+  "retailer_name": "Local Krishi Kendra",
+  "urgency_score": 0.65,
+  "intro_script": "प्रणाम राजनिश जी। रउआ के धान के खेत, दानापुर पटना में, अभी बियां से पहले वाला चरण में बा। कुछ दिन से गीला मौसम बा, तना छेदक के कीड़ा के खतरा बढ़ल बा। समय पर एक्टारा के छिड़काव करीं आ कृषि केंद्र से सलाह लीं। कोनो सवाल बा त हम सुनत बानी।",
+  "example_message_en": "Hello Rajnish ji. Your rice field in Danapur, Patna is in the vegetative stage. Humid weather lately has increased stem borer risk. Spraying Actara in time and visiting Local Krishi Kendra for advice can help. If you have any question, I am listening."
+}

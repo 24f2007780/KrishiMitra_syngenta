@@ -1,0 +1,20 @@
+docker run -it -e NGROK_AUTHTOKEN=2zxzBqlk1H4qOTTkaJ31fndOUj2_7CAhBA2ePjNityZz4t3pu ngrok/ngrok http host.docker.internal:8000
+command to use ngrok with docker
+5:16
+python -m uvicorn main:app --port 8000
+5:17
++1 765 403 0113 - twilio no
+
+
+
+
+-------------------------------------------------------- |||||||||| -----------------------------------------------------
+
+ACCOUNT_SID=AC0492c8d3fcd15b0a2db82cc67edda495
+
+
+AUTH_TOKEN=43e2fd995c2137c8df24636fc79ac50c
+
+
+PHONE_NO=+17654030113
+

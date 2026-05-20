@@ -1,0 +1,31 @@
+REPLACE:
+@app.get("/auth/me")
+async def auth_me(request: Request):
+    user = get_current_user(request)
+    if not user:
+        return JSONResponse(status_code=401, content={"success": False, "error": "Unauthorized"})
+    return JSONResponse(content={"success": True, "user": user.to_public_dict()})
+
+WITH:
+@app.get("/auth/me")
+async def auth_me(request: Request):
+    token = request.cookies.get(TOKEN_COOKIE)
+    if not token:
+        return JSONResponse(status_code=401, content={"success": False, "error": "Unauthorized"})
+    
+    payload = verify_token(token)
+    if not payload:
+        return JSONResponse(status_code=401, content={"success": False, "error": "Unauthorized"})
+    
+    username = payload.get("sub")
+    if not username:
+        return JSONResponse(status_code=401, content={"success": False, "error": "Unauthorized"})
+    
+    # Fetch and serialize inside session context to avoid DetachedInstanceError
+    with get_db() as db:
+        user = db.query(User).filter(User.username == username, User.is_active == True).first()
+        if not user:
+            return JSONResponse(status_code=401, content={"success": False, "error": "Unauthorized"})
+        user_data = user.to_public_dict()
+    
+    return JSONResponse(content={"success": True, "user": user_data})

@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dcVoice | AI answers the phone</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5568d3;
+            --primary-light: #f0f3ff;
+            --secondary: #764ba2;
+            --success: #28a745;
+            --dark: #2d3748;
+            --text: #4a5568;
+            --text-light: #718096;
+            --light: #f8f9fa;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--light);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            padding: 16px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .topbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .topbar-brand .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            display: grid;
+            place-items: center;
+            font-size: 18px;
+        }
+
+        .topbar-brand strong {
+            font-size: 20px;
+            color: var(--dark);
+            letter-spacing: -0.02em;
+        }
+
+        .topbar-brand span {
+            display: block;
+            font-size: 12px;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .topbar a.team {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text);
+            background: var(--light);
+            border: 1px solid var(--border);
+            text-decoration: none;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .topbar a.team:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .page {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 32px 24px 48px;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            align-items: start;
+        }
+
+        .panel {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .panel > * { position: relative; }
+
+        .chip-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            font-size: 12px;
+            font-weight: 500;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .chip i { opacity: 0.85; }
+
+        .hero h1 {
+            font-size: clamp(26px, 4.5vw, 34px);
+            line-height: 1.15;
+            color: var(--dark);
+            margin-bottom: 12px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        .hero p {
+            color: var(--text);
+            margin-bottom: 20px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 18px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(102, 126, 234, 0.35);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn:active { transform: translateY(0); }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; box-shadow: none; transform: none; }
+
+        .info-card {
+            margin-top: 22px;
+            padding: 18px;
+            border-radius: 10px;
+            background: var(--light);
+            border: 1px solid var(--border);
+        }
+
+        .info-card h3 {
+            color: var(--dark);
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-card h3 i { color: var(--primary); }
+
+        .info-card p {
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        .side-title {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+        }
+
+        .feature {
+            padding: 16px;
+            border-radius: 10px;
+            background: var(--light);
+            border: 1px solid var(--border);
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .feature i {
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .feature h4 {
+            margin: 0 0 6px 0;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--dark);
+            letter-spacing: -0.01em;
+        }
+
+        .feature p {
+            margin: 0;
+            font-size: 13px;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .footnote {
+            margin-top: 20px;
+            font-size: 12px;
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        /* Modal */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(45, 55, 72, 0.45);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 16px;
+        }
+
+        .modal-backdrop.active { display: flex; }
+
+        .modal {
+            width: min(440px, 100%);
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        .modal header {
+            padding: 18px 22px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal header h3 {
+            font-size: 17px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal header button {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            transition: background 0.2s;
+        }
+
+        .modal header button:hover { background: rgba(255,255,255,0.3); }
+
+        .modal .body { padding: 22px; }
+
+        .form-group { margin-bottom: 18px; }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-size: 14px;
+            color: var(--dark);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 6px;
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .status {
+            margin-top: 16px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .status.success {
+            background: #f0fff4;
+            color: #276749;
+            border: 1px solid #9ae6b4;
+        }
+
+        .status.error {
+            background: #fff5f5;
+            color: #c53030;
+            border: 1px solid #feb2b2;
+        }
+
+        .status.info {
+            background: #ebf8ff;
+            color: #2c5282;
+            border: 1px solid #90cdf4;
+        }
+
+        .loader {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 3px solid rgba(255,255,255,.35);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 768px) {
+            .page { padding: 20px 16px 40px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-brand">
+            <div class="logo-icon"><i class="fas fa-phone-volume"></i></div>
+            <div>
+                <strong>dcVoice</strong>
+                <span>Real voice. Real time. Built to demo.</span>
+            </div>
+        </div>
+        <a class="team" href="/login"><i class="fas fa-user-shield"></i> Ops login</a>
+    </header>
+
+    <div class="page">
+        <div class="layout">
+            <div class="panel hero">
+                <div class="chip-row">
+                    <span class="chip"><i class="fas fa-robot"></i> Voice AI</span>
+                    <span class="chip"><i class="fas fa-shield-alt"></i> Production-grade</span>
+                    <span class="chip"><i class="fas fa-bolt"></i> Sub-second pickup</span>
+                </div>
+                <h1>Hear your AI on a live call — today.</h1>
+                <p>Tap below. We ring you. No slides, no lag — just a real line with an AI that talks back. Want chat instead? Hit Telegram and wire your bot URL when you white-label.</p>
+
+                <div class="cta-row">
+                    <button class="btn btn-primary" id="openModalBtn" type="button">
+                        <i class="fas fa-phone-volume"></i> Call my number
+                    </button>
+                    <!-- Point href to your bot: https://t.me/your_bot -->
+                    <a class="btn btn-secondary" href="https://t.me" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-telegram"></i> Telegram
+                    </a>
+                </div>
+
+                <div class="info-card">
+                    <h3><i class="fas fa-headset"></i> How it hits</h3>
+                    <p>E.164 in. Line out. Ops watches everything in the dashboard — transcripts, intent, outcomes. You run the room.</p>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="side-title">Why buyers care</div>
+                <div class="grid">
+                    <div class="feature">
+                        <i class="fas fa-wave-square"></i>
+                        <div>
+                            <h4>Streaming audio, not scripts</h4>
+                            <p>Twilio-grade media straight into the model — it listens, it replies, it feels live.</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-chart-line"></i>
+                        <div>
+                            <h4>Ops sees the truth</h4>
+                            <p>Dashboards that show intent, completion, and history — not vanity metrics.</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-bolt"></i>
+                        <div>
+                            <h4>Demo in one tap</h4>
+                            <p>Validated E.164, instant callback — built to win the room in under a minute.</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-comment-dots"></i>
+                        <div>
+                            <h4>Voice + chat, your stack</h4>
+                            <p>Drop in your Telegram bot, CRM handoff, or both. dcVoice doesn’t lock you in.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="footnote">dcVoice — white-label voice AI you can show in the first meeting. Own the links. Own the story.</p>
+    </div>
+
+    <div class="modal-backdrop" id="modalBackdrop">
+        <div class="modal">
+            <header>
+                <h3><i class="fas fa-phone"></i> Ring me</h3>
+                <button type="button" id="closeModalBtn" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </header>
+            <div class="body">
+                <form id="callForm">
+                    <div class="form-group">
+                        <label for="phoneNumber"><i class="fas fa-mobile-alt"></i> Your number</label>
+                        <input
+                            type="tel"
+                            id="phoneNumber"
+                            name="phoneNumber"
+                            placeholder="+1234567890"
+                            required
+                            pattern="^\+?[1-9]\d{1,14}$"
+                            autocomplete="tel"
+                        >
+                        <small>E.164 — include country code (e.g. +14155552671)</small>
+                    </div>
+
+                    <button class="btn btn-primary" type="submit" id="callButton" style="width:100%; justify-content:center;">
+                        <span id="buttonText"><i class="fas fa-phone"></i> Place the call</span>
+                    </button>
+                </form>
+
+                <div id="status" class="status"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('callForm');
+        const phoneInput = document.getElementById('phoneNumber');
+        const callButton = document.getElementById('callButton');
+        const buttonText = document.getElementById('buttonText');
+        const statusDiv = document.getElementById('status');
+        const modal = document.getElementById('modalBackdrop');
+        const openModalBtn = document.getElementById('openModalBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        function openModal() {
+            modal.classList.add('active');
+            phoneInput.focus();
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        openModalBtn.addEventListener('click', openModal);
+        closeModalBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const phoneNumber = phoneInput.value.trim();
+            if (!phoneNumber) {
+                showStatus('Add a number — we need somewhere to call.', 'error');
+                return;
+            }
+
+            callButton.disabled = true;
+            buttonText.innerHTML = '<span class="loader"></span> Dialing…';
+
+            try {
+                const response = await fetch('/make-call', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ to_number: phoneNumber })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showStatus(`Live — call SID ${data.call_sid}`, 'success');
+                    phoneInput.value = '';
+                } else {
+                    showStatus(`${data.error || 'Call failed — check number and config.'}`, 'error');
+                }
+            } catch (error) {
+                showStatus(`Network dropped — try again.`, 'error');
+            } finally {
+                callButton.disabled = false;
+                buttonText.innerHTML = '<i class="fas fa-phone"></i> Place the call';
+            }
+        });
+
+        function showStatus(message, type) {
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+            statusDiv.style.display = 'block';
+
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+name: Auto CI/CD — vedantu-live
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "**"
+      - "!README.md"
+      - "!*.md"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+env:
+  PROJECT_ID: vikram-internal-projects
+  PROJECT_NUMBER: 587176213426
+  REGION: us-central1
+  ARTIFACT_REPO: vikram-images
+  SERVICE_NAME: vedantu-live
+  ARTIFACT_HOST: us-central1-docker.pkg.dev
+  IMAGE_BASE: us-central1-docker.pkg.dev/vikram-internal-projects/vikram-images/vedantu-live
+  DOCKER_CONTEXT: .
+  DOCKERFILE: Dockerfile
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: "deploy-vedantu-live"
+      cancel-in-progress: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to GCP (Service Account Key)
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Setup gcloud CLI
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Build image with Cloud Build
+        run: |
+          set -e
+          IMAGE="${IMAGE_BASE}:${GITHUB_SHA}"
+          echo "Building $IMAGE with Cloud Build from context: ${DOCKER_CONTEXT}"
+          gcloud builds submit "${DOCKER_CONTEXT}" \
+            --tag "$IMAGE" \
+            --project="${PROJECT_ID}"
+
+      - name: Sync Environment Secrets to Secret Manager
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: |
+          set -euo pipefail
+          
+          SECRET_NAME="vedantu-live-config"
+          
+          echo "Syncing app configuration to Secret Manager: ${SECRET_NAME}"
+
+          # Create secret if it doesn't exist
+          if ! gcloud secrets describe "${SECRET_NAME}" --project="${PROJECT_ID}" >/dev/null 2>&1; then
+            gcloud secrets create "${SECRET_NAME}" \
+              --replication-policy="automatic" \
+              --project="${PROJECT_ID}"
+          fi
+
+          # Store the GCP_SA_KEY as a secret version
+          printf '%s' "$GCP_SA_KEY" | gcloud secrets versions add "${SECRET_NAME}" \
+            --data-file=- \
+            --project="${PROJECT_ID}"
+
+          # Grant Compute Engine service account permission to access the secret
+          COMPUTE_SA="${PROJECT_NUMBER}-compute@developer.gserviceaccount.com"
+          gcloud secrets add-iam-policy-binding "${SECRET_NAME}" \
+            --member="serviceAccount:${COMPUTE_SA}" \
+            --role="roles/secretmanager.secretAccessor" \
+            --project="${PROJECT_ID}"
+
+          echo "Configuration synced to Secret Manager and permissions granted."
+
+      - name: Deploy to Cloud Run
+        run: |
+          set -e
+          IMAGE="${IMAGE_BASE}:${GITHUB_SHA}"
+          echo "Deploying $IMAGE to Cloud Run service ${SERVICE_NAME}"
+
+          # Get the service URL first (if service exists)
+          SERVICE_URL=$(gcloud run services describe "${SERVICE_NAME}" \
+            --region="${REGION}" \
+            --project="${PROJECT_ID}" \
+            --format="value(status.url)" 2>/dev/null || echo "")
+
+          # If service doesn't exist yet, deploy without TUNNEL_LINK first
+          if [ -z "$SERVICE_URL" ]; then
+            echo "First deployment - deploying without TUNNEL_LINK"
+            gcloud run deploy "${SERVICE_NAME}" \
+              --image "$IMAGE" \
+              --region "${REGION}" \
+              --platform managed \
+              --allow-unauthenticated \
+              --set-env-vars="FLASK_ENV=production,PYTHONUNBUFFERED=1" \
+              --memory="1Gi" \
+              --cpu="2" \
+              --timeout="300s" \
+              --max-instances="5" \
+              --project "${PROJECT_ID}"
+            
+            # Get the newly created service URL
+            SERVICE_URL=$(gcloud run services describe "${SERVICE_NAME}" \
+              --region="${REGION}" \
+              --project="${PROJECT_ID}" \
+              --format="value(status.url)")
+          fi
+
+          # Deploy with TUNNEL_LINK set to the service URL
+          echo "Deploying with TUNNEL_LINK=$SERVICE_URL"
+          gcloud run deploy "${SERVICE_NAME}" \
+            --image "$IMAGE" \
+            --region "${REGION}" \
+            --platform managed \
+            --allow-unauthenticated \
+            --set-env-vars="FLASK_ENV=production,PYTHONUNBUFFERED=1,TUNNEL_LINK=$SERVICE_URL" \
+            --memory="1Gi" \
+            --cpu="2" \
+            --timeout="300s" \
+            --max-instances="5" \
+            --project "${PROJECT_ID}"
+
+      - name: Print deployed service URL
+        run: |
+          gcloud run services describe "${SERVICE_NAME}" \
+            --region="${REGION}" \
+            --project="${PROJECT_ID}" \
+            --format="value(status.url)"

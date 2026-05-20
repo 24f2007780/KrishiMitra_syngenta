@@ -1,0 +1,919 @@
+2026-05-18 22:24:40,997 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:24:40,998 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:24:41,239 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:24:41,240 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:24:41,562 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:24:41,563 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:24:41,603 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:24:41,604 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:24:41,727 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:24:41,728 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:24:41,742 [INFO] app: Incoming audio chunks: 7450 (mulaw 160 bytes, rms 8)
+2026-05-18 22:24:42,009 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:24:42,010 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:24:42,253 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:24:42,254 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:24:42,461 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:24:42,462 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:24:42,742 [INFO] app: Incoming audio chunks: 7500 (mulaw 160 bytes, rms 8)
+2026-05-18 22:24:42,787 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:24:42,787 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:24:42,991 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:24:42,992 [INFO] gemini_ai: 🎵 Received audio from Gemini: 17280 bytes
+2026-05-18 22:24:43,359 [INFO] app: Sent 2880 µ-law bytes in 18 chunks
+2026-05-18 22:24:43,360 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:24:43,562 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:24:43,562 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:24:43,742 [INFO] app: Incoming audio chunks: 7550 (mulaw 160 bytes, rms 8)
+2026-05-18 22:24:43,804 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:24:43,805 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:24:44,129 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:24:44,130 [INFO] gemini_ai: 🎵 Received audio from Gemini: 19200 bytes
+2026-05-18 22:24:44,533 [INFO] app: Sent 3200 µ-law bytes in 20 chunks
+2026-05-18 22:24:44,533 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:24:44,742 [INFO] app: Incoming audio chunks: 7600 (mulaw 160 bytes, rms 164)
+2026-05-18 22:24:44,777 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:24:44,777 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:24:44,819 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:24:44,819 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:24:44,983 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:24:44,983 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:24:45,103 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:24:45,104 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:24:45,184 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:24:45,185 [INFO] gemini_ai: 🎵 Received audio from Gemini: 17280 bytes
+2026-05-18 22:24:45,548 [INFO] app: Sent 2880 µ-law bytes in 18 chunks
+2026-05-18 22:24:45,549 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:24:45,631 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:24:45,632 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:24:45,742 [INFO] app: Incoming audio chunks: 7650 (mulaw 160 bytes, rms 8)
+2026-05-18 22:24:45,879 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:24:45,880 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:24:45,921 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:24:45,922 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:24:46,003 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:24:46,003 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:24:46,286 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:24:46,287 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:24:46,530 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:24:46,531 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:24:46,737 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:24:46,738 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:24:46,743 [INFO] app: Incoming audio chunks: 7700 (mulaw 160 bytes, rms 8)
+2026-05-18 22:24:46,940 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:24:46,941 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:24:47,226 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:24:47,227 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:24:47,431 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:24:47,432 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:24:47,637 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:24:47,638 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:24:47,742 [INFO] app: Incoming audio chunks: 7750 (mulaw 160 bytes, rms 8)
+2026-05-18 22:24:47,919 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:24:47,919 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:24:48,162 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:24:48,163 [INFO] gemini_ai: 🎵 Received audio from Gemini: 19200 bytes
+2026-05-18 22:24:48,568 [INFO] app: Sent 3200 µ-law bytes in 20 chunks
+2026-05-18 22:24:48,569 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:24:48,692 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:24:48,692 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:24:48,742 [INFO] app: Incoming audio chunks: 7800 (mulaw 160 bytes, rms 8)
+2026-05-18 22:24:48,774 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:24:48,774 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:24:48,940 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:24:48,941 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:24:49,062 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:24:49,063 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:24:49,227 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:24:49,228 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:24:49,269 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:24:49,270 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:24:49,475 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:24:49,476 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:24:49,516 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:24:49,517 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:24:49,681 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:24:49,682 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:24:49,742 [INFO] app: Incoming audio chunks: 7850 (mulaw 160 bytes, rms 8)
+2026-05-18 22:24:50,005 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:24:50,006 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:24:50,211 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:24:50,212 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:24:50,498 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:24:50,499 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:24:50,703 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:24:50,703 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:24:50,742 [INFO] app: Incoming audio chunks: 7900 (mulaw 160 bytes, rms 8)
+2026-05-18 22:24:50,996 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:24:51,742 [INFO] app: Incoming audio chunks: 7950 (mulaw 160 bytes, rms 8)
+2026-05-18 22:24:52,742 [INFO] app: Incoming audio chunks: 8000 (mulaw 160 bytes, rms 8)
+2026-05-18 22:24:53,742 [INFO] app: Incoming audio chunks: 8050 (mulaw 160 bytes, rms 5740)
+2026-05-18 22:24:54,743 [INFO] app: Incoming audio chunks: 8100 (mulaw 160 bytes, rms 2920)
+2026-05-18 22:24:55,743 [INFO] app: Incoming audio chunks: 8150 (mulaw 160 bytes, rms 1536)
+2026-05-18 22:24:56,742 [INFO] app: Incoming audio chunks: 8200 (mulaw 160 bytes, rms 8)
+2026-05-18 22:24:57,742 [INFO] app: Incoming audio chunks: 8250 (mulaw 160 bytes, rms 8)
+2026-05-18 22:24:57,884 [INFO] gemini_ai: 🎵 Received audio from Gemini: 2 bytes
+2026-05-18 22:24:57,906 [INFO] app: Sent 1 µ-law bytes in 0 chunks
+2026-05-18 22:24:57,907 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3360 bytes
+2026-05-18 22:24:57,989 [INFO] app: Sent 560 µ-law bytes in 3 chunks
+2026-05-18 22:24:57,990 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:24:58,273 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:24:58,274 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:24:58,436 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:24:58,437 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:24:58,639 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:24:58,640 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:24:58,742 [INFO] app: Incoming audio chunks: 8300 (mulaw 160 bytes, rms 189)
+2026-05-18 22:24:58,762 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:24:58,763 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:24:58,885 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:24:58,886 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:24:59,130 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:24:59,131 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:24:59,212 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:24:59,213 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:24:59,253 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:24:59,254 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:24:59,416 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:24:59,417 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:24:59,539 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:24:59,540 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:24:59,704 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:24:59,705 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:24:59,746 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:24:59,747 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:24:59,749 [INFO] app: Incoming audio chunks: 8350 (mulaw 160 bytes, rms 8)
+2026-05-18 22:24:59,787 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:24:59,788 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:24:59,991 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:24:59,992 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:00,154 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:00,154 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:00,315 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:00,316 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:00,478 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:00,479 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:25:00,562 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:25:00,562 [INFO] gemini_ai: 🎵 Received audio from Gemini: 17280 bytes
+2026-05-18 22:25:00,747 [INFO] app: Incoming audio chunks: 8400 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:00,929 [INFO] app: Sent 2880 µ-law bytes in 18 chunks
+2026-05-18 22:25:00,930 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:01,051 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:01,053 [INFO] gemini_ai: 🎵 Received audio from Gemini: 2 bytes
+2026-05-18 22:25:01,074 [INFO] app: Sent 1 µ-law bytes in 0 chunks
+2026-05-18 22:25:01,075 [INFO] gemini_ai: 🎵 Received audio from Gemini: 2 bytes
+2026-05-18 22:25:01,095 [INFO] app: Sent 1 µ-law bytes in 0 chunks
+2026-05-18 22:25:01,096 [INFO] gemini_ai: 🎵 Received audio from Gemini: 4800 bytes
+2026-05-18 22:25:01,197 [INFO] app: Sent 800 µ-law bytes in 5 chunks
+2026-05-18 22:25:01,198 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:01,402 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:01,403 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:01,567 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:01,568 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:01,729 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:01,730 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:25:01,742 [INFO] app: Incoming audio chunks: 8450 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:01,812 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:25:01,813 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:01,935 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:01,935 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:02,099 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:02,100 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:02,141 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:02,142 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:02,302 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:02,303 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:02,466 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:02,467 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:02,628 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:02,629 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:02,669 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:02,670 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:02,746 [INFO] app: Incoming audio chunks: 8500 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:02,833 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:02,834 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:02,954 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:02,955 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:25:03,199 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:25:03,200 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:25:03,281 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:25:03,282 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:03,442 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:03,443 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:25:03,728 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:25:03,728 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:03,742 [INFO] app: Incoming audio chunks: 8550 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:03,770 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:03,771 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:04,100 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:04,101 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:25:04,183 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:25:04,184 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:04,506 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:04,506 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:04,546 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:04,547 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:04,710 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:04,711 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:04,743 [INFO] app: Incoming audio chunks: 8600 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:05,038 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:05,039 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:05,200 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:05,200 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:25:05,442 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:25:05,443 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:05,485 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:05,485 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:05,690 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:05,691 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:25:05,742 [INFO] app: Incoming audio chunks: 8650 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:05,975 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:25:05,975 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:25:06,262 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:25:06,263 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:25:06,344 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:25:06,344 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:06,385 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:06,386 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:06,714 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:06,715 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:06,743 [INFO] app: Incoming audio chunks: 8700 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:06,835 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:06,836 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:25:06,916 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:25:06,917 [INFO] gemini_ai: 🎵 Received audio from Gemini: 19200 bytes
+2026-05-18 22:25:07,322 [INFO] app: Sent 3200 µ-law bytes in 20 chunks
+2026-05-18 22:25:07,323 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:25:07,610 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:25:07,611 [INFO] gemini_ai: 🎵 Received audio from Gemini: 17280 bytes
+2026-05-18 22:25:07,742 [INFO] app: Incoming audio chunks: 8750 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:07,976 [INFO] app: Sent 2880 µ-law bytes in 18 chunks
+2026-05-18 22:25:07,977 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:08,017 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:08,017 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:08,342 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:08,343 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:08,667 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:08,668 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:08,742 [INFO] app: Incoming audio chunks: 8800 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:08,789 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:09,742 [INFO] app: Incoming audio chunks: 8850 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:10,742 [INFO] app: Incoming audio chunks: 8900 (mulaw 160 bytes, rms 103)
+2026-05-18 22:25:11,742 [INFO] app: Incoming audio chunks: 8950 (mulaw 160 bytes, rms 787)
+2026-05-18 22:25:12,742 [INFO] app: Incoming audio chunks: 9000 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:13,742 [INFO] app: Incoming audio chunks: 9050 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:14,034 [INFO] gemini_ai: 🎵 Received audio from Gemini: 2 bytes
+2026-05-18 22:25:14,055 [INFO] app: Sent 1 µ-law bytes in 0 chunks
+2026-05-18 22:25:14,055 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:14,258 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:14,259 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:14,420 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:14,421 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:14,582 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:14,583 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:14,742 [INFO] app: Incoming audio chunks: 9100 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:14,747 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:14,748 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:14,870 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:14,871 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:15,075 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:15,075 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:15,237 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:15,237 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:15,361 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:15,362 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:15,522 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:15,523 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:15,683 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:15,684 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:15,742 [INFO] app: Incoming audio chunks: 9150 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:15,846 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:15,846 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:16,008 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:16,009 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:16,215 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:16,216 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:25:16,458 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:25:16,459 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:16,579 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:16,580 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:16,744 [INFO] app: Incoming audio chunks: 9200 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:16,905 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:16,906 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:17,069 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:17,070 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:25:17,313 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:25:17,314 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:25:17,598 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:25:17,599 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:17,752 [INFO] app: Incoming audio chunks: 9250 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:17,763 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:17,764 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:17,968 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:17,969 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:18,010 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:18,011 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:18,334 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:18,335 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:18,658 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:18,659 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:18,753 [INFO] app: Incoming audio chunks: 9300 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:18,783 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:18,784 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:18,946 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:18,947 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:19,273 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:19,274 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:19,396 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:19,396 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:25:19,685 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:25:19,686 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:19,752 [INFO] app: Incoming audio chunks: 9350 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:19,889 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:19,890 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:20,214 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:20,215 [INFO] gemini_ai: 🎵 Received audio from Gemini: 17280 bytes
+2026-05-18 22:25:20,581 [INFO] app: Sent 2880 µ-law bytes in 18 chunks
+2026-05-18 22:25:20,582 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:25:20,664 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:25:20,665 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:20,746 [INFO] app: Incoming audio chunks: 9400 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:20,786 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:20,786 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:20,988 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:20,989 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:25:21,071 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:25:21,071 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:21,233 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:21,234 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:25:21,480 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:25:21,481 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:21,523 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:21,524 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:21,749 [INFO] app: Incoming audio chunks: 9450 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:21,847 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:21,848 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:22,050 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:22,050 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:22,092 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:22,092 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:25:22,337 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:25:22,338 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:22,502 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:22,503 [INFO] gemini_ai: 🎵 Received audio from Gemini: 17280 bytes
+2026-05-18 22:25:22,742 [INFO] app: Incoming audio chunks: 9500 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:22,864 [INFO] app: Sent 2880 µ-law bytes in 18 chunks
+2026-05-18 22:25:22,865 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:22,905 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:22,906 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:23,112 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:23,113 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:25:23,401 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:25:23,402 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:23,602 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:23,603 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:25:23,742 [INFO] app: Incoming audio chunks: 9550 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:23,887 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:25:23,888 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:24,095 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:24,096 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:24,220 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:24,221 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:24,342 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:24,342 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:24,664 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:24,665 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:24,742 [INFO] app: Incoming audio chunks: 9600 (mulaw 160 bytes, rms 92)
+2026-05-18 22:25:24,826 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:24,827 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:25:24,910 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:25:24,911 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:25,034 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:25,035 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:25,076 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:25,077 [INFO] gemini_ai: 🎵 Received audio from Gemini: 17280 bytes
+2026-05-18 22:25:25,442 [INFO] app: Sent 2880 µ-law bytes in 18 chunks
+2026-05-18 22:25:25,443 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:25,742 [INFO] app: Incoming audio chunks: 9650 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:25,770 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:25,771 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:25,812 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:25,813 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:26,018 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:26,019 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:26,222 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:26,223 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:26,383 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:26,384 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:26,713 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:26,714 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:25:26,742 [INFO] app: Incoming audio chunks: 9700 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:26,956 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:25:27,743 [INFO] app: Incoming audio chunks: 9750 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:28,742 [INFO] app: Incoming audio chunks: 9800 (mulaw 160 bytes, rms 1231)
+2026-05-18 22:25:29,742 [INFO] app: Incoming audio chunks: 9850 (mulaw 160 bytes, rms 4684)
+2026-05-18 22:25:30,742 [INFO] app: Incoming audio chunks: 9900 (mulaw 160 bytes, rms 1296)
+2026-05-18 22:25:31,742 [INFO] app: Incoming audio chunks: 9950 (mulaw 160 bytes, rms 32)
+2026-05-18 22:25:32,742 [INFO] app: Incoming audio chunks: 10000 (mulaw 160 bytes, rms 2840)
+2026-05-18 22:25:33,742 [INFO] app: Incoming audio chunks: 10050 (mulaw 160 bytes, rms 10)
+2026-05-18 22:25:34,742 [INFO] app: Incoming audio chunks: 10100 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:35,064 [INFO] gemini_ai: 🎵 Received audio from Gemini: 2 bytes
+2026-05-18 22:25:35,084 [INFO] app: Sent 1 µ-law bytes in 0 chunks
+2026-05-18 22:25:35,085 [INFO] gemini_ai: 🎵 Received audio from Gemini: 2 bytes
+2026-05-18 22:25:35,105 [INFO] app: Sent 1 µ-law bytes in 0 chunks
+2026-05-18 22:25:35,106 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:35,307 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:35,308 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:25:35,552 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:25:35,552 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:35,714 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:35,715 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:35,743 [INFO] app: Incoming audio chunks: 10150 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:35,876 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:35,877 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:36,037 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:36,038 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:36,160 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:36,161 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:36,201 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:36,202 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:36,407 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:36,408 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:25:36,490 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:25:36,491 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:36,532 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:36,533 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:36,695 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:36,696 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:36,751 [INFO] app: Incoming audio chunks: 10200 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:36,857 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:36,858 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:36,979 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:36,979 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:37,143 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:37,143 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:37,307 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:37,308 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:37,471 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:37,471 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:25:37,554 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:25:37,555 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:37,748 [INFO] app: Incoming audio chunks: 10250 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:37,757 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:37,757 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:37,797 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:37,798 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:25:38,084 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:25:38,085 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:25:38,331 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:25:38,332 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:25:38,576 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:25:38,577 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:25:38,658 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:25:38,659 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:38,742 [INFO] app: Incoming audio chunks: 10300 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:38,821 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:38,822 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:39,026 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:39,027 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:39,069 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:39,070 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:39,279 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:39,280 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:39,605 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:39,606 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:39,747 [INFO] app: Incoming audio chunks: 10350 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:39,931 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:39,932 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:25:40,222 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:25:40,223 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:40,425 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:40,425 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:40,589 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:40,589 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:40,631 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:40,632 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:40,748 [INFO] app: Incoming audio chunks: 10400 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:40,958 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:40,959 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:41,287 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:41,288 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:25:41,573 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:25:41,574 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:41,752 [INFO] app: Incoming audio chunks: 10450 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:41,901 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:41,902 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:42,024 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:42,025 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:42,065 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:42,066 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:42,391 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:42,392 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:42,515 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:42,515 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:25:42,598 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:25:42,598 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:42,752 [INFO] app: Incoming audio chunks: 10500 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:42,805 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:42,806 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:43,129 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:43,130 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:25:43,371 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:25:43,372 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:25:43,660 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:25:43,661 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:25:43,742 [INFO] app: Incoming audio chunks: 10550 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:43,907 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:25:43,908 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:44,068 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:44,069 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:25:44,150 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:25:44,151 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:44,476 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:44,477 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:44,682 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:44,682 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:25:44,744 [INFO] app: Incoming audio chunks: 10600 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:44,763 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:25:44,764 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:44,965 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:44,965 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:45,006 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:45,007 [INFO] gemini_ai: 🎵 Received audio from Gemini: 17280 bytes
+2026-05-18 22:25:45,375 [INFO] app: Sent 2880 µ-law bytes in 18 chunks
+2026-05-18 22:25:45,376 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:45,500 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:45,501 [INFO] gemini_ai: 🎵 Received audio from Gemini: 19200 bytes
+2026-05-18 22:25:45,743 [INFO] app: Incoming audio chunks: 10650 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:45,902 [INFO] app: Sent 3200 µ-law bytes in 20 chunks
+2026-05-18 22:25:45,903 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:25:45,984 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:25:45,984 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:25:46,065 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:25:46,066 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:46,392 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:46,393 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:46,594 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:46,594 [INFO] gemini_ai: 🎵 Received audio from Gemini: 17280 bytes
+2026-05-18 22:25:46,742 [INFO] app: Incoming audio chunks: 10700 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:46,958 [INFO] app: Sent 2880 µ-law bytes in 18 chunks
+2026-05-18 22:25:46,959 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:25:47,202 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:25:47,203 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:47,526 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:47,526 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:47,567 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:47,567 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:47,608 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:47,608 [INFO] gemini_ai: 🎵 Received audio from Gemini: 17280 bytes
+2026-05-18 22:25:47,742 [INFO] app: Incoming audio chunks: 10750 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:47,978 [INFO] app: Sent 2880 µ-law bytes in 18 chunks
+2026-05-18 22:25:47,979 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:48,302 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:48,303 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:48,424 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:48,742 [INFO] app: Incoming audio chunks: 10800 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:49,743 [INFO] app: Incoming audio chunks: 10850 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:50,743 [INFO] app: Incoming audio chunks: 10900 (mulaw 160 bytes, rms 87)
+2026-05-18 22:25:51,742 [INFO] app: Incoming audio chunks: 10950 (mulaw 160 bytes, rms 3443)
+2026-05-18 22:25:52,742 [INFO] app: Incoming audio chunks: 11000 (mulaw 160 bytes, rms 3131)
+2026-05-18 22:25:53,742 [INFO] app: Incoming audio chunks: 11050 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:54,742 [INFO] app: Incoming audio chunks: 11100 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:55,742 [INFO] app: Incoming audio chunks: 11150 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:55,937 [INFO] gemini_ai: 🎵 Received audio from Gemini: 2 bytes
+2026-05-18 22:25:55,958 [INFO] app: Sent 1 µ-law bytes in 0 chunks
+2026-05-18 22:25:55,959 [INFO] gemini_ai: 🎵 Received audio from Gemini: 2 bytes
+2026-05-18 22:25:55,978 [INFO] app: Sent 1 µ-law bytes in 0 chunks
+2026-05-18 22:25:55,996 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:56,159 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:56,159 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:25:56,402 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:25:56,403 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:25:56,651 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:25:56,652 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:56,743 [INFO] app: Incoming audio chunks: 11200 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:56,774 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:56,775 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:56,897 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:56,898 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:57,060 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:57,060 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:57,101 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:57,102 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:57,142 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:57,143 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:57,346 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:57,347 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:57,468 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:57,469 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:25:57,742 [INFO] app: Incoming audio chunks: 11250 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:57,753 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:25:57,754 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:25:57,875 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:25:57,876 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:58,077 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:58,078 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:25:58,281 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:25:58,282 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:25:58,365 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:25:58,366 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:58,407 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:58,408 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:58,572 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:58,573 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:25:58,733 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:25:58,734 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:25:58,747 [INFO] app: Incoming audio chunks: 11300 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:58,815 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:25:58,816 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:25:59,099 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:25:59,099 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:25:59,140 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:25:59,140 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:25:59,224 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:25:59,225 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:25:59,550 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:25:59,550 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:25:59,748 [INFO] app: Incoming audio chunks: 11350 (mulaw 160 bytes, rms 8)
+2026-05-18 22:25:59,795 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:25:59,796 [INFO] gemini_ai: 🎵 Received audio from Gemini: 17280 bytes
+2026-05-18 22:26:00,161 [INFO] app: Sent 2880 µ-law bytes in 18 chunks
+2026-05-18 22:26:00,162 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:26:00,284 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:26:00,284 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:26:00,326 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:26:00,327 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:26:00,573 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:26:00,574 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:26:00,748 [INFO] app: Incoming audio chunks: 11400 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:00,775 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:26:00,776 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:26:00,818 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:26:00,819 [INFO] gemini_ai: 🎵 Received audio from Gemini: 17280 bytes
+2026-05-18 22:26:01,185 [INFO] app: Sent 2880 µ-law bytes in 18 chunks
+2026-05-18 22:26:01,186 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:26:01,389 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:26:01,390 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:26:01,633 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:26:01,633 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:26:01,742 [INFO] app: Incoming audio chunks: 11450 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:01,964 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:26:01,965 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:26:02,126 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:26:02,127 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:26:02,209 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:26:02,210 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:26:02,453 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:26:02,453 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:26:02,697 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:26:02,698 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:26:02,742 [INFO] app: Incoming audio chunks: 11500 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:02,780 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:26:02,781 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:26:02,943 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:26:02,944 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:26:03,065 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:26:03,066 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:26:03,187 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:26:03,188 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:26:03,473 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:26:03,473 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:26:03,717 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:26:03,717 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:26:03,742 [INFO] app: Incoming audio chunks: 11550 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:03,922 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:26:03,923 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:26:04,245 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:26:04,245 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:26:04,366 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:26:04,367 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:26:04,407 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:26:04,408 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:26:04,738 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:26:04,739 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:26:04,742 [INFO] app: Incoming audio chunks: 11600 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:04,779 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:26:04,780 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:26:04,861 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:26:04,862 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:26:05,102 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:26:05,103 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:26:05,389 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:26:05,390 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:26:05,637 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:26:05,638 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:26:05,719 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:26:05,720 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:26:05,742 [INFO] app: Incoming audio chunks: 11650 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:05,761 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:26:05,762 [INFO] gemini_ai: 🎵 Received audio from Gemini: 17280 bytes
+2026-05-18 22:26:06,131 [INFO] app: Sent 2880 µ-law bytes in 18 chunks
+2026-05-18 22:26:06,132 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:26:06,297 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:26:06,298 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:26:06,502 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:26:06,502 [INFO] gemini_ai: 🎵 Received audio from Gemini: 21120 bytes
+2026-05-18 22:26:06,742 [INFO] app: Incoming audio chunks: 11700 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:06,948 [INFO] app: Sent 3520 µ-law bytes in 22 chunks
+2026-05-18 22:26:06,949 [INFO] gemini_ai: 🎵 Received audio from Gemini: 17280 bytes
+2026-05-18 22:26:07,317 [INFO] app: Sent 2880 µ-law bytes in 18 chunks
+2026-05-18 22:26:07,318 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:26:07,521 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:26:07,522 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:26:07,564 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:26:07,564 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:26:07,685 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:26:07,686 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:26:07,742 [INFO] app: Incoming audio chunks: 11750 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:08,011 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:26:08,012 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:26:08,254 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:26:08,255 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:26:08,539 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:26:08,540 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:26:08,702 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:26:08,702 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:26:08,742 [INFO] app: Incoming audio chunks: 11800 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:09,030 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:26:09,031 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:26:09,072 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:26:09,742 [INFO] app: Incoming audio chunks: 11850 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:10,743 [INFO] app: Incoming audio chunks: 11900 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:11,742 [INFO] app: Incoming audio chunks: 11950 (mulaw 160 bytes, rms 2859)
+2026-05-18 22:26:12,742 [INFO] app: Incoming audio chunks: 12000 (mulaw 160 bytes, rms 62)
+2026-05-18 22:26:13,742 [INFO] app: Incoming audio chunks: 12050 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:14,742 [INFO] app: Incoming audio chunks: 12100 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:15,742 [INFO] app: Incoming audio chunks: 12150 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:16,035 [INFO] gemini_ai: 🎵 Received audio from Gemini: 2 bytes
+2026-05-18 22:26:16,056 [INFO] app: Sent 1 µ-law bytes in 0 chunks
+2026-05-18 22:26:16,085 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:26:16,125 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:26:16,155 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:26:16,358 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:26:16,358 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:26:16,522 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:26:16,522 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:26:16,687 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:26:16,688 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:26:16,742 [INFO] app: Incoming audio chunks: 12200 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:16,849 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:26:16,850 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:26:17,131 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:26:17,132 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:26:17,172 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:26:17,173 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:26:17,335 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:26:17,336 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:26:17,499 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:26:17,500 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:26:17,582 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:26:17,583 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:26:17,665 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:26:17,666 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:26:17,742 [INFO] app: Incoming audio chunks: 12250 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:17,788 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:26:17,789 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:26:17,830 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:26:17,831 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:26:18,034 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:26:18,035 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:26:18,156 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:26:18,157 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:26:18,239 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:26:18,240 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:26:18,404 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:26:18,405 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:26:18,485 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:26:18,486 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:26:18,609 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:26:18,609 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:26:18,742 [INFO] app: Incoming audio chunks: 12300 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:18,772 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:26:18,773 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:26:18,855 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:26:18,856 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:26:18,978 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:26:18,979 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:26:19,222 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:26:19,223 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:26:19,503 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:26:19,504 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:26:19,665 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:26:19,665 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:26:19,742 [INFO] app: Incoming audio chunks: 12350 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:19,911 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:26:19,912 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:26:20,116 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:26:20,116 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:26:20,438 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:26:20,438 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:26:20,522 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:26:20,522 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:26:20,602 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:26:20,603 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:26:20,742 [INFO] app: Incoming audio chunks: 12400 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:20,852 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:26:20,853 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:26:21,178 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:26:21,179 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:26:21,424 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:26:21,425 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:26:21,712 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:26:21,713 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:26:21,742 [INFO] app: Incoming audio chunks: 12450 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:21,876 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:26:21,877 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:26:22,119 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:26:22,120 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:26:22,404 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:26:22,405 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:26:22,446 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:26:22,447 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:26:22,487 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:26:22,488 [INFO] gemini_ai: 🎵 Received audio from Gemini: 17280 bytes
+2026-05-18 22:26:22,744 [INFO] app: Incoming audio chunks: 12500 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:22,852 [INFO] app: Sent 2880 µ-law bytes in 18 chunks
+2026-05-18 22:26:22,853 [INFO] gemini_ai: 🎵 Received audio from Gemini: 21120 bytes
+2026-05-18 22:26:23,301 [INFO] app: Sent 3520 µ-law bytes in 22 chunks
+2026-05-18 22:26:23,302 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:26:23,424 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:26:23,425 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:26:23,667 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:26:23,668 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:26:23,742 [INFO] app: Incoming audio chunks: 12550 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:23,956 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:26:23,957 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:26:24,201 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:26:24,742 [INFO] app: Incoming audio chunks: 12600 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:25,742 [INFO] app: Incoming audio chunks: 12650 (mulaw 160 bytes, rms 3024)
+2026-05-18 22:26:26,742 [INFO] app: Incoming audio chunks: 12700 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:27,562 [INFO] gemini_ai: 🎵 Received audio from Gemini: 2 bytes
+2026-05-18 22:26:27,583 [INFO] app: Sent 1 µ-law bytes in 0 chunks
+2026-05-18 22:26:27,583 [INFO] gemini_ai: 🎵 Received audio from Gemini: 2 bytes
+2026-05-18 22:26:27,604 [INFO] app: Sent 1 µ-law bytes in 0 chunks
+2026-05-18 22:26:27,604 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:26:27,742 [INFO] app: Incoming audio chunks: 12750 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:27,766 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:26:27,767 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:26:27,969 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:26:27,970 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:26:28,092 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:26:28,093 [INFO] gemini_ai: 🎵 Received audio from Gemini: 3840 bytes
+2026-05-18 22:26:28,175 [INFO] app: Sent 640 µ-law bytes in 4 chunks
+2026-05-18 22:26:28,176 [INFO] gemini_ai: 🎵 Received audio from Gemini: 9600 bytes
+2026-05-18 22:26:28,377 [INFO] app: Sent 1600 µ-law bytes in 10 chunks
+2026-05-18 22:26:28,378 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:26:28,419 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:26:28,420 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:26:28,664 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:26:28,665 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:26:28,742 [INFO] app: Incoming audio chunks: 12800 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:28,828 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:26:28,829 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:26:28,871 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:26:28,871 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:26:28,911 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:26:28,912 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:26:29,076 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:26:29,077 [INFO] gemini_ai: 🎵 Received audio from Gemini: 1920 bytes
+2026-05-18 22:26:29,117 [INFO] app: Sent 320 µ-law bytes in 2 chunks
+2026-05-18 22:26:29,118 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:26:29,279 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:26:29,280 [INFO] gemini_ai: 🎵 Received audio from Gemini: 13440 bytes
+2026-05-18 22:26:29,566 [INFO] app: Sent 2240 µ-law bytes in 14 chunks
+2026-05-18 22:26:29,567 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:26:29,689 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:26:29,689 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:26:29,742 [INFO] app: Incoming audio chunks: 12850 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:29,812 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:26:29,813 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:26:29,975 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:26:29,976 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:26:30,137 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:26:30,138 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:26:30,262 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:26:30,263 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:26:30,386 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:26:30,387 [INFO] gemini_ai: 🎵 Received audio from Gemini: 11520 bytes
+2026-05-18 22:26:30,634 [INFO] app: Sent 1920 µ-law bytes in 12 chunks
+2026-05-18 22:26:30,634 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:26:30,744 [INFO] app: Incoming audio chunks: 12900 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:30,957 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:26:30,957 [INFO] gemini_ai: 🎵 Received audio from Gemini: 5760 bytes
+2026-05-18 22:26:31,081 [INFO] app: Sent 960 µ-law bytes in 6 chunks
+2026-05-18 22:26:31,081 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:26:31,404 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:26:31,405 [INFO] gemini_ai: 🎵 Received audio from Gemini: 7680 bytes
+2026-05-18 22:26:31,565 [INFO] app: Sent 1280 µ-law bytes in 8 chunks
+2026-05-18 22:26:31,566 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:26:31,743 [INFO] app: Incoming audio chunks: 12950 (mulaw 160 bytes, rms 8)
+2026-05-18 22:26:31,893 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:26:31,894 [INFO] gemini_ai: 🎵 Received audio from Gemini: 15360 bytes
+2026-05-18 22:26:32,220 [INFO] app: Sent 2560 µ-law bytes in 16 chunks
+2026-05-18 22:26:32,742 [INFO] app: Incoming audio chunks: 13000 (mulaw 160 bytes, rms 46)
+2026-05-18 22:26:33,742 [INFO] app: Incoming audio chunks: 13050 (mulaw 160 bytes, rms 2776)
+2026-05-18 22:26:34,743 [INFO] app: Incoming audio chunks: 13100 (mulaw 160 bytes, rms 123)
+2026-05-18 22:26:36,077 [INFO] app: ⏹ Stream stopped
+2026-05-18 22:26:36,139 [INFO] gemini_ai: 👋 Disconnected from Gemini Live API
+2026-05-18 22:26:36,139 [INFO] app: 🔌 Connection closed
+2026-05-18 22:26:36,308 [INFO] app: 📊 Status callback

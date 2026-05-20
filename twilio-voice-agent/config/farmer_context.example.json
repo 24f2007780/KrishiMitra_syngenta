@@ -1,0 +1,17 @@
+{
+  "to_number": "+919471961925",
+  "farmer_id": "TN-042",
+  "farmer_name": "Rajan Kumar",
+  "preferred_language": "Tamil",
+  "state": "Tamil Nadu",
+  "district": "Thanjavur",
+  "village": "Papanasam",
+  "crops": ["rice"],
+  "crop_stage": "flowering",
+  "pest_risk_level": "high",
+  "active_pest": "fungal",
+  "why_now": "Humidity above 85% for five days; fungal outbreak risk on flowering rice.",
+  "recommended_product": "Amistar",
+  "retailer_name": "Suresh Agro Stores",
+  "urgency_score": 0.84
+}

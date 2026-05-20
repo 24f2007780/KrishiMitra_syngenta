@@ -1,0 +1,2361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dcVoice | Call dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5568d3;
+            --primary-light: #f0f3ff;
+            --secondary: #764ba2;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --info: #17a2b8;
+            --dark: #2d3748;
+            --light: #f8f9fa;
+            --border: #e2e8f0;
+            --text: #4a5568;
+            --text-light: #718096;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--light);
+            color: var(--text);
+            overflow: hidden;
+        }
+
+        .wrapper {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+            z-index: 100;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .logo-text {
+            font-size: 16px;
+        }
+
+        .sidebar-subtitle {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            transition: all 0.3s;
+            color: rgba(255,255,255,0.8);
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .nav-item.active {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border-left-color: white;
+            font-weight: 500;
+        }
+
+        .nav-icon {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top Bar */
+        .topbar {
+            background: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            z-index: 50;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .topbar-title h1 {
+            font-size: 24px;
+            color: var(--dark);
+            margin: 0;
+        }
+
+        .topbar-title p {
+            font-size: 12px;
+            color: var(--text-light);
+            margin: 5px 0 0 0;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+        }
+
+        /* Cards Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border-top: 4px solid var(--primary);
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+        }
+
+        .card.info { border-top-color: var(--info); }
+        .card.success { border-top-color: var(--success); }
+        .card.warning { border-top-color: var(--warning); }
+        .card.danger { border-top-color: var(--danger); }
+
+        .card-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .card-label {
+            font-size: 12px;
+            color: var(--text-light);
+            font-weight: 500;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .card-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .card-change {
+            font-size: 12px;
+            color: var(--success);
+        }
+
+        .card-change.negative {
+            color: var(--danger);
+        }
+
+        /* Section */
+        .section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 25px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: none;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--light);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .section-body {
+            padding: 25px;
+        }
+
+        /* Filters */
+        .filter-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-group label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        select {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            font-size: 13px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        select:hover {
+            border-color: var(--primary);
+        }
+
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        /* Live Calls Table */
+        .calls-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .calls-table thead {
+            background: var(--light);
+        }
+
+        .calls-table th {
+            padding: 15px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .calls-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        .calls-table tbody tr {
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .calls-table tbody tr:hover {
+            background: var(--primary-light);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge-info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .direction-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .direction-inbound {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .direction-outbound {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .text-muted {
+            color: var(--text-light);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            padding: 25px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            position: sticky;
+            top: 0;
+        }
+
+        .modal-header h2 {
+            color: var(--dark);
+            margin: 0;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-light);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: var(--light);
+            color: var(--dark);
+            border-radius: 6px;
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .detail-section {
+            margin-bottom: 30px;
+        }
+
+        .detail-section h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .detail-item {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .detail-item label {
+            display: block;
+            font-size: 11px;
+            color: var(--text-light);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-item .value {
+            color: var(--dark);
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin-top: 15px;
+            outline: none;
+        }
+
+        /* Transcript */
+        .transcript {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .transcript-empty {
+            text-align: center;
+            color: var(--text-light);
+            padding: 30px;
+        }
+
+        .transcript-entry {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            background: white;
+            border-left: 3px solid var(--info);
+        }
+
+        .transcript-entry.assistant {
+            border-left-color: var(--success);
+        }
+
+        .transcript-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .transcript-speaker {
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .transcript-speaker.user {
+            color: var(--info);
+        }
+
+        .transcript-speaker.assistant {
+            color: var(--success);
+        }
+
+        .transcript-time {
+            font-size: 11px;
+            color: var(--text-light);
+        }
+
+        .transcript-text {
+            color: var(--text);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-bottom: 20px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-light);
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .empty-state-text {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+            }
+
+            .nav-item {
+                justify-content: center;
+                padding: 15px;
+            }
+
+            .nav-icon {
+                width: 100%;
+            }
+
+            .sidebar-header, .sidebar-footer {
+                text-align: center;
+                font-size: 11px;
+            }
+
+            .logo-text {
+                display: none;
+            }
+
+            .card-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .section-controls {
+                width: 100%;
+            }
+        }
+
+        .section-content {
+            display: none;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card h3 {
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .stat-card .value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .filters {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .filter-group label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        select, button {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #5568d3;
+        }
+
+        .calls-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .calls-header {
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .calls-header h2 {
+            color: #333;
+        }
+
+        .calls-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .call-item {
+            padding: 20px;
+            border-bottom: 1px solid #e9ecef;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .call-item:hover {
+            background: #f8f9fa;
+        }
+
+        .call-item:last-child {
+            border-bottom: none;
+        }
+
+        .call-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .call-direction {
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .call-direction.inbound {
+            color: #28a745;
+        }
+
+        .call-direction.outbound {
+            color: #007bff;
+        }
+
+        .call-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-in-progress {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-failed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .call-info {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .call-info div {
+            margin: 5px 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            padding: 25px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+        }
+
+        .modal-header h2 {
+            color: #333;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: #e9ecef;
+            border-radius: 50%;
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .detail-section {
+            margin-bottom: 25px;
+        }
+
+        .detail-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .detail-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .detail-item label {
+            display: block;
+            color: #666;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .detail-item .value {
+            color: #333;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .transcript {
+            max-height: 400px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .transcript-empty {
+            color: #999;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .transcript-entry {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .transcript-entry.user {
+            border-left: 4px solid #007bff;
+        }
+
+        .transcript-entry.assistant {
+            border-left: 4px solid #28a745;
+        }
+
+        .transcript-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .transcript-speaker {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .transcript-speaker.user {
+            color: #007bff;
+        }
+
+        .transcript-speaker.assistant {
+            color: #28a745;
+        }
+
+        .transcript-time {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .transcript-text {
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="nav-icon" style="opacity:1;"><i class="fas fa-wave-square"></i></span>
+                    <span class="logo-text">dcVoice</span>
+                </div>
+                <div class="sidebar-subtitle">AI voice &amp; call analytics</div>
+            </div>
+
+            <div class="sidebar-nav">
+                <div class="nav-item active" data-section="dashboard" onclick="switchSection('dashboard')">
+                    <span class="nav-icon"><i class="fas fa-chart-line"></i></span>
+                    <span>Dashboard</span>
+                </div>
+                <!-- <div class="nav-item" data-section="calls" onclick="switchSection('calls')">
+                    <span class="nav-icon"><i class="fas fa-phone"></i></span>
+                    <span>All Calls</span>
+                </div> -->
+                <div class="nav-item" data-section="call-analytics" onclick="switchSection('call-analytics')">
+                    <span class="nav-icon"><i class="fas fa-chart-pie"></i></span>
+                    <span>Call Analytics</span>
+                </div>
+                <div class="nav-item" data-section="chats" onclick="switchSection('chats')">
+                    <span class="nav-icon"><i class="fas fa-comments"></i></span>
+                    <span>Chats</span>
+                </div>
+                <div class="nav-item" data-section="chats-analytics" onclick="switchSection('chats-analytics')">
+                    <span class="nav-icon"><i class="fas fa-poll"></i></span>
+                    <span>Chats Analytics</span>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                v1.0 • Voice AI demo stack
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Bar -->
+            <div class="topbar">
+                <div class="topbar-left">
+                    <div class="topbar-title">
+                        <h1 id="page-title">Dashboard</h1>
+                        <p id="page-subtitle">Welcome back!</p>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <div class="status-indicator"></div>
+                        <span style="font-size: 13px;">System Online</span>
+                    </div>
+                    <button class="btn btn-secondary" style="padding: 8px 12px; font-size: 13px;" onclick="window.location.href='/logout'">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
+                    <div class="user-info">
+                        <div style="text-align: right; font-size: 13px;">
+                            <div id="user-name" style="font-weight: 500; color: var(--dark);">User</div>
+                            <div id="user-role" style="color: var(--text-light); font-size: 11px;">Loading...</div>
+                        </div>
+                        <div class="user-avatar" id="user-avatar">US</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="content">
+                <!-- Dashboard Section -->
+                <div id="dashboard-section" class="section-content active">
+                    <!-- Stats -->
+                    <div class="card-grid">
+                        <div class="card info">
+                            <div class="card-icon"><i class="fas fa-phone-alt"></i></div>
+                            <div class="card-label">Total Calls</div>
+                            <div class="card-value" id="stat-total">0</div>
+                            <div class="card-change">↑ 12% from last month</div>
+                        </div>
+                        <div class="card success">
+                            <div class="card-icon"><i class="fas fa-arrow-down"></i></div>
+                            <div class="card-label">Inbound Calls</div>
+                            <div class="card-value" id="stat-inbound">0</div>
+                            <div class="card-change">↑ 8% from last month</div>
+                        </div>
+                        <div class="card warning">
+                            <div class="card-icon"><i class="fas fa-arrow-up"></i></div>
+                            <div class="card-label">Outbound Calls</div>
+                            <div class="card-value" id="stat-outbound">0</div>
+                            <div class="card-change">↑ 15% from last month</div>
+                        </div>
+                        <div class="card success">
+                            <div class="card-icon"><i class="fas fa-check-circle"></i></div>
+                            <div class="card-label">Completed</div>
+                            <div class="card-value" id="stat-completed">0</div>
+                            <div class="card-change">95% success rate</div>
+                        </div>
+                    </div>
+
+                    <!-- Charts -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; margin-bottom: 30px;">
+                        <div class="section">
+                            <div class="section-header">
+                                <div class="section-title"><i class="fas fa-chart-area"></i> Call Volume (Last 7 Days)</div>
+                            </div>
+                            <div class="section-body">
+                                <div class="chart-container">
+                                    <canvas id="volumeChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section">
+                            <div class="section-header">
+                                <div class="section-title"><i class="fas fa-chart-pie"></i> Call Distribution</div>
+                            </div>
+                            <div class="section-body">
+                                <div class="chart-container">
+                                    <canvas id="distributionChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Calls -->
+                    <div class="section">
+                        <div class="section-header">
+                            <div class="section-title"><i class="fas fa-history"></i> Recent Calls</div>
+                            <div class="section-controls">
+                                <button class="btn btn-secondary" onclick="loadCalls()"><i class="fas fa-sync-alt"></i> Refresh</button>
+                                <button class="btn btn-secondary" onclick="autoRefresh()"><i class="fas fa-clock"></i> Auto (5s)</button>
+                            </div>
+                        </div>
+                        <div class="section-body">
+                            <div class="filter-row">
+                                <div class="filter-group">
+                                    <label>Direction:</label>
+                                    <select id="direction-filter" onchange="loadCalls()">
+                                        <option value="">All</option>
+                                        <option value="inbound">Inbound</option>
+                                        <option value="outbound">Outbound</option>
+                                    </select>
+                                </div>
+                                <div class="filter-group">
+                                    <label>Status:</label>
+                                    <select id="status-filter" onchange="loadCalls()">
+                                        <option value="">All</option>
+                                        <option value="completed">Completed</option>
+                                        <option value="in-progress">In Progress</option>
+                                        <option value="failed">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <table class="calls-table">
+                                <thead>
+                                    <tr>
+                                        <th>Direction</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Status</th>
+                                        <th>Time</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="calls-tbody">
+                                    <tr>
+                                        <td colspan="6" style="text-align: center; padding: 40px;">Loading...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- All Calls Section -->
+                <div id="calls-section" class="section-content">
+                    <div class="section">
+                        <div class="section-header">
+                            <div class="section-title"><i class="fas fa-list"></i> All Calls</div>
+                            <div class="section-controls">
+                                <button class="btn btn-primary" onclick="loadCalls()"><i class="fas fa-sync-alt"></i> Refresh</button>
+                            </div>
+                        </div>
+                        <div class="section-body">
+                            <div class="filter-row">
+                                <div class="filter-group">
+                                    <label>Direction:</label>
+                                    <select onchange="loadCalls()">
+                                        <option value="">All</option>
+                                        <option value="inbound">Inbound</option>
+                                        <option value="outbound">Outbound</option>
+                                    </select>
+                                </div>
+                                <div class="filter-group">
+                                    <label>Status:</label>
+                                    <select onchange="loadCalls()">
+                                        <option value="">All</option>
+                                        <option value="completed">Completed</option>
+                                        <option value="failed">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <table class="calls-table">
+                                <thead>
+                                    <tr>
+                                        <th>Direction</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Status</th>
+                                        <th>Time</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="all-calls-tbody">
+                                    <tr>
+                                        <td colspan="6" style="text-align: center; padding: 40px;">Loading...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call Analytics Section -->
+                <div id="call-analytics-section" class="section-content">
+                    <!-- Intent Distribution by Category -->
+                    <div style="margin-bottom: 40px;">
+                        <div style="font-size: 20px; font-weight: 700; color: var(--text-color); margin-bottom: 25px; display: flex; align-items: center;">
+                            <i class="fas fa-chart-pie" style="margin-right: 12px; color: #667eea;"></i>
+                            Intent Distribution by Category
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px;">
+                            <!-- Enrollment Intent Card -->
+                            <div style="background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%); border: 1px solid #667eea30; border-radius: 16px; padding: 28px; transition: all 0.3s ease;">
+                                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                    <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                        <i class="fas fa-graduation-cap" style="color: white; font-size: 24px;"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 16px; font-weight: 700; color: var(--text-color);">Enrollment Intent</div>
+                                        <div style="font-size: 12px; color: #667eea; margin-top: 2px;">Student Acquisition</div>
+                                    </div>
+                                </div>
+                                <canvas id="enrollment-intent-chart" style="max-width: 100%; max-height: 200px; margin-bottom: 15px;"></canvas>
+                                <div style="font-size: 12px; color: var(--text-light); text-align: center; padding-top: 15px; border-top: 1px solid #667eea15;">
+                                    24 Total Calls
+                                </div>
+                            </div>
+
+                            <!-- Academic Doubts Card -->
+                            <div style="background: linear-gradient(135deg, #f39c1215 0%, #e67e2215 100%); border: 1px solid #f39c1230; border-radius: 16px; padding: 28px; transition: all 0.3s ease;">
+                                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                    <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                        <i class="fas fa-question-circle" style="color: white; font-size: 24px;"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 16px; font-weight: 700; color: var(--text-color);">Academic Doubts</div>
+                                        <div style="font-size: 12px; color: #f39c12; margin-top: 2px;">Knowledge Support</div>
+                                    </div>
+                                </div>
+                                <canvas id="academic-intent-chart" style="max-width: 100%; max-height: 200px; margin-bottom: 15px;"></canvas>
+                                <div style="font-size: 12px; color: var(--text-light); text-align: center; padding-top: 15px; border-top: 1px solid #f39c1230;">
+                                    24 Total Calls
+                                </div>
+                            </div>
+
+                            <!-- Refund Requests Card -->
+                            <div style="background: linear-gradient(135deg, #e74c3c15 0%, #c0392b15 100%); border: 1px solid #e74c3c30; border-radius: 16px; padding: 28px; transition: all 0.3s ease;">
+                                <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                    <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                        <i class="fas fa-undo-alt" style="color: white; font-size: 24px;"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 16px; font-weight: 700; color: var(--text-color);">Refund Requests</div>
+                                        <div style="font-size: 12px; color: #e74c3c; margin-top: 2px;">Customer Satisfaction</div>
+                                    </div>
+                                </div>
+                                <canvas id="refund-intent-chart" style="max-width: 100%; max-height: 200px; margin-bottom: 15px;"></canvas>
+                                <div style="font-size: 12px; color: var(--text-light); text-align: center; padding-top: 15px; border-top: 1px solid #e74c3c30;">
+                                    24 Total Calls
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Intent Breakdown -->
+                    <div style="margin-top: 50px; padding-top: 40px; border-top: 2px solid #f0f0f0;">
+                        <div class="section">
+                            <div class="section-header">
+                                <div class="section-title"><i class="fas fa-layer-group"></i> Intent Breakdown</div>
+                            </div>
+                            <div class="section-body">
+                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                                    <div style="background: linear-gradient(135deg, #e74c3c15 0%, #c0392b15 100%); border: 1px solid #e74c3c30; border-radius: 12px; padding: 20px; text-align: center;">
+                                        <div style="font-size: 36px; color: #e74c3c; font-weight: 700;" id="high-intent-count">0</div>
+                                        <div style="font-size: 13px; color: var(--text-color); font-weight: 600; margin-top: 8px;">High Intent</div>
+                                        <div style="font-size: 12px; color: #e74c3c; margin-top: 4px;" id="high-intent-pct">0%</div>
+                                    </div>
+                                    <div style="background: linear-gradient(135deg, #f39c1215 0%, #e67e2215 100%); border: 1px solid #f39c1230; border-radius: 12px; padding: 20px; text-align: center;">
+                                        <div style="font-size: 36px; color: #f39c12; font-weight: 700;" id="medium-intent-count">0</div>
+                                        <div style="font-size: 13px; color: var(--text-color); font-weight: 600; margin-top: 8px;">Medium Intent</div>
+                                        <div style="font-size: 12px; color: #f39c12; margin-top: 4px;" id="medium-intent-pct">0%</div>
+                                    </div>
+                                    <div style="background: linear-gradient(135deg, #3498db15 0%, #2980b915 100%); border: 1px solid #3498db30; border-radius: 12px; padding: 20px; text-align: center;">
+                                        <div style="font-size: 36px; color: #3498db; font-weight: 700;" id="low-intent-count">0</div>
+                                        <div style="font-size: 13px; color: var(--text-color); font-weight: 600; margin-top: 8px;">Low Intent</div>
+                                        <div style="font-size: 12px; color: #3498db; margin-top: 4px;" id="low-intent-pct">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- High Intent Calls -->
+                    <div style="margin-top: 50px; padding-top: 40px; border-top: 2px solid #f0f0f0;">
+                        <div class="section">
+                            <div class="section-header">
+                                <div class="section-title"><i class="fas fa-fire" style="color: #e74c3c;"></i> High Intent Calls</div>
+                                <button style="background: var(--primary); color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;" onclick="loadIntentCalls('high')">View All</button>
+                            </div>
+                            <div class="section-body" id="high-intent-list">
+                                <div style="text-align: center; padding: 30px; color: var(--text-light);">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medium and Low Intent (Hidden) -->
+                    <!-- 
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px;">
+                        <div class="section">
+                            <div class="section-header">
+                                <div class="section-title"><i class="fas fa-bolt" style="color: #f39c12;"></i> Medium Intent Calls</div>
+                                <button style="background: var(--primary); color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;" onclick="loadIntentCalls('medium')">View All</button>
+                            </div>
+                            <div class="section-body" id="medium-intent-list">
+                                <div style="text-align: center; padding: 30px; color: var(--text-light);">Loading...</div>
+                            </div>
+                        </div>
+
+                        <div class="section">
+                            <div class="section-header">
+                                <div class="section-title"><i class="fas fa-snowflake" style="color: #3498db;"></i> Low Intent Calls</div>
+                                <button style="background: var(--primary); color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;" onclick="loadIntentCalls('low')">View All</button>
+                            </div>
+                            <div class="section-body" id="low-intent-list">
+                                <div style="text-align: center; padding: 30px; color: var(--text-light);">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                    -->
+                </div>
+
+                <!-- Chats Section: iframe src set from DCVOICE_EMBED_* in dashboard script (defaults below) -->
+                <div id="chats-section" class="section-content">
+                    <iframe
+                        id="dcvoice-iframe-chats"
+                        title="Chats"
+                        src="about:blank"
+                        style="width:100%;height:calc(100vh - 120px);min-height:420px;border:1px solid var(--border);border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);background:#fff;"
+                    ></iframe>
+                </div>
+
+                <!-- Chats Analytics Section -->
+                <div id="chats-analytics-section" class="section-content">
+                    <iframe
+                        id="dcvoice-iframe-chats-analytics"
+                        title="Chats analytics"
+                        src="about:blank"
+                        style="width:100%;height:calc(100vh - 120px);min-height:420px;border:1px solid var(--border);border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);background:#fff;"
+                    ></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call Details Modal -->
+    <div class="modal" id="call-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Call Details</h2>
+                <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Confirm Call Modal - Professional Design -->
+    <div id="confirm-call-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 3000; align-items: center; justify-content: center; backdrop-filter: blur(4px);">
+        <div style="position: relative; background: white; border-radius: 20px; width: 100%; max-width: 420px; padding: 0; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); overflow: hidden; animation: slideUp 0.3s ease-out;">
+            
+            <!-- Header -->
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; text-align: center;">
+                <div style="font-size: 48px; margin-bottom: 12px; color: white;"><i class="fas fa-phone-volume"></i></div>
+                <div style="font-size: 16px; font-weight: 600; color: white;">Incoming Call Request</div>
+            </div>
+            
+            <!-- Body -->
+            <div style="padding: 30px; text-align: center;">
+                <div style="font-size: 13px; color: #718096; margin-bottom: 12px;">Customer Phone Number</div>
+                <div id="confirm-phone-display" style="font-size: 28px; font-weight: 700; color: #667eea; margin-bottom: 24px; font-family: 'Monaco', monospace; letter-spacing: 1px;">
+                    +1 234 567 890
+                </div>
+                
+                <div style="background: #f7fafc; border-left: 4px solid #667eea; padding: 15px; border-radius: 8px; margin-bottom: 24px; text-align: left;">
+                    <div style="font-size: 12px; color: #4a5568; line-height: 1.6;">
+                        <i class="fas fa-check"></i> You will handle this call through your browser mic/speaker<br/>
+                        <i class="fas fa-check"></i> Microphone permission is required<br/>
+                        <i class="fas fa-check"></i> Call will be initiated immediately after confirmation
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer with Buttons -->
+            <div style="padding: 0 30px 30px; display: flex; gap: 12px;">
+                <button onclick="cancelConfirmCall()" style="flex: 1; padding: 12px 20px; background: #e2e8f0; color: #2d3748; border: none; border-radius: 10px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s;">
+                    Cancel
+                </button>
+                <button onclick="confirmCall()" style="flex: 1; padding: 12px 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 10px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
+                    Confirm Call
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Call Modal - Modern Professional Design -->
+    <div id="active-call-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.92); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(5px);">
+        
+        <div style="position: relative; background: white; border-radius: 28px; width: 100%; max-width: 420px; padding: 0; box-shadow: 0 25px 100px rgba(0, 0, 0, 0.4); overflow: hidden; animation: slideUp 0.4s ease-out;">
+            
+            <!-- Header with gradient -->
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 50px 30px 30px; text-align: center; position: relative;">
+                
+                <!-- Close button -->
+                <button onclick="endCall()" style="position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.2); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; font-size: 18px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center;" title="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+                
+                <div style="font-size: 13px; color: rgba(255,255,255,0.8); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600;">Active Call</div>
+                
+                <!-- Phone Number Display -->
+                <div id="call-phone-number" style="font-size: 36px; font-weight: 700; color: white; margin-bottom: 20px; letter-spacing: 1px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                    +1 234 567 890
+                </div>
+                
+                <!-- Call Status Badge -->
+                <div id="call-status-text" style="font-size: 14px; color: rgba(255,255,255,0.9); font-weight: 500; letter-spacing: 0.5px;">
+                    Connecting...
+                </div>
+            </div>
+            
+            <!-- Timer Section -->
+            <div style="text-align: center; padding: 40px 30px 30px; background: #fafbfc;">
+                <div id="call-timer" style="font-size: 72px; font-weight: 700; color: #667eea; margin-bottom: 12px; font-family: 'Monaco', 'Courier New', monospace; letter-spacing: 3px;">
+                    00:00
+                </div>
+                <div style="font-size: 12px; color: #718096; text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600;">
+                    Call Duration
+                </div>
+            </div>
+            
+            <!-- Controls Section -->
+            <div style="padding: 30px; background: white;">
+                
+                <!-- Control Buttons -->
+                <div style="display: flex; justify-content: space-around; align-items: center; gap: 15px; margin-bottom: 20px;">
+                    
+                    <!-- Mute Button -->
+                    <button id="mute-btn" onclick="toggleMute()" style="width: 70px; height: 70px; border-radius: 50%; background: #f0f3ff; border: 2px solid #e2e8f0; color: #667eea; font-size: 28px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);" title="Mute Microphone">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+
+                    <!-- Disconnect Button (Primary) -->
+                    <button id="disconnect-btn" onclick="endCall()" style="width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%); border: none; color: white; font-size: 32px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(255, 82, 82, 0.35); flex-shrink: 0;" title="Disconnect Call">
+                        <i class="fas fa-phone-slash"></i>
+                    </button>
+
+                    <!-- Keypad Button -->
+                    <button id="keypad-btn" style="width: 70px; height: 70px; border-radius: 50%; background: #f0f3ff; border: 2px solid #e2e8f0; color: #667eea; font-size: 28px; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);" title="Keypad">
+                        <i class="fas fa-keyboard"></i>
+                    </button>
+                </div>
+                
+                <!-- Button Labels -->
+                <div style="display: flex; justify-content: space-around; font-size: 11px; color: #718096; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                    <div>Mute</div>
+                    <div>Disconnect</div>
+                    <div>Keypad</div>
+                </div>
+            </div>
+            
+            <!-- Tip -->
+            <div style="padding: 0 30px 25px; text-align: center; font-size: 12px; color: #a0aec0;">
+                Speak clearly. Click disconnect when done.
+            </div>
+        </div>
+        
+        <!-- Animations -->
+        <style>
+            @keyframes slideUp {
+                from {
+                    transform: translateY(50px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+            
+            #mute-btn:hover, #keypad-btn:hover {
+                background: #e7edff;
+                border-color: #cbd5e0;
+                transform: scale(1.08);
+                box-shadow: 0 6px 20px rgba(102, 126, 234, 0.2);
+            }
+            
+            #disconnect-btn:hover {
+                background: linear-gradient(135deg, #ff7575 0%, #ff6262 100%);
+                transform: scale(1.08);
+                box-shadow: 0 12px 35px rgba(255, 82, 82, 0.45);
+            }
+            
+            #mute-btn:active, #keypad-btn:active, #disconnect-btn:active {
+                transform: scale(0.95);
+            }
+        </style>
+    </div>
+
+    <script>
+        const API_BASE = window.location.origin;
+        let volumeChart, distributionChart;
+        let autoRefreshInterval = null;
+        let currentUser = null;
+
+        /* Embedded chat tools: override in the console or inject a script before this block.
+           Set to '' to keep iframe blank. */
+        if (!('DCVOICE_EMBED_CHATS' in window)) {
+            window.DCVOICE_EMBED_CHATS = 'https://vedantu-c-desicrew-2dyglpk7xq-uc.a.run.app/dashboard';
+        }
+        if (!('DCVOICE_EMBED_CHATS_ANALYTICS' in window)) {
+            window.DCVOICE_EMBED_CHATS_ANALYTICS = 'https://desicrew-dcvoice-dashboard-2dyglpk7xq-uc.a.run.app/';
+        }
+
+        function applyDcVoiceIframeSrc() {
+            const chats = document.getElementById('dcvoice-iframe-chats');
+            const analytics = document.getElementById('dcvoice-iframe-chats-analytics');
+            if (chats && window.DCVOICE_EMBED_CHATS) {
+                chats.src = window.DCVOICE_EMBED_CHATS;
+            }
+            if (analytics && window.DCVOICE_EMBED_CHATS_ANALYTICS) {
+                analytics.src = window.DCVOICE_EMBED_CHATS_ANALYTICS;
+            }
+        }
+
+        function refreshCallAnalyticsCharts() {
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    updateAllIntentCharts();
+                    loadIntentStats();
+                });
+            });
+        }
+
+        // Page initialization
+        window.addEventListener('DOMContentLoaded', () => {
+            loadUserInfo();
+            loadStats();
+            loadCalls();
+            initCharts();
+            applyDcVoiceIframeSrc();
+        });
+
+        async function loadUserInfo() {
+            try {
+                const response = await fetch(`${API_BASE}/auth/me`);
+                const data = await response.json();
+                if (data.success) {
+                    currentUser = data.user;
+                    const initials = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                    document.getElementById('user-avatar').textContent = initials;
+                    document.getElementById('user-name').textContent = currentUser.name;
+                    document.getElementById('user-role').textContent = currentUser.role === 'admin' ? 'Admin' : 'CSE Agent';
+                }
+            } catch (error) {
+                console.error('Error loading user info:', error);
+            }
+        }
+
+        function switchSection(sectionId) {
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            const target = document.getElementById(`${sectionId}-section`);
+            if (target) {
+                target.classList.add('active');
+            }
+
+            const nav = document.querySelector(`.nav-item[data-section="${sectionId}"]`);
+            if (nav) {
+                nav.classList.add('active');
+            }
+
+            const titles = {
+                dashboard: { title: 'Dashboard', subtitle: 'Welcome back!' },
+                calls: { title: 'All Calls', subtitle: 'Manage and view all calls' },
+                'call-analytics': { title: 'Call Analytics', subtitle: 'Call insights and metrics' },
+                chats: { title: 'Chats', subtitle: 'Customer conversations' },
+                'chats-analytics': { title: 'Chats Analytics', subtitle: 'Chat analytics and insights' }
+            };
+            const t = titles[sectionId];
+            if (t) {
+                document.getElementById('page-title').textContent = t.title;
+                document.getElementById('page-subtitle').textContent = t.subtitle;
+            }
+
+            /* Charts were initialized while this section had display:none, so Chart.js often renders at 0 size.
+               Re-fetch and redraw after layout when the tab becomes visible. */
+            if (sectionId === 'call-analytics') {
+                refreshCallAnalyticsCharts();
+            }
+        }
+
+        async function loadStats() {
+            try {
+                const response = await fetch(`${API_BASE}/api/v1/calls/stats`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('stat-total').textContent = data.stats.total_calls;
+                    document.getElementById('stat-inbound').textContent = data.stats.inbound_calls;
+                    document.getElementById('stat-outbound').textContent = data.stats.outbound_calls;
+                    document.getElementById('stat-completed').textContent = data.stats.completed_calls;
+                }
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        async function loadCalls() {
+            const direction = document.getElementById('direction-filter')?.value || '';
+            const status = document.getElementById('status-filter')?.value || '';
+            
+            let url = `${API_BASE}/api/v1/calls?limit=50`;
+            if (direction) url += `&direction=${direction}`;
+            if (status) url += `&status=${status}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.success) {
+                    let filteredCalls = data.calls;
+                    // Filter calls based on role
+                    if (currentUser && currentUser.role === 'cse') {
+                        filteredCalls = filterCallsForCSE(data.calls, currentUser.username);
+                        updateStatsFromCalls(filteredCalls);
+                    } else {
+                        loadStats();
+                    }
+                    displayCalls(filteredCalls);
+                }
+            } catch (error) {
+                console.error('Error loading calls:', error);
+            }
+        }
+
+        function updateStatsFromCalls(calls) {
+            const total = calls.length;
+            const inbound = calls.filter(c => c.direction === 'inbound').length;
+            const outbound = calls.filter(c => c.direction === 'outbound').length;
+            const completed = calls.filter(c => c.status === 'completed').length;
+            document.getElementById('stat-total').textContent = total;
+            document.getElementById('stat-inbound').textContent = inbound;
+            document.getElementById('stat-outbound').textContent = outbound;
+            document.getElementById('stat-completed').textContent = completed;
+        }
+
+        function filterCallsForCSE(allCalls, username) {
+            // Assign calls by odd/even index based on CSE username
+            // rohit.verma gets odd indices, neha.gupta gets even indices
+            const rolesMap = {
+                'rohit.verma': 'odd',
+                'neha.gupta': 'even'
+            };
+            const assignedParity = rolesMap[username] || 'odd';
+            return allCalls.filter((call, index) => {
+                if (assignedParity === 'odd') return index % 2 === 0;  // odd indices (0, 2, 4...)
+                else return index % 2 === 1;  // even indices (1, 3, 5...)
+            });
+        }
+
+        function displayCalls(calls) {
+            const tbody = document.getElementById('calls-tbody') || document.getElementById('all-calls-tbody');
+            if (!tbody) return;
+
+            if (calls.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 40px;">No calls found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = calls.map(call => `
+                <tr>
+                    <td onclick="showCallDetails('${call.call_sid}')" style="cursor: pointer;">
+                        <div class="direction-badge direction-${call.direction}">
+                            ${call.direction === 'inbound' ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>'} ${call.direction}
+                        </div>
+                    </td>
+                    <td onclick="showCallDetails('${call.call_sid}')" style="cursor: pointer;">${call.from_number}</td>
+                    <td onclick="showCallDetails('${call.call_sid}')" style="cursor: pointer;">${call.to_number}</td>
+                    <td onclick="showCallDetails('${call.call_sid}')" style="cursor: pointer;"><span class="badge badge-${getStatusClass(call.status)}">${call.status}</span></td>
+                    <td class="text-muted" onclick="showCallDetails('${call.call_sid}')" style="cursor: pointer;">${formatDateTime(call.created_at)}</td>
+                    <td style="text-align: center;">
+                        <button onclick="initiateCallback('${call.direction === 'inbound' ? call.from_number : call.to_number}', event)" style="background: none; border: none; font-size: 18px; cursor: pointer; color: #667eea; padding: 5px;" title="Call back"><i class="fas fa-phone-volume"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function getStatusClass(status) {
+            const map = { 'completed': 'success', 'in-progress': 'warning', 'failed': 'danger', 'queued': 'info' };
+            return map[status] || 'info';
+        }
+
+        async function showCallDetails(callSid) {
+            try {
+                const response = await fetch(`${API_BASE}/api/v1/calls/${callSid}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    displayCallDetails(data.call);
+                    document.getElementById('call-modal').classList.add('active');
+                }
+            } catch (error) {
+                console.error('Error loading call details:', error);
+            }
+        }
+
+        async function initiateCallback(phoneNumber, event) {
+            event.stopPropagation();
+            
+            console.log("========== DEBUG: initiateCallback called ==========");
+            console.log("phoneNumber parameter:", phoneNumber);
+            console.log("phoneNumber type:", typeof phoneNumber);
+            console.log("phoneNumber length:", phoneNumber.length);
+            console.log("phoneNumber trimmed:", phoneNumber.trim());
+            console.log("===================================================");
+            
+            if (!phoneNumber) {
+                alert('No customer phone number available');
+                return;
+            }
+
+            // Show confirm modal instead of browser confirm
+            window.pendingCallPhoneNumber = phoneNumber;
+            document.getElementById('confirm-phone-display').textContent = phoneNumber;
+            document.getElementById('confirm-call-modal').style.display = 'flex';
+        }
+
+        async function confirmCall() {
+            const phoneNumber = window.pendingCallPhoneNumber;
+            document.getElementById('confirm-call-modal').style.display = 'none';
+
+            try {
+                // Check browser audio support
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                window.agentAudioStream = stream;
+                
+                // Show call modal
+                document.getElementById('active-call-modal').style.display = 'flex';
+                document.getElementById('call-phone-number').textContent = phoneNumber;
+                document.getElementById('call-status-text').textContent = 'Initiating call...';
+                
+                // Reset timer
+                let seconds = 0;
+                window.callTimerInterval = setInterval(() => {
+                    seconds++;
+                    const mins = Math.floor(seconds / 60);
+                    const secs = seconds % 60;
+                    document.getElementById('call-timer').textContent = 
+                        String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+                }, 1000);
+
+                // Prepare request
+                const requestBody = {
+                    customer_phone: phoneNumber
+                };
+                
+                console.log("========== DEBUG: Sending /agent-call request ==========");
+                console.log("API_BASE:", API_BASE);
+                console.log("Request body:", requestBody);
+                console.log("Request body as JSON:", JSON.stringify(requestBody));
+                console.log("=======================================================");
+
+                // Initiate call via /agent-call endpoint
+                const response = await fetch(`${API_BASE}/agent-call`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                const data = await response.json();
+                
+                console.log("========== DEBUG: Response received ==========");
+                console.log("Response status:", response.status);
+                console.log("Response data:", data);
+                console.log("Customer phone in response:", data.customer_phone);
+                console.log("============================================");
+
+                if (data.success) {
+                    document.getElementById('call-status-text').textContent = 'Waiting for customer to answer...';
+                    window.currentCallSid = data.call_sid;
+                    console.log('✓ Agent call initiated:', data);
+                    
+                    // Connect agent's WebSocket for audio handling
+                    await connectAgentWebSocket(data.call_sid);
+                    
+                } else {
+                    clearInterval(window.callTimerInterval);
+                    document.getElementById('active-call-modal').style.display = 'none';
+                    window.agentAudioStream?.getTracks().forEach(track => track.stop());
+                    alert('Error initiating call: ' + (data.error || 'Unknown error'));
+                }
+            } catch (error) {
+                clearInterval(window.callTimerInterval);
+                document.getElementById('active-call-modal').style.display = 'none';
+                window.agentAudioStream?.getTracks().forEach(track => track.stop());
+                console.error('Error initiating agent call:', error);
+                alert('Error: ' + error.message + '\n\nMake sure you allow microphone access.');
+            }
+        }
+
+        function cancelConfirmCall() {
+            document.getElementById('confirm-call-modal').style.display = 'none';
+            window.pendingCallPhoneNumber = null;
+        }
+
+        async function connectAgentWebSocket(callSid) {
+            try {
+                // Get WebSocket URL (replace https with wss)
+                const wsUrl = `${API_BASE}/ws/agent-call`.replace('http://', 'ws://').replace('https://', 'wss://');
+                
+                window.agentWebSocket = new WebSocket(wsUrl);
+                
+                window.agentWebSocket.onopen = async () => {
+                    console.log('Agent WebSocket connected');
+                    document.getElementById('call-status-text').textContent = 'Connected - Listening...';
+                };
+                
+                window.agentWebSocket.onmessage = async (event) => {
+                    try {
+                        const data = JSON.parse(event.data);
+                        
+                        if (data.event === 'media') {
+                            // Customer audio received - play to agent's speaker
+                            const audioData = atob(data.media.payload);
+                            const audioBuffer = new Uint8Array(audioData.length);
+                            for (let i = 0; i < audioData.length; i++) {
+                                audioBuffer[i] = audioData.charCodeAt(i);
+                            }
+                            
+                            // Decode mulaw and play
+                            if (!window.audioContext) {
+                                window.audioContext = new AudioContext();
+                            }
+                            
+                            // Play audio to agent's speaker (simplified)
+                            console.log('Received customer audio');
+                        }
+                        
+                        if (data.event === 'connected') {
+                            console.log('Agent session established');
+                        }
+                    } catch (e) {
+                        console.error('WebSocket message error:', e);
+                    }
+                };
+                
+                window.agentWebSocket.onerror = (error) => {
+                    console.error('WebSocket error:', error);
+                    alert('Connection error: ' + error);
+                };
+                
+                window.agentWebSocket.onclose = () => {
+                    console.log('Agent WebSocket closed');
+                };
+                
+                // Send agent's audio to Twilio via WebSocket
+                if (window.agentAudioStream) {
+                    sendAgentAudio();
+                }
+            } catch (error) {
+                console.error('WebSocket connection error:', error);
+                alert('Failed to connect agent audio: ' + error.message);
+            }
+        }
+
+        function sendAgentAudio() {
+            try {
+                const audioContext = window.audioContext || new AudioContext();
+                const mediaStream = window.agentAudioStream;
+                const source = audioContext.createMediaStreamSource(mediaStream);
+                const processor = audioContext.createScriptProcessor(4096, 1, 1);
+                
+                processor.onaudioprocess = (event) => {
+                    const audioData = event.inputBuffer.getChannelData(0);
+                    
+                    // Convert to mulaw and send via WebSocket
+                    if (window.agentWebSocket && window.agentWebSocket.readyState === WebSocket.OPEN) {
+                        const payload = btoa(String.fromCharCode.apply(null, audioData));
+                        window.agentWebSocket.send(JSON.stringify({
+                            event: 'media',
+                            media: { payload: payload }
+                        }));
+                    }
+                };
+                
+                source.connect(processor);
+                processor.connect(audioContext.destination);
+                
+                console.log('Agent audio streaming started');
+            } catch (error) {
+                console.error('Audio streaming error:', error);
+            }
+        }
+
+        function endCall() {
+            clearInterval(window.callTimerInterval);
+            document.getElementById('active-call-modal').style.display = 'none';
+            
+            // Close WebSocket
+            if (window.agentWebSocket) {
+                window.agentWebSocket.close();
+            }
+            
+            // Stop audio stream
+            if (window.agentAudioStream) {
+                window.agentAudioStream.getTracks().forEach(track => track.stop());
+                window.agentAudioStream = null;
+            }
+            
+            console.log('Call ended. Call SID:', window.currentCallSid);
+            
+            // Optionally refresh calls list
+            loadCalls();
+        }
+
+        function toggleMute() {
+            if (window.agentAudioStream) {
+                const enabled = window.agentAudioStream.getAudioTracks()[0].enabled;
+                window.agentAudioStream.getAudioTracks()[0].enabled = !enabled;
+                
+                const muteBtn = document.getElementById('mute-btn');
+                if (!enabled) {
+                    muteBtn.innerHTML = '<i class="fas fa-microphone-slash"></i>';
+                    muteBtn.style.background = 'rgba(255, 82, 82, 0.3)';
+                } else {
+                    muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    muteBtn.style.background = 'rgba(255,255,255,0.2)';
+                }
+            }
+        }
+
+        function displayCallDetails(call) {
+            const transcriptHTML = call.transcript && call.transcript.length > 0
+                ? call.transcript.map(entry => `
+                    <div class="transcript-entry ${entry.speaker}">
+                        <div class="transcript-header">
+                            <span class="transcript-speaker ${entry.speaker}">
+                                ${entry.speaker === 'user' ? '<i class="fas fa-user"></i> User' : '<i class="fas fa-robot"></i> Assistant'}
+                            </span>
+                            <span class="transcript-time">${formatTime(entry.timestamp)}</span>
+                        </div>
+                        <div class="transcript-text">${entry.text}</div>
+                    </div>
+                `).join('')
+                : '<div class="transcript-empty">No transcript available</div>';
+
+            document.getElementById('modal-body').innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3 style="margin: 0;">Call Information</h3>
+                    <button onclick="initiateCallback('${call.direction === 'inbound' ? call.from_number : call.to_number}', event)" style="background: #667eea; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-phone-volume"></i> Call Back
+                    </button>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <label>Call SID</label>
+                            <div class="value">${call.call_sid}</div>
+                        </div>
+                        <div class="detail-item">
+                            <label>Direction</label>
+                            <div class="value">${call.direction === 'inbound' ? 'Inbound' : 'Outbound'}</div>
+                        </div>
+                        <div class="detail-item">
+                            <label>Status</label>
+                            <div class="value">${call.status}</div>
+                        </div>
+                        <div class="detail-item">
+                            <label>From</label>
+                            <div class="value">${call.from_number}</div>
+                        </div>
+                        <div class="detail-item">
+                            <label>To</label>
+                            <div class="value">${call.to_number}</div>
+                        </div>
+                        // <div class="detail-item">
+                        //     <label>Duration</label>
+                        //     <div class="value">${formatDuration(call.duration)}</div>
+                        // </div>
+                        <div class="detail-item">
+                            <label>Started</label>
+                            <div class="value">${call.started_at ? formatDateTime(call.started_at) : 'N/A'}</div>
+                        </div>
+                        <div class="detail-item">
+                            <label>Ended</label>
+                            <div class="value">${call.ended_at ? formatDateTime(call.ended_at) : 'N/A'}</div>
+                        </div>
+                    </div>
+                </div>
+
+                ${call.recording_path ? `
+                    <div class="detail-section">
+                        <h3><i class="fas fa-tape"></i> Recording</h3>
+                        <audio controls class="audio-player">
+                            <source src="${API_BASE}/api/v1/recordings/${call.call_sid}/download" type="audio/wav">
+                        </audio>
+                        <div style="margin-top: 15px;">
+                            <a href="${API_BASE}/api/v1/recordings/${call.call_sid}/download" download style="color: var(--primary); text-decoration: none; font-size: 13px; font-weight: 500;">
+                                <i class="fas fa-download"></i> Download Recording
+                            </a>
+                        </div>
+                    </div>
+                ` : ''}
+
+                <div class="detail-section">
+                    <h3><i class="fas fa-comments"></i> Transcript</h3>
+                    <div class="transcript">${transcriptHTML}</div>
+                </div>
+            `;
+        }
+
+        function closeModal() {
+            document.getElementById('call-modal').classList.remove('active');
+        }
+
+        function initCharts() {
+            // Volume Chart
+            const volumeCtx = document.getElementById('volumeChart')?.getContext('2d');
+            if (volumeCtx) {
+                volumeChart = new Chart(volumeCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                            label: 'Calls',
+                            data: [12, 19, 8, 15, 22, 18, 14],
+                            borderColor: '#667eea',
+                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            pointBackgroundColor: '#667eea',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 5,
+                            pointHoverRadius: 7
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { beginAtZero: true, max: 30 }
+                        }
+                    }
+                });
+            }
+
+            // Distribution Chart
+            const distributionCtx = document.getElementById('distributionChart')?.getContext('2d');
+            if (distributionCtx) {
+                distributionChart = new Chart(distributionCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Completed', 'In Progress', 'Failed'],
+                        datasets: [{
+                            data: [65, 20, 15],
+                            backgroundColor: ['#28a745', '#ffc107', '#dc3545'],
+                            borderColor: '#fff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'bottom' }
+                        }
+                    }
+                });
+            }
+        }
+
+        function formatDuration(seconds) {
+            if (!seconds) return 'N/A';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function formatDateTime(dateString) {
+            if (!dateString) return 'N/A';
+            return new Date(dateString).toLocaleString();
+        }
+
+        function formatTime(dateString) {
+            if (!dateString) return '';
+            return new Date(dateString).toLocaleTimeString();
+        }
+
+        function autoRefresh() {
+            if (autoRefreshInterval) {
+                clearInterval(autoRefreshInterval);
+                autoRefreshInterval = null;
+            } else {
+                autoRefreshInterval = setInterval(() => {
+                    loadCalls();
+                }, 5000);
+            }
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('call-modal')?.addEventListener('click', (e) => {
+            if (e.target.id === 'call-modal') {
+                closeModal();
+            }
+        });
+
+        // Intent Analysis Functions
+        async function loadIntentStats() {
+            try {
+                const response = await fetch(`${API_BASE}/api/v1/intent/stats`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    const stats = data.intent_stats;
+                    
+                    // Update intent counts and percentages
+                    document.getElementById('high-intent-count').textContent = stats.high;
+                    document.getElementById('medium-intent-count').textContent = stats.medium;
+                    document.getElementById('low-intent-count').textContent = stats.low;
+                    
+                    document.getElementById('high-intent-pct').textContent = Math.round(stats.high_percentage) + '%';
+                    document.getElementById('medium-intent-pct').textContent = Math.round(stats.medium_percentage) + '%';
+                    document.getElementById('low-intent-pct').textContent = Math.round(stats.low_percentage) + '%';
+                    
+                    // Update intent chart
+                    updateIntentChart(stats);
+                    
+                    // Load sample calls from each intent level
+                    loadIntentCalls('high');
+                    loadIntentCalls('medium');
+                    loadIntentCalls('low');
+                }
+            } catch (error) {
+                console.error('Error loading intent stats:', error);
+            }
+        }
+
+        async function loadIntentCalls(category) {
+            try {
+                const response = await fetch(`${API_BASE}/api/v1/calls/by-intent/${category}?limit=5`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    const containerId = `${category}-intent-list`;
+                    const container = document.getElementById(containerId);
+                    
+                    if (data.calls.length === 0) {
+                        container.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--text-light);">No ${category} intent calls</div>`;
+                        return;
+                    }
+                    
+                    container.innerHTML = data.calls.map(call => `
+                        <div style="padding: 12px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; transition: background 0.2s;" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='transparent'">
+                            <div style="flex: 1; cursor: pointer;" onclick="showCallDetails('${call.call_sid}')">
+                                <div style="font-size: 12px; color: var(--text); font-weight: 500;">${call.from_number} → ${call.to_number}</div>
+                                <div style="font-size: 11px; color: var(--text-light); margin-top: 2px;">${formatDateTime(call.created_at)}</div>
+                            </div>
+                            <div style="text-align: right; margin-right: 10px;">
+                                <div style="font-size: 12px; color: var(--primary); font-weight: bold;">${call.intent_score}%</div>
+                                <div style="font-size: 11px; color: var(--text-light);">${formatDuration(call.duration)}</div>
+                            </div>
+                            <button onclick="initiateCallback('${call.direction === 'inbound' ? call.from_number : call.to_number}', event)" style="background: none; border: none; font-size: 18px; cursor: pointer; color: #667eea; padding: 5px;" title="Call back"><i class="fas fa-phone-volume"></i></button>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error(`Error loading ${category} intent calls:`, error);
+            }
+        }
+
+        function updateIntentChart(stats) {
+            // This function is kept for backward compatibility
+            // New charts are created by updateAllIntentCharts()
+        }
+
+        function createIntentChart(canvasId, stats, intentType) {
+            const ctx = document.getElementById(canvasId);
+            if (!ctx) return;
+            
+            // Get existing chart instance
+            const chartKey = `intentChartInstance_${intentType}`;
+            if (window[chartKey]) {
+                window[chartKey].destroy();
+            }
+            
+            const total = stats.high + stats.medium + stats.low;
+            
+            window[chartKey] = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['High Intent', 'Medium Intent', 'Low Intent'],
+                    datasets: [{
+                        data: [stats.high, stats.medium, stats.low],
+                        backgroundColor: [
+                            '#e74c3c',  // Red for high
+                            '#f39c12',  // Orange for medium
+                            '#3498db'   // Blue for low
+                        ],
+                        borderColor: 'white',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { size: 12 },
+                                color: 'var(--text-color)',
+                                padding: 15
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        async function updateAllIntentCharts() {
+            try {
+                const response = await fetch(`${API_BASE}/api/v1/intent/breakdown`);
+                const data = await response.json();
+                
+                if (data.success && data.breakdown) {
+                    const breakdown = data.breakdown;
+                    
+                    // Create charts for each intent type
+                    createIntentChart('enrollment-intent-chart', breakdown.enrollment, 'enrollment');
+                    createIntentChart('academic-intent-chart', breakdown.academic_doubt, 'academic');
+                    createIntentChart('refund-intent-chart', breakdown.refund, 'refund');
+                    
+                    // Update overall stats (sum of all)
+                    const totalHigh = breakdown.enrollment.high + breakdown.academic_doubt.high + breakdown.refund.high;
+                    const totalMedium = breakdown.enrollment.medium + breakdown.academic_doubt.medium + breakdown.refund.medium;
+                    const totalLow = breakdown.enrollment.low + breakdown.academic_doubt.low + breakdown.refund.low;
+                    const totalCalls = totalHigh + totalMedium + totalLow;
+                    
+                    document.getElementById('high-intent-count').textContent = totalHigh;
+                    document.getElementById('high-intent-pct').textContent = ((totalHigh / totalCalls * 100) || 0).toFixed(1) + '%';
+                    document.getElementById('medium-intent-count').textContent = totalMedium;
+                    document.getElementById('medium-intent-pct').textContent = ((totalMedium / totalCalls * 100) || 0).toFixed(1) + '%';
+                    document.getElementById('low-intent-count').textContent = totalLow;
+                    document.getElementById('low-intent-pct').textContent = ((totalLow / totalCalls * 100) || 0).toFixed(1) + '%';
+                }
+            } catch (error) {
+                console.error('Error updating intent charts:', error);
+            }
+        }
+        
+        // Intent breakdown: refresh on an interval only while Call Analytics is visible (avoids hidden-canvas init)
+        setInterval(function() {
+            const sec = document.getElementById('call-analytics-section');
+            if (sec && sec.classList.contains('active')) {
+                updateAllIntentCharts();
+            }
+        }, 30000);
+
+    </script>
+</body>
+</html>

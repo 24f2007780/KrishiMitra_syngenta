@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "vikram-internal-projects",
+  "private_key_id": "580c09cc1c2654cd2da3eac026902b22ff7943f1",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCzKKs9JlVCYHgc\nVNrR6t/sHHYLoSQwL2YVAXPeTp30fjMPpy/9UoD5Ux6DkdaCsBHCf36cmpYFbO8Y\n5VOEfMFer9Q3Voqu6wqyDT8vMzOxo3jjhhO3YguQ1Ki4++/WriWGok7d9+Mqwik4\nzqnO8/2YVQzJRr3DoXPabWyaC0DhWB5M1Q1yc0/vRVCrGdXDWGS4k9wpigMpsmO8\nSeY7mPBqK2sRHJfNlDmxamt4GGcVQreJch78faYYLEkPW1srqtJBl/4NLr9RDoYl\nEWkZWOZOTnLgQh80O4osr087waKnrb+u0J2sC3vZ7Q+tvRpp/KxB160CkcROplMi\nMcEJL7zLAgMBAAECggEABTGspT0zQ5VgZhHfti5FB6dblMK7Ndpp7zn3jf5hffEa\nsd16+rElpBTQ0aesvGU2Xpkrpoakyst5sxMS9MhZItGeKWyM4L1XtgnERy4I1aGT\no6UDdVGWXECOE67aKTMrS1fxSWYiY971Kvxy19kjBQOSN1OhtMY9gZuihmTFIMNM\nx8iTrsqiB4KP5Z8glCoGS8WW+QjKpaEscfFt4NTnFlwf9xdodc3L5qA/0LEs218C\n8qSrhs/H8P6QrcD3UVimm0kx9ABHNAteerUIzVoJkW1tLDRJIRkXJmA7vLCVftzB\njgscxHoAnb25xqRmptSPkGKc5++es0c50aBBm33n4QKBgQDom1iSoM0Zev9l7IXf\nyFP50+SE9aOfbTWpOeDFjMoWJljDxn+G/7K7gyUiLSe4zy2t98OSm83pvXX/w/zi\ndAt++x6STLbGskYeFL3NpToJPdyNuNaAz79qLmvbM9ZpipcRI9a4dTqgpFohzHdc\nAEjZpoCsRIFuXWngI9DVw6Cy5wKBgQDFLULiYcZwXyyqlb/bqub7oMr/ADFYoZBj\n25+V3mZOxuSqF3975DZquMKIOQV9seOuQ5YA3DLeNBvsA3eoXz0+Q85oW2KFPfb0\ncwT8rnu1QRXsesK/nu5ZMYvtK3I0VnPdDdm3/3hSWegl4YSgVd4TsSS08kVWFz3r\nEGxXGFpOfQKBgD1HF3lhVUbeKUQ/oDEJBF5vXOdOEvHgAl/3eGhyo5ZcOcwxkc0N\ntZdCgFjVjn5YTg9jkykfVIq8N8bOaeN6cMDeBPrDrO8Bbglkq2/ulDB1FJJdXF0I\n3cNqQU25BUY+lXeVem6Tq4NAaOI4jEU3afm0rHc1gOeDQm4i4VQ/OimHAoGBAIyH\nvrTERP9QBfCqfCxeuPO8XRGznHfz5ooVPL8+3CHnRZAo4TZ2p4YWmqcmJNC6GXDZ\nQK7qQeL2trPWoNDC2E5pW1IrV6NpT3pYA8TnwsmjUrHRqL2T04KEepsVrPa6ayew\nuGyYSrQ+2eMtwS3ZJUdZqLTCO0Kpm/rOILlOZQatAoGBAKFvVGSm+WAd2O3qsGAx\n1obOePn46uyPl7+OqBZkYzIlTdlHPQiJ3NTay3/v7q35IZC0M9uJBAkxvFIicWwd\nwwbJvVpJsRNbgyfbSTSrJr9rIJKne7zsCAvwu4GQL2BsOeh/MMuv5H6uzdYlYGLn\nyFCVl/aCPPjpxAS/T+6JLNLJ\n-----END PRIVATE KEY-----\n",
+  "client_email": "vedantu-live@vikram-internal-projects.iam.gserviceaccount.com",
+  "client_id": "117676160000959418800",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/vedantu-live%40vikram-internal-projects.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
