@@ -1,7 +1,7 @@
 import requests
 import json
 
-BASE_URL = "http://localhost:8002"
+BASE_URL = "http://localhost:8008"
 
 def run_rank_test(crop, pest, stage, urgency=0.5):
     print(f"\nTesting: Crop={crop}, Pest={pest}, Stage={stage}, Urgency={urgency}")

@@ -52,9 +52,9 @@ Farmer DB + Weather + Calendar
 | Layer | Status | Evidence |
 |-------|--------|----------|
 | M1 Farmer DB | ✅ Demo farmers + API | `/farmers`, seed endpoint |
-| M4–M6 Context | ✅ Live | `/context/GJ-014` |
+| M4–M6 Context | ✅ Live | `/context/GRW_00001 ` |
 | M7 Urgency | ✅ Engine + SHAP explain | `urgency_scorer/` |
-| M8 Product rank | ✅ 12 products, ranked | `/products/GJ-014` |
+| M8 Product rank | ✅ 12 products, ranked | `/products/GRW_00001 ` |
 | M10 SMS | ✅ Context JSON → Twilio | `send_farmer_sms.py` |
 | M11 WhatsApp | ✅ Neonize Web | `send_farmer_whatsapp.py` |
 | Voice | ✅ Gemini Live + Twilio | `twilio-voice-agent` |
@@ -67,7 +67,7 @@ Farmer DB + Weather + Calendar
 - Single JSON object per farmer per run
 - Fields: profile, signals (humidity, pest), crop_stage
 - **Example:** Mayur, Anand, Gujarat, cotton, Gujarati
-- Screenshot: `curl .../context/GJ-014` (paste terminal output)
+- Screenshot: `curl .../context/GRW_00001 ` (paste terminal output)
 
 ---
 

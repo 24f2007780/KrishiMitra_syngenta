@@ -4,12 +4,12 @@ import sys
 
 # Define base URLs for all active microservices in run_all.sh
 M1_URL = "http://localhost:8001"  # Farmer Service
-M2_URL = "http://localhost:8002"  # Product Service (M8 Ranker)
+M2_URL = "http://localhost:8008"  # Product Service (M8 Ranker)
 M4_URL = "http://localhost:8004"  # Weather Service
 M5_URL = "http://localhost:8005"  # Calendar Service
 M6_URL = "http://localhost:8006"  # Context Service
 M7_URL = "http://localhost:8007"  # Urgency Scorer
-M16_URL = "http://localhost:8008" # Campaign Receptivity Engine
+M16_URL = "http://localhost:8009" # Campaign Receptivity Engine
 
 def print_section(title):
     print("=" * 70)

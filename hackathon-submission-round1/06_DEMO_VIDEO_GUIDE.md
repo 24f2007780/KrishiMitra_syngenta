@@ -24,8 +24,8 @@
 | 0:00–0:30 | **Member 1** (on camera) | “We are Team [NAME]. KrishiMitra helps Syngenta reach the right farmer at the right moment—in their language.” |
 | 0:30–1:00 | Member 1 | Problem: generic SMS vs our approach (who / why now / what / how) |
 | 1:00–1:30 | **Member 2** (on camera) | Screen: `./run_all.sh`, health curls 8001/8006/8008 |
-| 1:30–2:30 | Member 2 | `curl .../farmers` → pick **Mayur GJ-014** → `curl .../context/GJ-014` — point to Gujarat, cotton, Gujarati |
-| 2:30–3:15 | Member 2 | `curl .../products/GJ-014` — explain top product + match_reasons |
+| 1:30–2:30 | Member 2 | `curl .../farmers` → pick **Mayur GJ-014** → `curl .../context/GRW_00001 ` — point to Gujarat, cotton, Gujarati |
+| 2:30–3:15 | Member 2 | `curl .../products/GRW_00001 ` — explain top product + match_reasons |
 | 3:15–4:15 | **Member 3** (on camera) | SMS: `send_farmer_sms.py --preview` then send OR voice: `krishimitra_call.py` — phone rings, Gujarati intro |
 | 4:15–4:45 | Member 3 | Optional: WhatsApp message screenshot |
 | 4:45–5:00 | **All on camera** | “Repo link in README. Thank you.” |

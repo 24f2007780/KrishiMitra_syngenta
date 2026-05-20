@@ -37,7 +37,7 @@ Copy these (after filling `[FILL IN]` sections):
 TEAM="YOUR_TEAM_NAME"   # change this
 STAGE="/tmp/$TEAM"
 
-cp hackathon-submission-round1/01_README_FOR_SUBMISSION.md  "$STAGE/README.md"
+cp README.md  "$STAGE/README.md"
 cp hackathon-submission-round1/02_TEAM_MEMBERS.md         "$STAGE/TEAM_MEMBERS.md"
 cp hackathon-submission-round1/04_SETUP_AND_RUN.md         "$STAGE/SETUP_AND_RUN.md"
 cp hackathon-submission-round1/07_API_AND_ENVIRONMENT.md   "$STAGE/API_AND_ENVIRONMENT.md"
@@ -52,16 +52,6 @@ echo "https://youtu.be/XXXX" > "$STAGE/DEMO_VIDEO_LINK.txt"
 cp twilio-voice-agent/config/farmer_mayur.example.json "$STAGE/demo_farmer_mayur.json"
 ```
 
-**Do NOT include:**
-
-- `.venv/`
-- `master.db` (optional — small file OK if you want)
-- `.env` (secrets)
-- `node_modules/`, logs, ngrok cache
-
-**Source code:** link in README only (GitHub).
-
----
 
 ## Step 3 — Create zip
 
@@ -88,21 +78,6 @@ Check size (many forms limit 50–100 MB). If too large, remove PDF images or us
 Same pattern — **view/download** access for judges without login if possible.
 
 ---
-
-## Step 5 — Submission form
-
-Paste:
-
-| Field | Value |
-|-------|--------|
-| Team name | [exact] |
-| Archive link | [Drive/Dropbox URL] |
-| Repository | [GitHub URL] |
-| Video | [YouTube/Drive URL] |
-| Live app | `N/A` or ngrok/Cloud URL |
-
----
-
 ## Final checklist before submit
 
 - [ ] Zip name == registered team name  

@@ -26,8 +26,14 @@ def test_get_calendar_auto_month():
     assert data["month"] == "may"
     assert data["stage"] == "seed_treatment"
 
-def test_invalid_state():
+def test_invalid_state_fallback():
     response = client.get("/calendar?state=UnknownState&crop=rice")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["state"] in ["Tamil Nadu", "Maharashtra", "Punjab", "Andhra Pradesh"]
+
+def test_invalid_state_and_crop():
+    response = client.get("/calendar?state=UnknownState&crop=unknown_crop")
     assert response.status_code == 404
     assert "not supported" in response.json()["detail"]
 

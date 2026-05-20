@@ -1,79 +1,80 @@
 # Team members and contact information
 
-**Registered team name (must match zip file name):** `[FILL IN — EXACT NAME FROM REGISTRATION]`
+**Team Name: Elemental** 
 
 **Track:** SYNGENTA × IITM BS — Track 1 (AI-powered agricultural marketing at scale)
 
 **Project:** KrishiMitra AI
 
----
-
 ## Members
 
-### 1. [FILL IN — Full name]
+### 1. Yashvi Upadhyay
 
 | Field | Detail |
 |-------|--------|
-| Role | [e.g. Team lead / Backend / ML / Demo & integrations] |
-| Email | [FILL IN] |
-| Phone / WhatsApp | [FILL IN — include country code +91] |
-| Institution | IIT Madras BS Degree Programme / [FILL IN] |
-| Student ID (if required) | [FILL IN] |
-| LinkedIn (optional) | [FILL IN] |
+| Role | Backend (REST APIs) |
+| Email | 24f2007780@ds.study.iitm.ac.in |
+| Phone / WhatsApp | +91 7709669004 |
+| LinkedIn (optional) |https://www.linkedin.com/in/yashvi-upadhyay-a96546324/ |
 | Appears in demo video | ☐ Yes — [timestamp mm:ss] |
 
-**Contribution (1–2 sentences):**  
-[FILL IN — e.g. Architecture, M6/M8 services, Twilio voice agent]
+**Contributions:**
+- Developed the microservice architecture structure (`run_all.sh` / `stop_all.sh` orchestration).
+- Implemented Farmer Database API, Weather/Pest Signals Crop Calendar, and Unified Context Assembler with **openmeteo, agmarket, NASA power, ICAR India Govt Agro Advisory dataset**
+- Maintained REST API route verification testing suite and documentation.
 
----
 
-### 2. [FILL IN — Full name]
+### 2. Rajnish Kumar
 
 | Field | Detail |
 |-------|--------|
-| Role | [FILL IN] |
-| Email | [FILL IN] |
-| Phone / WhatsApp | [FILL IN] |
-| Institution | [FILL IN] |
+| Role | DevOps: Voice call, SMS, Whatsapp & planner |
+| Email | 22f2000625@ds.study.iitm.ac.in |
+| Phone | +91 9150740978 |
 | Appears in demo video | ☐ Yes — [timestamp mm:ss] |
 
-**Contribution:** [FILL IN]
+**Contributions:**
+- Added the Twilio voice agent utilizing Gemini Live calls.
+- Integrated communication channels including WhatsApp, SMS, and Voice.
+- Configured repository environments and WhatsApp session handling.
+- Enhanced the demo database seeding process 
+- Made the entire Milestones and Track plan
 
----
-
-### 3. [FILL IN — add rows as needed]
+### 3. Mayur H. Doshi
 
 | Field | Detail |
 |-------|--------|
-| Role | [FILL IN] |
-| Email | [FILL IN] |
-| Phone | [FILL IN] |
+| Role | Machine Learning |
+| Email | 24f1000027@ds.study.iitm.ac.in |
+| Phone | +91 9152155576 |
 | Appears in demo video | ☐ Yes |
 
-**Contribution:** [FILL IN]
+**Contributions:**
+- Designed and built the machine learning models and pipelines for M7 (Urgency Scorer & SHAP Explainer), M8 (Product Ranker), and M16 (Campaign Receptivity).
 
----
 
-## Primary contact for organizers
+### 4. Agrim Srivastava 
 
-| | |
-|--|--|
-| **Name** | [FILL IN] |
-| **Email** | [FILL IN] |
-| **Phone** | [FILL IN] |
-| **Best time to reach (IST)** | [FILL IN] |
+| Field | Detail |
+|-------|--------|
+| Role | Backend |
+| Email | 23f3002782@ds.study.iitm.ac.in |
+| Phone | +91 8081037827 |
+| Appears in demo video | ☐ Yes |
+ 
+**Contributions:**
+- Reorganized `models.py` database schema to align with the Syngenta-provided datasets.
+- Modified the database seeding scripts with Syngenta crop/state specifications.
 
----
 
-## Demo video — who appears on camera
+### 5. Tarang Jhaveri
 
-Organizers require **all team members** in the demo video. Plan:
+| Field | Detail |
+|-------|--------|
+| Role | Machine Learning & Research |
+| Email | 23f2004661@ds.study.iitm.ac.in |
+| Phone | +91 9284709410 |
+| Appears in demo video | ☐ Yes |
+ 
 
-| Member | Segment (suggested) |
-|--------|---------------------|
-| Member A | Problem + solution intro (0:00–1:00) |
-| Member B | Live API demo — context + product rank (1:00–3:00) |
-| Member C | SMS / voice outreach to farmer (3:00–5:00) |
-| All | Closing + thank you (last 15 sec) |
 
-See `06_DEMO_VIDEO_GUIDE.md` for full script.

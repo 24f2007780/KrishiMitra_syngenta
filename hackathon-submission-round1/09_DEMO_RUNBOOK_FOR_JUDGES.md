@@ -24,7 +24,7 @@ curl -s http://127.0.0.1:8001/farmers | grep GJ-014
 ## Beat 1 — “We know the farmer” (45 sec)
 
 ```bash
-curl -s http://127.0.0.1:8006/context/GJ-014 | python -m json.tool | head -45
+curl -s http://127.0.0.1:8006/context/GJ-014  | python -m json.tool | head -45
 ```
 
 **Say:**  
@@ -35,7 +35,7 @@ curl -s http://127.0.0.1:8006/context/GJ-014 | python -m json.tool | head -45
 ## Beat 2 — “We rank the right product” (45 sec)
 
 ```bash
-curl -s http://127.0.0.1:8008/products/GJ-014 | python -m json.tool | head -55
+curl -s http://127.0.0.1:8008/products/GJ-014  | python -m json.tool | head -55
 ```
 
 **Say:**  
@@ -90,5 +90,5 @@ Show files only:
 | ID | Name | Region | Crop |
 |----|------|--------|------|
 | GJ-014 | Mayur | Gujarat | cotton |
-| GRW_00001 | Grower | UP | wheat |
+| GJ-014 | Grower | UP | wheat |
 | BR-001 | Rajnish | Bihar | rice |

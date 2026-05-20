@@ -1,6 +1,6 @@
 # API and environment requirements
 
-For judges and organizers — what external services KrishiMitra uses and what must be configured locally.
+External services KrishiMitra uses and what must be configured locally.
 
 ---
 
@@ -12,9 +12,9 @@ For judges and organizers — what external services KrishiMitra uses and what m
 | Python | 3.11+ (project tested on 3.14 in venv) |
 | RAM | ≥ 4 GB recommended |
 | Network | Required for weather API, Twilio, Gemini, ngrok (voice) |
-| Disk | ~500 MB with venv (exclude venv from zip) |
+| Disk | ~500 MB with venv |
 
----
+--
 
 ## Core microservices (no paid API keys)
 
@@ -29,7 +29,6 @@ For judges and organizers — what external services KrishiMitra uses and what m
 
 **Start:** `./run_all.sh` after `python scripts/bootstrap_db.py`
 
----
 
 ## Optional — outbound channels
 
@@ -64,17 +63,7 @@ For judges and organizers — what external services KrishiMitra uses and what m
 | `ANTHROPIC_API_KEY` | Why-now / message generation (stubs in repo) |
 | `ANTHROPIC_MODEL` | e.g. `claude-sonnet-4-20250514` |
 
----
 
-## Environment file
-
-Copy `.env.example` → `.env`. **Never submit `.env` in the zip.**
-
-Minimum for **API-only judge demo:**
-
-```bash
-# No keys required — only local services
-```
 
 Minimum for **SMS demo:**
 
@@ -91,32 +80,6 @@ TWILIO_*   # as above
 GEMINI_API_KEY=...
 TUNNEL_LINK=https://xxxx.ngrok-free.app
 ```
-
----
-
-## Service URL map (localhost)
-
-```
-M1_URL=http://localhost:8001
-M4_URL=http://localhost:8004
-M5_URL=http://localhost:8005
-M6_URL=http://localhost:8006
-M7_URL=http://localhost:8007
-M8_URL=http://localhost:8008
-M10_URL=http://localhost:8010
-M11_URL=http://localhost:8011
-```
-
----
-
-## Security notes for submission
-
-- All secrets via environment variables  
-- `.gitignore` excludes `.env`, sessions, logs  
-- Demo farmers use synthetic IDs (`GJ-014`, `GRW_00001`)  
-- No production farmer PII in repository
-
----
 
 ## Accounts to create (team reference)
 

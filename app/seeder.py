@@ -127,7 +127,7 @@ DEMO_FARMERS: list[dict] = [
         "name": "Mayur",
         "state": "Gujarat",
         "district": "Anand",
-        "tehsil": "Boriavi",
+        "tehsil": "Borivali",
         "preferred_language": "Gujarati",
         "crops": "cotton",
         "latitude": 22.5645,

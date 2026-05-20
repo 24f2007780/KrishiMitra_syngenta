@@ -17,7 +17,7 @@ from datetime import date
 import numpy as np
 
 from shared.models import FarmerContext
-from .scorer import compute_urgency, compute_recency_penalty, _clip
+from .scorer import compute_urgency, compute_recency_penalty, _clip, _UrgencyContext
 
 logger = logging.getLogger(__name__)
 
@@ -28,12 +28,14 @@ def generate_shap_html(ctx: FarmerContext) -> str:
     """
     result = compute_urgency(ctx)
 
+    u_ctx = _UrgencyContext(ctx)
+
     # Analytical SHAP for Layer 1 (exact contributions from formula)
-    recency_penalty = compute_recency_penalty(ctx.last_message_date, ctx.scoring_date)
+    recency_penalty = compute_recency_penalty(u_ctx.last_message_date, u_ctx.scoring_date)
     urgency_contributions = [
-        ("Pest Outbreak Risk", ctx.pest_risk, 0.40 * ctx.pest_risk),
-        ("Weather Anomaly", ctx.weather_anomaly, 0.30 * ctx.weather_anomaly),
-        ("Crop Stage Vulnerability", ctx.crop_vulnerability, 0.20 * ctx.crop_vulnerability),
+        ("Pest Outbreak Risk", u_ctx.pest_risk, 0.40 * u_ctx.pest_risk),
+        ("Weather Anomaly", u_ctx.weather_anomaly, 0.30 * u_ctx.weather_anomaly),
+        ("Crop Stage Vulnerability", u_ctx.crop_vulnerability, 0.20 * u_ctx.crop_vulnerability),
         ("Communication Window", 1.0 - recency_penalty, 0.10 * (1.0 - recency_penalty)),
     ]
 
@@ -43,7 +45,7 @@ def generate_shap_html(ctx: FarmerContext) -> str:
     is_cold_start = result.engagement_components.get("cold_start", False)
 
     return _render_html(
-        grower_id=ctx.grower_id,
+        grower_id=u_ctx.grower_id,
         urgency_score=result.urgency_score,
         engagement_score=result.engagement_score,
         intervention_priority=result.intervention_priority,

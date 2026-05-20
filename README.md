@@ -1,98 +1,143 @@
 # KrishiMitra AI
 
-**Kisan Context Intelligence Engine** — hackathon project for **SYNGENTA × IITM BS**, Track 1: *AI-powered agricultural marketing at scale*.
+**Kisan Context Intelligence Engine** — SYNGENTA × IITM BS Hackathon, Track 1: *AI-powered agricultural marketing at scale*.
 
 ---
 
-## Problem
+## i. Project Title and Overview
 
-Farmers often get **generic** or **untimely** messages. What actually matters:
+**Title:** KrishiMitra AI — Context-First Farmer Outreach
 
-- **Who** — this farmer, this crop, this place  
-- **Why now** — weather, pest risk, crop stage — not random promos  
-- **What to do** — clear, advisory tone  
-- **How** — SMS, WhatsApp, or voice — depends on phone and network  
-- **When** — sensible hours, not spam  
+**Overview:**  
+Indian farmers often receive generic or mistimed marketing. KrishiMitra is a context-first agricultural decision and outreach orchestration engine. It dynamically aggregates multi-dimensional farmer context (crop calendars, local weather anomalies, and pest risk signals) to determine if outreach is needed, rank relevant products, and deliver personalized multilingual advice via Twilio SMS, WhatsApp, and interactive Gemini Live voice agent calls.
 
-So we are not building “another content generator.” We are building a **small decision system** that only then outputs a message: *should we reach this person now, and if yes, how?*
+**Pipeline Workflow:**
+1. **Context Assembly:** Aggregates Farmer Profile (M1), Weather/Pest Signals (M4), and Crop Calendar (M5) into a unified `FarmerContext`.
+2. **Scoring & Suppression:** Runs Urgency Scoring (M7) and evaluates communication fatigue rules.
+3. **Product Selection:** Performs personalized Product Ranking (M8) based on agronomic needs.
+4. **Outbound Delivery:** Delivers localized audio scripts or text alerts via Twilio SMS (M10), WhatsApp Web (M11), and Gemini Live voice calls.
 
----
+**Tagline:** *The right message, for the right farmer, at the right moment — before the agronomic window closes.*
 
-## Solution (in plain words)
-
-We combine **farmer data**, **weather/pest signals**, and a **crop calendar** into one picture. We **score how urgent** it is and **block sending** if the farmer was messaged too recently or too often. If we still send, we **match products**, use AI for a **“why now”** line and for **SMS / WhatsApp / voice** text, then **pick channel and time**, and **log** everything for the demo.
-
-**One line:** *The right message, for the right farmer, at the right moment* — before the agronomic window closes.
+*(Full technical details can be found in `SOLUTION.pdf` and accompanying slides in this archive.)*
 
 ---
 
-## How we solve it (one farmer, step by step)
+## ii. Team Members and Contact Information
 
-1. Load **profile** (crop, district, preferred_language, device, message history).  
-2. Load **weather + pest risk** for that district.  
-3. Load **growth stage** for their crop this month.  
-4. **Merge** into one object (**FarmerContext**) — same shape for every service.  
-5. **Urgency score** + **suppress** if fatigue rules say “do not send.”  
-6. If not suppressed: **rank products** from the catalog (rules, not random).  
-7. AI writes **why now** (English + farmer’s language).  
-8. AI writes **SMS**, **WhatsApp** (+ short image idea text), **voice script**.  
-9. **Router** picks SMS vs WhatsApp vs voice from device and connectivity.  
-10. **Timer** picks send time in allowed IST windows.  
-11. **Delivery log** stores the row; the **dashboard** can simulate outcomes.
+See **`TEAM_MEMBERS.md`** in this archive for detailed contributions.
 
-Many **small APIs** (modules) do one job each; **one orchestrator** runs the chain for one farmer or a batch.
+| Role | Name | Email | Phone | Institution |
+|---|---|---|---|---|
+| Backend (REST APIs) | Yashvi Upadhyay | [24f2007780@ds.study.iitm.ac.in](mailto:24f2007780@ds.study.iitm.ac.in) | +91 7709669004 | IITM BS |
+| DevOps: Voice call, SMS, WhatsApp & Planner | Rajnish Kumar | [22f2000625@ds.study.iitm.ac.in](mailto:22f2000625@ds.study.iitm.ac.in) | +91 9150740978 | IITM BS |
+| Machine Learning | Mayur H. Doshi | [24f1000027@ds.study.iitm.ac.in](mailto:24f1000027@ds.study.iitm.ac.in) | +91 9152155576 | IITM BS |
+| Backend | Agrim Srivastava | [23f3002782@ds.study.iitm.ac.in](mailto:23f3002782@ds.study.iitm.ac.in) | +91 8081037827 | IITM BS |
+| Machine Learning & Research | Tarang Jhaveri | [23f2004661@ds.study.iitm.ac.in](mailto:23f2004661@ds.study.iitm.ac.in) | +91 9284709410 | IITM BS |
+
+**Primary Contact for Judges:** Yashvi Upadhyay — [24f2007780@ds.study.iitm.ac.in](mailto:24f2007780@ds.study.iitm.ac.in) — +91 7709669004
 
 ---
 
-## Modules — what each part does
+## iii. Source Code Repository & Key Paths
 
-| # | Name | What it does |
-|---|------|----------------|
-| **M1** | Farmer DB | Stores farmers; get by id or list; seed demo data (SQLite). |
-| **M2** | Product catalog | Products linked to crop/pest/stage; APIs to query. |
-| **M3** | Shared models | **No HTTP** — shared Pydantic types so every module uses the same fields. Build this first. |
-| **M4** | Weather + pest | Weather API + pest file → risk-style signal bundle. |
-| **M5** | Crop calendar | State + crop + month → growth stage and vulnerability (JSON lookup). |
-| **M6** | Context assembler | Calls M1 + M4 + M5 → builds **FarmerContext** (with fallback if weather fails). |
-| **M7** | Urgency scorer | Score 0–1 + **suppress** when recency / message count says stop. |
-| **M8** | Product ranker | Top products for this context (rules from catalog). |
-| **M9** | Why-now explainer | AI: one clear “why now” in English + local language (template if API fails). |
-| **M10** | SMS generator | AI: very short SMS (length limit), local language. |
-| **M11** | WhatsApp generator | AI: longer text + one sentence describing an image idea (no real image file). |
-| **M12** | Voice script | AI: spoken-style script for farmers on simple phones. |
-| **M13** | Channel router | Chooses SMS vs WhatsApp vs voice from device + network (+ flags for high urgency). |
-| **M14** | Timing engine | Send time inside allowed IST windows (+ prefs / holidays). |
-| **M15** | Delivery log | Saves each send + outcomes for stats and dashboard. |
-| **M16** | Orchestrator | Runs the full pipeline per farmer; one failure does not kill the whole batch. |
-| **M17** | Dashboard | Streamlit UI for demo: farmer, score, messages, run campaign, fake outcomes. |
+**GitHub Repository:** [https://github.com/24f2007780/KrishiMitra_syngenta](https://github.com/24f2007780/KrishiMitra_syngenta)  
+**Main Branch:** `main`
 
-Each service also exposes **`GET /health`** so the orchestrator can check that things are up.
+### Repository Key Paths:
+
+| Path | Description |
+|------|-------------|
+| `farmer_service/` | Farmer Profile management service (M1) |
+| `weather_service/` | Weather & pest risk intelligence harvester (M4) |
+| `calendar_service/` | Crop stages, recommendations & MSP lookup (M5) |
+| `context_service/` | Unified farmer context assembler (M6) |
+| `urgency_scorer/` | Urgency calculations and suppression engine (M7) |
+| `product_service/` | Personalized agronomic product ranking (M8) |
+| `campaign_receptivity_engine/` | Campaign scheduling & channel receptivity models (M16) |
+| `twilio-voice-agent/` | Gemini Live voice agent (Twilio Media Streams) & Call Dashboard (M17) |
+| `whatsapp_apps/`, `whatsapp_service/` | WhatsApp Web delivery integration |
+| `run_all.sh` / `stop_all.sh` | Orchestration scripts to start/stop all microservices |
+| `hackathon-submission-round1/` | Judges' checklist, submission runbook, and configurations |
 
 ---
 
-## Tech (short)
+## iv. Setup & Execution Instructions
 
-Python 3.11+, **FastAPI** microservices, **SQLite** (farmers + delivery log), **Pydantic** (shared models), **Open-Meteo** (weather), **Claude** (multilingual explanations and message drafts), **Streamlit** (demo dashboard).
+Detailed installation steps are available in **`SETUP_AND_RUN.md`**.
 
----
+### Quick Start (Judges with Python 3.11+):
 
-# API Documentation
+```bash
+# Clone the repository
+git clone https://github.com/24f2007780/KrishiMitra_syngenta.git
+cd KrishiMitra_syngenta
 
+# Create virtual environment and install core dependencies
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 
-All services expose a common health-check endpoint:
+# Create environment configuration (add API keys for Twilio and Gemini Voice Agent)
+cp .env.example .env
 
-```http id="ykhh8u"
-GET /health
+# Bootstrap local database with canonical products and farmers
+python scripts/bootstrap_db.py
+
+# Launch all active microservices (Ports 8001, 8004, 8005, 8006, 8007, 8008, 8009)
+./run_all.sh
+
+# Verify a grower context (Demo Grower Mayur, Gujarat, cotton)
+curl http://127.0.0.1:8006/context/GRW_00001
 ```
 
+**Demo Video Link:** *[FILL IN — YouTube or Google Drive Link]*  
+**Solution Document:** `SOLUTION.pdf` (included in submission archive)
+
 ---
+
+## v. Component Modules Overview
+
+Each microservice exposes a standard **`GET /health`** health check endpoint.
+
+| Module | Type / Port | Responsibility & Details |
+|---|---|---|
+| **M1** | `8001` (Service) | **Farmer DB:** Stores farmer profiles, credentials, languages, and contact logs in SQLite. |
+| **M2** | Database Catalog | **Product Catalog:** Canonical mapping of Syngenta products to crops, growth stages, and pests. |
+| **M3** | Shared Models | **No HTTP Port:** Shared Pydantic data schemas used across all services to guarantee structure safety. |
+| **M4** | `8004` (Service) | **Weather + Pest:** Harvester API for Open-Meteo current anomalies & local pest risks. |
+| **M5** | `8005` (Service) | **Crop Calendar:** Rules mapping state/crop/month to vulnerability indices, growth stages, and Agmarknet MSP. |
+| **M6** | `8006` (Service) | **Context Assembler:** Orchestrator aggregating profile, signal, and calendar details into a `FarmerContext`. |
+| **M7** | `8007` (Service) | **Urgency Scorer:** Evaluates risk terms, calculates priority, and flags communication fatigue suppressions. |
+| **M8** | `8008` (Service) | **Product Ranker:** Personalized recommendation engine filtering catalog products using agronomic rules. |
+| **M9** | AI Engine (Anthropic) | **Why-Now Explainer:** Generates clear reasonings in native language templates. |
+| **M10** | Outbound Service | **SMS Generator:** Formats character-limited SMS texts in native languages. |
+| **M11** | Outbound Service | **WhatsApp Generator:** Formats WhatsApp rich texts and image prompts. |
+| **M12** | Voice Agent | **Voice Script:** Spoken-style script templates for Interactive Voice Response (IVR). |
+| **M13** | Core Engine | **Channel Router:** Dynamic logic routing calls or texts based on device types and priority. |
+| **M14** | Core Engine | **Timing Engine:** Schedules deliveries to avoid holiday disturbances and align with allowed IST windows. |
+| **M15** | Database Log | **Delivery Log:** Event-store tracking all sent alerts, deliveries, and farmer engagement statuses. |
+| **M16** | `8009` (Service) | **Campaign Orchestrator:** Machine learning engine mapping farmer receptivity, timing preferences, and fatigue risks. |
+| **M17** | `8000` (Web UI) | **Call Dashboard:** Live monitoring interface for Gemini Voice calls and transcripts in `twilio-voice-agent`. |
+
+---
+
+## vi. API Documentation
+
+All services expose a common health check endpoint: `GET /health`.
+
+---
+
 ## M1 — Farmer DB `http://localhost:8001/farmer/GRW_00001`
 
-| Port | Method | URL                   | Input                  | Output                                  |
-| ---- | ------ | --------------------- | ---------------------- | --------------------------------------- |
-| 8001 | GET    | `/farmer/{grower_id}` | `grower_id` path param | Farmer profile (`FarmerProfile`)        |
-| 8001 | GET    | `/farmers`            | None                   | List of all farmers                     |
-| 8001 | POST   | `/farmers/seed`       | None                   | Seeder execution status + seeded counts |
+| Method | Endpoint | Description | Input | Output |
+|---|---|---|---|---|
+| **GET** | `/farmer/{grower_id}` | Retrieve individual farmer profile | `grower_id` path param | `FarmerProfile` JSON |
+| **GET** | `/farmers` | List all growers in DB | None | List of `FarmerProfile` JSONs |
+| **POST** | `/farmers/seed` | Seed SQLite DB with demo farmers | None | Seeder statistics |
+
+<details>
+<summary><b>View Example Response JSON (GET <code>/farmer/GRW_00001</code>)</b></summary>
 
 ```json
 {
@@ -122,15 +167,21 @@ GET /health
   "urgency_score": 0.52,
   "recommended_channel": "whatsapp"
 }
-
 ```
+</details>
+
+---
 
 ## M4 — Weather + Pest Signals `http://localhost:8004/signals/weather?lat=13.00663&lon=80.244193`
 
-| Port | Method | URL                | Input                     | Output                                  |
-| ---- | ------ | ------------------ | ------------------------- | --------------------------------------- |
-| 8004 | GET    | `/signals/weather` | `lat`, `lon` query params | Weather + pest signals (`SignalBundle`) |
-| 8004 | GET    | `/debug/weather`   | Optional debug parameters | Raw weather diagnostics                 |
+
+| Method | Endpoint | Description | Input | Output |
+|---|---|---|---|---|
+| **GET** | `/signals/weather` | Fetch weather signals & pest risks | `lat`, `lon` query params | `SignalBundle` JSON |
+| **GET** | `/debug/weather` | Fetch raw diagnostics for debugging | Optional query params | Diagnostics JSON |
+
+<details>
+<summary><b>View Example Response JSON (GET <code>/signals/weather</code>)</b></summary>
 
 ```json
 {
@@ -144,14 +195,19 @@ GET /health
   "weather_anomaly_flag": true
 }
 ```
+</details>
+
+---
 
 ## M5 — Crop Calendar `http://localhost:8005/calendar?state=Tamil+Nadu&crop=blackgram`
 
+| Method | Endpoint | Description | Input | Output |
+|---|---|---|---|---|
+| **GET** | `/calendar` | Fetch crop growth stage & recommendations | `state`, `crop` query params | `CropStageInfo` JSON |
+| **GET** | `/` | Fetch service metadata | None | Service metadata |
 
-| Port | Method | URL         | Input                        | Output                                               |
-| ---- | ------ | ----------- | ---------------------------- | ---------------------------------------------------- |
-| 8005 | GET    | `/`         | None                         | Crop calendar service metadata                       |
-| 8005 | GET    | `/calendar` | `state`, `crop` query params | Crop stage + MSP + recommendations (`CropStageInfo`) |
+<details>
+<summary><b>View Example Response JSON (GET <code>/calendar</code>)</b></summary>
 
 ```json
 {
@@ -169,15 +225,21 @@ GET /health
   "today_arrival_metric_tonnes": "1928.91"
 }
 ```
-MSP Minimum Support Price using https://api.agmarknet.gov.in/v1/dashboard-data/
+*Note: MSP and agricultural prices fetched dynamically from Agmarknet API data dashboards.*
+</details>
+
+---
 
 ## M6 — Context Assembler `http://localhost:8006/context/GRW_00005`
 
 
-| Port | Method | URL                    | Input                  | Output                                           |
-| ---- | ------ | ---------------------- | ---------------------- | ------------------------------------------------ |
-| 8006 | GET    | `/context/{grower_id}` | `grower_id` path param | Fully assembled farmer context (`FarmerContext`) |
-| 8006 | POST   | `/context/batch`       | List of grower IDs     | Batch assembled farmer contexts                  |
+| Method | Endpoint | Description | Input | Output |
+|---|---|---|---|---|
+| **GET** | `/context/{grower_id}` | Compiles fully unified context for a grower | `grower_id` path param | `FarmerContext` JSON |
+| **POST** | `/context/batch` | Compiles context for list of grower IDs | List of grower IDs | Batch context JSON |
+
+<details>
+<summary><b>View Example Response JSON (GET <code>/context/GRW_00005</code>)</b></summary>
 
 ```json
 {
@@ -227,13 +289,20 @@ MSP Minimum Support Price using https://api.agmarknet.gov.in/v1/dashboard-data/
   "assembled_at": "2026-05-20T06:00:13.953183"
 }
 ```
+</details>
 
-## M7 — Urgency Score gives `http://localhost:8007/score/GRW_05989` with farmer context gives a score (0-1)
+---
 
-| Port | Method | URL        | Input                     | Output                                               |
-| ---- | ------ | ---------- | ------------------------- | ---------------------------------------------------- |
-| 8007 | POST   | `/score`   | `FarmerContext` JSON body | Urgency score + suppression + channel recommendation |
-| 8007 | POST   | `/explain` | `FarmerContext` JSON body | Why-now explanation + rationale                      |
+## M7 — Urgency Score `http://localhost:8007/score/GRW_05989` with farmer context gives a score (0-1)
+
+
+| Method | Endpoint | Description | Input | Output |
+|---|---|---|---|---|
+| **POST** | `/score` | Get urgency score, fatigue checks & channel preferences | `FarmerContext` JSON body | Urgency Score JSON |
+| **POST** | `/explain` | Explain urgency and fatigue decisions | `FarmerContext` JSON body | Explainer JSON |
+
+<details>
+<summary><b>View Example Response JSON (POST <code>/score</code>)</b></summary>
 
 ```json
 {
@@ -282,12 +351,19 @@ MSP Minimum Support Price using https://api.agmarknet.gov.in/v1/dashboard-data/
   "model_version": "m7-hybrid-v2"
 }
 ```
-## M8 — Product Ranker `http://localhost:8002/products/GRW_00012`
+</details>
 
-| Port | Method | URL                     | Input                   | Output                                 |
-| ---- | ------ | ----------------------- | ----------------------- | -------------------------------------- |
-| 8002 | POST   | `/rank`                 | `RankRequest` JSON body | Ranked products (`RankResponse`)       |
-| 8002 | GET    | `/products/{grower_id}` | `grower_id` path param  | Personalized agronomic recommendations |
+---
+
+## M8 — Product Ranker `http://localhost:8008/products/GRW_00012`
+
+| Method | Endpoint | Description | Input | Output |
+|---|---|---|---|---|
+| **POST** | `/rank` | Fetch ranked list of products for a context | `RankRequest` JSON body | `RankResponse` JSON |
+| **GET** | `/products/{grower_id}` | Fetch personalized ranked products by grower ID | `grower_id` path param | Ranked recommendations |
+
+<details>
+<summary><b>View Example Response JSON (GET <code>/products/GRW_00012</code>)</b></summary>
 
 ```json
 {
@@ -401,16 +477,21 @@ MSP Minimum Support Price using https://api.agmarknet.gov.in/v1/dashboard-data/
   "model_version": "m8-hybrid-v1"
 }
 ```
+</details>
+
+---
 
 
-## M16 — Campaign Orchestrator `http://localhost:8008/predict/GRW_05989` 
+## M16 — Campaign Orchestrator `http://localhost:8009/predict/GRW_05989` 
 
+| Method | Endpoint | Description | Input | Output |
+|---|---|---|---|---|
+| **POST** | `/predict` | Predict campaign engagement & fatigue risks | `FarmerContext` body | Campaign Strategy JSON |
+| **GET** | `/predict/{grower_id}` | Fetch personalized strategy by grower ID | `grower_id` path param | Strategy JSON |
+| **POST** | `/explain` | Explain creative scheduling reasoning | Campaign prediction body | Explainer JSON |
 
-| Port | Method | URL                    | Input                             | Output                                 |
-| ---- | ------ | ---------------------- | --------------------------------- | -------------------------------------- |
-| 8008 | POST   | `/predict`             | `FarmerContext` or grower profile | Campaign orchestration prediction      |
-| 8008 | GET    | `/predict/{grower_id}` | `grower_id` path param            | Personalized campaign strategy         |
-| 8008 | POST   | `/explain`             | Campaign prediction JSON          | Human-readable orchestration reasoning |
+<details>
+<summary><b>View Example Response JSON (GET <code>/predict/GRW_05989</code>)</b></summary>
 
 ```json
 {
@@ -449,66 +530,40 @@ MSP Minimum Support Price using https://api.agmarknet.gov.in/v1/dashboard-data/
   ],
   "model_version": "campaign-receptivity-v1"
 }
-
 ```
+</details>
 
-# Core Microservice Mapping
+---
 
-| Module | Port | Responsibility                                  |
-| ------ | ---- | ----------------------------------------------- |
-| M1     | 8001 | Farmer profile database                         |
-| M4     | 8004 | Weather + pest intelligence                     |
-| M5     | 8005 | Crop calendar + MSP                             |
-| M6     | 8006 | Unified farmer context assembly                 |
-| M7     | 8007 | Urgency scoring + explainability                |
-| M8     | 8002 | Agronomic product ranking                       |
-| M16    | 8008 | Campaign orchestration + receptivity prediction |
+## vii. M8 Product Ranker — Performance Evaluation
 
-# Running the Services
+The evaluation of the Product Ranker module was performed using historical purchase transaction data and agronomic domain rule compliance checks:
 
-To manage the microservices during local development or testing, use the following commands in the project root:
+- **Historical POS Transactions:** 235,042
+- **Registered Growers:** 6,000
+- **Products in Catalog:** 12
+- **Valid Evaluation Queries:** 37,540
+- **Unique Districts Evaluated:** 33
+- **Unique Products Purchased:** 12
+- **Completed Test Evaluations:** 2,000 queries
 
-### Start All Microservices
-Run the startup script to launch all active microservice APIs (M1, M2, M4, M5, M6, M7, M8, M16) in the background:
-```bash
-./run_all.sh
-```
+### Domain Rule Coherence
+- **Rule Verification Examples:**
+  -  `wheat + rust` → matches/recommends **Score 250 EC**
+  -  `wheat + weeds` → matches/recommends **Topik 15 WP**
+  -  `potato + blight` → matches/recommends **Kavach 75 WP**
+  -  `chickpea + aphid` → matches/recommends **Actara 25 WG**
+  -  `mustard + fungal` → matches/recommends **Score 250 EC**
 
-### Stop All Microservices
-Run the teardown script to terminate all active `uvicorn` instances:
-```bash
-./stop_all.sh
-```
+### Recommendation Performance Metrics
+- **Exact Hit Rate @2:** `0.228` (compared to random baseline of `0.173` — **1.3× lift**)
+- **Agronomic Hit Rate @2:** `0.647` (compared to random baseline of `0.349` — **1.9× lift**)
+- **MoA-aware Hit Rate @2:** `0.466`
+- **Functional Recall @2:** `0.831`
+- **Exact Hit Rate @5:** `0.664`
+- **Agronomic Hit Rate @5:** `0.861`
+- **Mean Reciprocal Rank (MRR):** `0.279`
+- **Catalog Coverage:** `100%` (proves the engine doesn't suffer from recommendation biases)
+- **MoA Diversity Index:** `0.92` (proves that chemical resistance rotation mechanics are successfully integrated)
 
-M8 PRODUCT RANKER — PERFORMANCE EVALUATION
-
-    POS transactions: 235042
-    Growers: 6000
-    Products in catalog: 12
-    Valid evaluation queries: 37540
-    Unique districts: 33
-    Unique products purchased: 12
-    Completed 2000 evaluations.
-
-    ✓ wheat + rust → expects Score 250 EC: FOUND
-    ✓ wheat + weeds → expects Topik 15 WP: FOUND
-    ✓ potato + blight → expects Kavach 75 WP: FOUND
-    ✓ chickpea + aphid → expects Actara 25 WG: FOUND
-    ✓ mustard + fungal → expects Score 250 EC: FOUND
-
-    Coherence: 5/5 domain rules satisfied
-
-
-    Exact Hit Rate @2:     0.228 (random=0.173, lift=1.3×)
-    Agronomic Hit Rate @2: 0.647 (random=0.349, lift=1.9×)
-    MoA-aware Hit Rate @2: 0.466
-    Functional Recall @2:  0.831
-    Exact Hit Rate @5:     0.664
-    Agronomic Hit Rate @5: 0.861
-    MRR:                   0.279
-    Coverage:              100%
-    MoA Diversity:         0.92
-    Coherence:             5/5
-
-  ✓ Good catalog coverage — not stuck recommending same products.
-  ✓ Good MoA diversity — resistance management working.
+---

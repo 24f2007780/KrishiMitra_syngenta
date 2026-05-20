@@ -4,7 +4,6 @@ Target: run the **core intelligence pipeline** locally in ~10 minutes. SMS/voice
 
 **Requirements:** Linux/macOS/WSL, Python **3.11+** (3.14 tested), `git`, `curl`.
 
----
 
 ## 1. Clone and install
 
@@ -44,9 +43,8 @@ python scripts/bootstrap_db.py
 Expected:
 
 - `Seeded 12 products` (or “already present”)
-- `Seeded 5 farmers` (demo set including **GJ-014 Mayur**)
+- `Seeded 5 or more farmers`
 
----
 
 ## 4. Start microservices
 
@@ -75,13 +73,12 @@ Stop all: `./stop_all.sh`
 curl http://127.0.0.1:8001/farmers
 
 # Assembled context (profile + weather + crop stage)
-curl http://127.0.0.1:8006/context/GJ-014 | python -m json.tool
+curl http://127.0.0.1:8006/context/GRW_00001  | python -m json.tool
 
 # Top product recommendations
-curl http://127.0.0.1:8008/products/GJ-014 | python -m json.tool
+curl http://127.0.0.1:8008/products/GRW_00001  | python -m json.tool
 ```
 
----
 
 ## 6. Outbound channels (optional)
 
@@ -130,6 +127,8 @@ python scripts/send_farmer_whatsapp.py --json config/farmer_mayur.example.json
 ## 8. Run tests (optional)
 
 ```bash
+python test_all_apis.py
 python test_m6.py
 python test_m8.py
+python test_calendar.py
 ```

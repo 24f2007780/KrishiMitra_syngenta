@@ -44,6 +44,29 @@ STATE_FILES = {
     "Andhra Pradesh": "andhra_pradesh.json"
 }
 
+def check_crop_in_state_json(state_name: str, crop: str) -> bool:
+    file_name = STATE_FILES.get(state_name)
+    if not file_name:
+        return False
+    file_path = os.path.join("calendar_service", file_name)
+    if not os.path.exists(file_path):
+        return False
+    try:
+        with open(file_path, "r") as f:
+            data = json.load(f)
+        crop_norm = crop.lower().strip()
+        synonyms = {"rice": "paddy", "paddy": "rice", "soybean": "soyabean", "soyabean": "soybean", "urad": "blackgram", "moong": "greengram", "tur": "redgram"}
+        targets = {crop_norm}
+        if crop_norm in synonyms:
+            targets.add(synonyms[crop_norm])
+        
+        for key in data.keys():
+            if any(t in key.lower() or key.lower() in t for t in targets):
+                return True
+    except Exception:
+        pass
+    return False
+
 def load_recommendations(state: str, crop: str, stage: str) -> List[str]:
     file_name = STATE_FILES.get(state)
     if not file_name: return []
@@ -89,17 +112,28 @@ async def get_crop_calendar(
 ):
     month = month or datetime.now().month
     
-    # Fuzzy state match
-    state_match = next((s for s in STATE_FILES if state.lower() in s.lower() or s.lower() in state.lower()), None)
-    if not state_match: raise HTTPException(status_code=404, detail=f"State '{state}' not supported")
-    state = state_match
-
     crop_norm = crop.lower().strip()
     # Fuzzy crop/cycle match
     all_crops = KHARIF_CROPS + RABI_CROPS
     crop_match = next((c for c in all_crops if crop_norm in c or c in crop_norm), None)
     if not crop_match:
         raise HTTPException(status_code=404, detail=f"Crop '{crop}' not supported")
+
+    # Fuzzy state match
+    state_match = next((s for s in STATE_FILES if state.lower() in s.lower() or s.lower() in state.lower()), None)
+    if not state_match:
+        # Search state JSONs for the crop
+        for s_name in STATE_FILES.keys():
+            if check_crop_in_state_json(s_name, crop_match):
+                state_match = s_name
+                break
+        
+        if not state_match:
+            if  crop_match in RABI_CROPS:
+                state_match = "Punjab"
+            else:
+                state_match = "Tamil Nadu"
+    state = state_match
     
     cycle = KHARIF_CYCLE if crop_match in KHARIF_CROPS else RABI_CYCLE
     
