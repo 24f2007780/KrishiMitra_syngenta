@@ -11,7 +11,7 @@ Run from repo root:
 
     python -m twilio_apps.call.app
 
-Env: see ../.env.example (Twilio + optional ANTHROPIC_API_KEY + NGROK_AUTHTOKEN).
+Env: see repo .env.example (Twilio, VOICE_WEBHOOK_PORT, NGROK_PUBLIC_URL / PUBLIC_VOICE_BASE_URL, …).
 """
 
 from __future__ import annotations
@@ -46,7 +46,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Outbound interactive Twilio voice test")
     parser.add_argument("--to", help="Callee E.164")
     parser.add_argument("--dry-run", action="store_true", help="Print plan only; no call / no tunnel")
-    parser.add_argument("--no-ngrok", action="store_true", help="Use PUBLIC_VOICE_BASE_URL from .env instead of pyngrok")
+    parser.add_argument(
+        "--no-ngrok",
+        action="store_true",
+        help="Use PUBLIC_VOICE_BASE_URL or NGROK_PUBLIC_URL from .env (run ngrok yourself to VOICE_WEBHOOK_PORT)",
+    )
     args, _ = parser.parse_known_args()
 
     from twilio.rest import Client
@@ -97,14 +101,15 @@ def main() -> None:
     }
 
     from twilio_apps.call import session_store
+    from twilio_apps.call.env_urls import voice_public_base_url
 
     session_store.set_session(session_id, context)
 
     port = int(os.environ.get("VOICE_WEBHOOK_PORT", "8765"))
-    public_base = (os.environ.get("PUBLIC_VOICE_BASE_URL") or "").rstrip("/")
+    public_base = voice_public_base_url()
 
     base_for_url = public_base or "https://example.com"
-    start_url = f"{base_for_url}/voice/start?session_id={session_id}"
+    start_url = f"{base_for_url.rstrip('/')}/voice/start/{session_id}"
     if args.dry_run:
         print("Dry run — would dial (start local webhook + set PUBLIC_VOICE_BASE_URL for a real run):")
         print("  to:", to)
@@ -112,24 +117,29 @@ def main() -> None:
         print("  url:", start_url)
         return
 
-    import uvicorn
-    from twilio_apps.call.webhook_server import app as voice_app
-
-    def _run_server():
-        uvicorn.run(voice_app, host="0.0.0.0", port=port, log_level="warning")
-
-    threading.Thread(target=_run_server, daemon=True).start()
-    time.sleep(1.2)
-
     if args.no_ngrok:
         if not public_base:
             print(
-                "With --no-ngrok you must set PUBLIC_VOICE_BASE_URL to your public URL "
-                "(e.g. ngrok URL pointing at this machine). Start this script on the same host.",
+                "With --no-ngrok set PUBLIC_VOICE_BASE_URL, NGROK_PUBLIC_URL, or NGROK_VOICE_BASE_URL "
+                f"to your ngrok HTTPS URL (tunnel must forward to this machine port {port}).",
                 file=sys.stderr,
             )
             sys.exit(1)
+        os.environ.setdefault("PUBLIC_VOICE_BASE_URL", public_base)
+        print(
+            f"Using existing webhook on port {port} (not starting another server). "
+            "Ensure uvicorn is already running, e.g.:\n"
+            f"  python -m uvicorn twilio_apps.call.webhook_server:app --host 0.0.0.0 --port {port}\n",
+        )
     else:
+        import uvicorn
+        from twilio_apps.call.webhook_server import app as voice_app
+
+        def _run_server():
+            uvicorn.run(voice_app, host="0.0.0.0", port=port, log_level="warning")
+
+        threading.Thread(target=_run_server, daemon=True).start()
+        time.sleep(1.2)
         try:
             from pyngrok import conf, ngrok
 
@@ -142,7 +152,7 @@ def main() -> None:
             print(f"Public voice URL: {public_base}\n")
         except ImportError:
             print(
-                "Install pyngrok or run with --no-ngrok and set PUBLIC_VOICE_BASE_URL.",
+                "Install pyngrok or run with --no-ngrok and set NGROK_PUBLIC_URL or PUBLIC_VOICE_BASE_URL.",
                 file=sys.stderr,
             )
             sys.exit(1)
@@ -151,10 +161,10 @@ def main() -> None:
         print("Could not determine public base URL (ngrok failed or env missing).", file=sys.stderr)
         sys.exit(1)
 
-    start_url = f"{public_base.rstrip('/')}/voice/start?session_id={session_id}"
+    start_url = f"{public_base.rstrip('/')}/voice/start/{session_id}"
 
     client = Client(sid, token)
-    call = client.calls.create(to=to, from_=from_num, url=start_url)
+    call = client.calls.create(to=to, from_=from_num, url=start_url, method="GET")
     print("Call initiated:", call.sid)
     print("Answer the phone; speak after the prompt. Ctrl+C exits this script (ngrok may stop).")
     try:
@@ -162,12 +172,13 @@ def main() -> None:
             time.sleep(3600)
     except KeyboardInterrupt:
         print("Exiting.")
-        try:
-            from pyngrok import ngrok
+        if not args.no_ngrok:
+            try:
+                from pyngrok import ngrok
 
-            ngrok.kill()
-        except Exception:
-            pass
+                ngrok.kill()
+            except Exception:
+                pass
 
 
 if __name__ == "__main__":

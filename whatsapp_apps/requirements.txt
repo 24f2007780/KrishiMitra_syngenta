@@ -1,0 +1,6 @@
+# WhatsApp Web (Neonize) — install into the venv you use for KrishiMitra:
+#   /path/to/venv/bin/pip install -r whatsapp_apps/requirements.txt
+neonize>=0.3.16
+protobuf>=7.34.1
+qrcode>=7.4.0
+python-dotenv>=1.0.0

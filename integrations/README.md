@@ -6,7 +6,8 @@ This area holds **delivery** and **real-time channel** code that is **separate**
 
 | Path | Role |
 |------|------|
-| `twilio_apps/` | SMS + interactive voice call; see `twilio_apps/README.md`. |
+| `twilio_apps/` | SMS; legacy Gather voice (use `twilio-voice-agent/` for calls). |
+| `twilio-voice-agent/` | **Working** Twilio Media Streams + Gemini voice for KrishiMitra; see `twilio-voice-agent/README_KRISHIMITRA.md`. |
 | `whatsapp_apps/` | WhatsApp Web (Neonize); see `whatsapp_apps/README.md`. |
 | `whatsapp/` | Pointer to `whatsapp_apps/`. |
 

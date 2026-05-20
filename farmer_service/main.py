@@ -9,6 +9,12 @@ app = FastAPI(title="Syngenta Farmer DB (M1)")
 @app.on_event("startup")
 def startup():
     database.init_db()
+    db = database.SessionLocal()
+    try:
+        if db.query(models.Farmer).count() == 0:
+            seeder.seed_farmers(db)
+    finally:
+        db.close()
 
 def db_farmer_to_profile(farmer: models.Farmer) -> models.FarmerProfile:
     crops_list = [c.strip() for c in farmer.crops.split(",")] if farmer.crops else []
@@ -61,9 +67,28 @@ def list_farmers(
     return [db_farmer_to_profile(f) for f in farmers]
 
 @app.post("/farmers/seed")
-def seed_farmers(db: Session = Depends(database.get_db)):
-    count = seeder.seed_farmers(db)
-    return {"message": f"Successfully seeded {count} farmers."}
+def seed_farmers_endpoint(
+    force: bool = Query(False, description="Re-seed even if farmers already exist"),
+    db: Session = Depends(database.get_db),
+):
+    existing = db.query(models.Farmer).count()
+    if existing > 0 and not force:
+        return {
+            "message": f"Already seeded ({existing} farmers). Pass ?force=true to replace.",
+            "count": existing,
+            "skipped": True,
+        }
+    try:
+        count = seeder.seed_farmers(db)
+        return {
+            "message": f"Successfully seeded {count} farmers.",
+            "count": count,
+            "skipped": False,
+        }
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e)) from e
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Seed failed: {e}") from e
 
 @app.get("/health")
 def health():

@@ -91,7 +91,139 @@ def write_grower_cache(rows):
             writer.writeheader()
         writer.writerows(rows)
 
+DEMO_FARMERS: list[dict] = [
+    {
+        "farmer_id": "GRW_00001",
+        "name": "Grower GRW_00001",
+        "state": "Uttar Pradesh",
+        "district": "Kanpur Nagar",
+        "tehsil": "Kanpur_Nagar_T124",
+        "preferred_language": "Hindi",
+        "crops": "wheat",
+        "latitude": 26.8467,
+        "longitude": 80.9462,
+        "device_type": "android",
+        "connectivity": "4G",
+        "grower_age": 42,
+        "grower_farm_size": 1.33,
+    },
+    {
+        "farmer_id": "GRW_00005",
+        "name": "Rajan Kumar",
+        "state": "Uttar Pradesh",
+        "district": "Lucknow",
+        "tehsil": "Lucknow_Rural",
+        "preferred_language": "Hindi",
+        "crops": "wheat",
+        "latitude": 26.85,
+        "longitude": 80.95,
+        "device_type": "android",
+        "connectivity": "4G",
+        "grower_age": 38,
+        "grower_farm_size": 2.1,
+    },
+    {
+        "farmer_id": "GJ-014",
+        "name": "Mayur",
+        "state": "Gujarat",
+        "district": "Anand",
+        "tehsil": "Boriavi",
+        "preferred_language": "Gujarati",
+        "crops": "cotton",
+        "latitude": 22.5645,
+        "longitude": 72.9289,
+        "device_type": "android",
+        "connectivity": "4G",
+        "grower_age": 34,
+        "grower_farm_size": 1.8,
+        "phone": "+919152155576",
+    },
+    {
+        "farmer_id": "BR-001",
+        "name": "Rajnish",
+        "state": "Bihar",
+        "district": "Patna",
+        "tehsil": "Danapur",
+        "preferred_language": "Bhojpuri",
+        "crops": "rice",
+        "latitude": 25.5941,
+        "longitude": 85.1376,
+        "device_type": "feature_phone",
+        "connectivity": "2G",
+        "grower_age": 45,
+        "grower_farm_size": 1.2,
+    },
+    {
+        "farmer_id": "TN-042",
+        "name": "Rajan Kumar",
+        "state": "Tamil Nadu",
+        "district": "Thanjavur",
+        "tehsil": "Papanasam",
+        "preferred_language": "Tamil",
+        "crops": "rice",
+        "latitude": 10.787,
+        "longitude": 79.1378,
+        "device_type": "android",
+        "connectivity": "4G",
+        "grower_age": 50,
+        "grower_farm_size": 2.5,
+    },
+]
+
+
+def seed_demo_farmers(db: Session) -> int:
+    """Seed a small demo set when dataset/growers.csv is not available."""
+    db.query(Farmer).delete()
+    farmers = []
+    for i, row in enumerate(DEMO_FARMERS):
+        fid = row["farmer_id"]
+        phone = row.get("phone") or f"+91-9{i:09d}"
+        farmers.append(
+            Farmer(
+                farmer_id=fid,
+                name=row["name"],
+                phone=phone,
+                preferred_language=row["preferred_language"],
+                state=row["state"],
+                district=row["district"],
+                tehsil=row["tehsil"],
+                latitude=row["latitude"],
+                longitude=row["longitude"],
+                grower_farm_size=row["grower_farm_size"],
+                crops=row["crops"],
+                device_type=row["device_type"],
+                connectivity=row["connectivity"],
+                whatsapp_enabled=row["device_type"] != "feature_phone",
+                last_message_sent_at=None,
+                messages_received_last_30d=0,
+                messages_opened_last_30d=0,
+                preferred_contact_time="morning",
+                linked_retailer_id=f"RET-{200 + i:03d}",
+                linked_retailer_name=f"{row['district']} Agro Center",
+                urgency_score=0.5,
+                recommended_channel="whatsapp",
+                grower_age=row["grower_age"],
+                gender="male",
+                grower_crop_calendar=None,
+                product_scan=False,
+                product_name=None,
+                product_scan_datetime=None,
+                offline_campaign_attended=False,
+                campaign_attendance_date=None,
+            )
+        )
+    for f in farmers:
+        db.add(f)
+    db.commit()
+    return len(farmers)
+
+
 def seed_farmers(db: Session):
+    csv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "dataset", "growers.csv")
+    if not os.path.exists(csv_path):
+        print(f"growers.csv not found at {csv_path}; using demo farmers ({len(DEMO_FARMERS)} rows).")
+        return seed_demo_farmers(db)
+
     db.query(Farmer).delete()
 
     weather_cache = load_weather_cache()
@@ -117,8 +249,6 @@ def seed_farmers(db: Session):
                 if opened:
                     wa_counts[g_id]["opened"] += 1
 
-    csv_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "dataset", "growers.csv")
-    
     default_geo = {
         "Rajasthan": (27.0238, 74.2179),
         "Uttar Pradesh": (26.8467, 80.9462),
@@ -156,9 +286,6 @@ def seed_farmers(db: Session):
         "Deepak Deshmukh", "Arun Jaitley", "Kapil Dev", "Sachin Kulkarni", "Virat Chauhan"
     ]
     farmers = []
-    
-    if not os.path.exists(csv_path):
-        raise FileNotFoundError(f"growers.csv not found at {csv_path}")
 
     with open(csv_path, newline="", encoding="utf-8") as f:
         reader = csv.DictReader(f)

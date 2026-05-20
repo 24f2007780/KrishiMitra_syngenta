@@ -25,9 +25,34 @@ app = FastAPI(
 )
 
 
+@app.on_event("startup")
+def startup_load_catalog():
+    """Create tables and seed products if DB is empty, then reload ranker catalog."""
+    from app.database import SessionLocal, init_db
+    from app.seeder import seed_products
+    from product_service.product_catalog import ensure_catalog_loaded
+    from shared.models import Product
+
+    init_db()
+    db = SessionLocal()
+    try:
+        if db.query(Product).count() == 0:
+            logger.info("Products table empty — seeding from canonical_products.json")
+            seed_products(db)
+    finally:
+        db.close()
+    ensure_catalog_loaded()
+
+
 @app.get("/health")
 def health():
-    return {"status": "ok", "engine": "m8-hybrid-v1"}
+    from product_service.product_catalog import PRODUCT_CATALOG
+
+    return {
+        "status": "ok",
+        "engine": "m8-hybrid-v1",
+        "catalog_size": len(PRODUCT_CATALOG),
+    }
 
 
 @app.post("/rank", response_model=RankResponse)

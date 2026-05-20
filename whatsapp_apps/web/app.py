@@ -46,6 +46,28 @@ def cmd_login(_args: argparse.Namespace) -> None:
 
 
 def cmd_send(args: argparse.Namespace) -> None:
+    if getattr(args, "json_path", None):
+        from sms_service.context import build_whatsapp_body, load_farmer_context
+        from whatsapp_service.send import send_farmer_whatsapp
+
+        ctx = load_farmer_context(Path(args.json_path))
+        if args.to:
+            ctx["to_number"] = args.to
+        if getattr(args, "preview", False):
+            print(build_whatsapp_body(ctx))
+            return
+        try:
+            out = send_farmer_whatsapp(
+                ctx,
+                body=args.body,
+                dry_run=args.dry_run,
+            )
+        except Exception as e:
+            print(f"Error: {e}", file=sys.stderr)
+            sys.exit(1)
+        print(out)
+        return
+
     to = args.to or os.environ.get("TEST_WHATSAPP_NUMBER") or os.environ.get("TEST_PHONE_NUMBER", "")
     body = args.body or "KrishiMitra WhatsApp test."
     if not to:
@@ -82,7 +104,13 @@ def main() -> None:
 
     p_send = sub.add_parser("send", help="Send one message")
     p_send.add_argument("--to", help="Recipient phone")
-    p_send.add_argument("--body", default="KrishiMitra test")
+    p_send.add_argument("--body", help="Message text (or override with --json)")
+    p_send.add_argument(
+        "--json",
+        dest="json_path",
+        help="Farmer context JSON (uses whatsapp_service; same as voice/SMS)",
+    )
+    p_send.add_argument("--preview", action="store_true", help="With --json: print message only")
     p_send.add_argument("--dry-run", action="store_true")
     p_send.set_defaults(func=cmd_send)
 

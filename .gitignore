@@ -20,6 +20,10 @@ dist/
 # WhatsApp Web session (contains login credentials)
 whatsapp_apps/web/sessions/
 
+# Twilio voice session JSON (written by session_store for cross-process webhooks)
+twilio_apps/call/sessions/*.json
+twilio_apps/call/sessions/*.tmp
+
 # IDEs
 .vscode/
 .idea/

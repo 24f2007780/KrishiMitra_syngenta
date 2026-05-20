@@ -36,8 +36,34 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Send a test SMS via Twilio")
     parser.add_argument("--to", help="Destination E.164, e.g. +919876543210")
     parser.add_argument("--body", help="Message text")
+    parser.add_argument(
+        "--json",
+        dest="json_path",
+        help="Farmer context JSON (uses sms_service; same as voice agent)",
+    )
     parser.add_argument("--dry-run", action="store_true", help="Do not call Twilio")
+    parser.add_argument("--preview", action="store_true", help="With --json: print SMS only")
     args = parser.parse_args()
+
+    if args.json_path:
+        if str(_ROOT) not in sys.path:
+            sys.path.insert(0, str(_ROOT))
+        from sms_service.context import build_sms_body, load_farmer_context
+        from sms_service.send import send_farmer_sms
+
+        ctx = load_farmer_context(Path(args.json_path))
+        if args.to:
+            ctx["to_number"] = args.to
+        if args.preview:
+            print(build_sms_body(ctx))
+            return
+        try:
+            out = send_farmer_sms(ctx, body=args.body, dry_run=args.dry_run)
+        except Exception as e:
+            print(f"Error: {e}", file=sys.stderr)
+            sys.exit(1)
+        print(out)
+        return
 
     if args.to and args.body is not None:
         to = args.to
