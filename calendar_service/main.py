@@ -40,6 +40,7 @@ RABI_CROPS = ["wheat", "mustard", "bengalgram"]
 STATE_FILES = {
     "Tamil Nadu": "tamil_nadu.json",
     "Maharashtra": "maharashtra.json",
+    "Gujarat": "maharashtra.json",
     "Punjab": "punjab.json",
     "Andhra Pradesh": "andhra_pradesh.json"
 }
@@ -148,18 +149,42 @@ async def get_crop_calendar(
     try:
         market_syns = {"rice": "paddy", "blackgram": "urad", "greengram": "moong", "redgram": "arhar", "soybean": "soyabean"}
         lookup_crop = market_syns.get(crop_norm, crop_norm)
-        async with httpx.AsyncClient(timeout=3.0) as client:
-            m_res = await client.get(f"http://localhost:8000/commodity/{lookup_crop}")
-            if m_res.status_code == 200:
-                data_list = m_res.json().get("data", [])
-                if data_list:
+        
+        fetched_successfully = False
+        try:
+            async with httpx.AsyncClient(timeout=3.0) as client:
+                m_res = await client.get(f"http://localhost:8000/commodity/{lookup_crop}")
+                if m_res.status_code == 200:
+                    data_list = m_res.json().get("data", [])
+                    if data_list:
+                        market_data = {
+                            "msp": data_list[0].get("msp_rs_quintal"),
+                            "price": data_list[0].get("today_price_rs_quintal"),
+                            "arrival": data_list[0].get("today_arrival_metric_tonnes")
+                        }
+                        fetched_successfully = True
+        except Exception as e:
+            print(f"Scraper service fetch failed for {crop_norm}, falling back to local cache: {e}")
+            
+        if not fetched_successfully:
+            cache_path = os.path.join("calendar_service", "cache.json")
+            if os.path.exists(cache_path):
+                with open(cache_path, "r") as f:
+                    cache_content = json.load(f)
+                records = cache_content.get("data", []) or []
+                filtered = [
+                    item for item in records
+                    if lookup_crop.lower() in item.get("commodity", "").lower()
+                ]
+                if filtered:
                     market_data = {
-                        "msp": data_list[0].get("msp_rs_quintal"),
-                        "price": data_list[0].get("today_price_rs_quintal"),
-                        "arrival": data_list[0].get("today_arrival_metric_tonnes")
+                        "msp": filtered[0].get("msp_rs_quintal"),
+                        "price": filtered[0].get("today_price_rs_quintal"),
+                        "arrival": filtered[0].get("today_arrival_metric_tonnes")
                     }
+                    print(f"Successfully loaded {crop_norm} market data from local cache fallback.")
     except Exception as e:
-        print(f"Market fetch failed for {crop_norm}: {e}")
+        print(f"Market fetch failed completely for {crop_norm}: {e}")
 
     vuln_map = {"high": 0.8, "medium": 0.5, "low": 0.2}
     crop_vuln = vuln_map.get(vulnerability_str.lower(), 0.2)

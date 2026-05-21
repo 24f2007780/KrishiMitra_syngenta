@@ -1,9 +1,7 @@
 # Team members and contact information
 
 **Team Name: Elemental** 
-
 **Track:** SYNGENTA × IITM BS — Track 1 (AI-powered agricultural marketing at scale)
-
 **Project:** KrishiMitra AI
 
 ## Members
@@ -16,7 +14,6 @@
 | Email | 24f2007780@ds.study.iitm.ac.in |
 | Phone / WhatsApp | +91 7709669004 |
 | LinkedIn (optional) |https://www.linkedin.com/in/yashvi-upadhyay-a96546324/ |
-| Appears in demo video | ☐ Yes — [timestamp mm:ss] |
 
 **Contributions:**
 - Developed the microservice architecture structure (`run_all.sh` / `stop_all.sh` orchestration).
@@ -31,7 +28,6 @@
 | Role | DevOps: Voice call, SMS, Whatsapp & planner |
 | Email | 22f2000625@ds.study.iitm.ac.in |
 | Phone | +91 9150740978 |
-| Appears in demo video | ☐ Yes — [timestamp mm:ss] |
 
 **Contributions:**
 - Added the Twilio voice agent utilizing Gemini Live calls.
@@ -47,7 +43,6 @@
 | Role | Machine Learning |
 | Email | 24f1000027@ds.study.iitm.ac.in |
 | Phone | +91 9152155576 |
-| Appears in demo video | ☐ Yes |
 
 **Contributions:**
 - Designed and built the machine learning models and pipelines for M7 (Urgency Scorer & SHAP Explainer), M8 (Product Ranker), and M16 (Campaign Receptivity).
@@ -60,7 +55,6 @@
 | Role | Backend |
 | Email | 23f3002782@ds.study.iitm.ac.in |
 | Phone | +91 8081037827 |
-| Appears in demo video | ☐ Yes |
  
 **Contributions:**
 - Reorganized `models.py` database schema to align with the Syngenta-provided datasets.
@@ -74,7 +68,8 @@
 | Role | Machine Learning & Research |
 | Email | 23f2004661@ds.study.iitm.ac.in |
 | Phone | +91 9284709410 |
-| Appears in demo video | ☐ Yes |
  
-
+**Contributions:**
+- Researched datasets, resources, syngenta products.
+- Developed Milestone plan and where to use AI and how to integrate it.
 
