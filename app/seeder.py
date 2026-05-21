@@ -93,7 +93,7 @@ def write_grower_cache(rows):
 
 DEMO_FARMERS: list[dict] = [
     {
-        "farmer_id": "GRW_00001",
+        "grower_id": "GRW_00001",
         "name": "Grower GRW_00001",
         "state": "Uttar Pradesh",
         "district": "Kanpur Nagar",
@@ -108,7 +108,7 @@ DEMO_FARMERS: list[dict] = [
         "grower_farm_size": 1.33,
     },
     {
-        "farmer_id": "GRW_00005",
+        "grower_id": "GRW_00005",
         "name": "Rajan Kumar",
         "state": "Uttar Pradesh",
         "district": "Lucknow",
@@ -123,7 +123,7 @@ DEMO_FARMERS: list[dict] = [
         "grower_farm_size": 2.1,
     },
     {
-        "farmer_id": "GJ-014",
+        "grower_id": "GJ-014",
         "name": "Mayur",
         "state": "Gujarat",
         "district": "Anand",
@@ -139,7 +139,7 @@ DEMO_FARMERS: list[dict] = [
         "phone": "+919152155576",
     },
     {
-        "farmer_id": "BR-001",
+        "grower_id": "BR-001",
         "name": "Rajnish",
         "state": "Bihar",
         "district": "Patna",
@@ -154,7 +154,7 @@ DEMO_FARMERS: list[dict] = [
         "grower_farm_size": 1.2,
     },
     {
-        "farmer_id": "TN-042",
+        "grower_id": "TN-042",
         "name": "Rajan Kumar",
         "state": "Tamil Nadu",
         "district": "Thanjavur",
@@ -176,11 +176,11 @@ def seed_demo_farmers(db: Session) -> int:
     db.query(Farmer).delete()
     farmers = []
     for i, row in enumerate(DEMO_FARMERS):
-        fid = row["farmer_id"]
+        gid = row["grower_id"]
         phone = row.get("phone") or f"+91-9{i:09d}"
         farmers.append(
             Farmer(
-                farmer_id=fid,
+                grower_id=gid,
                 name=row["name"],
                 phone=phone,
                 preferred_language=row["preferred_language"],

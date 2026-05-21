@@ -10,13 +10,14 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from app.database import SessionLocal, init_db
+from app.database import SessionLocal, init_db, ensure_farmer_schema
 from app.seeder import seed_farmers, seed_products
 from shared.models import Farmer, Product
 
 
 def main() -> None:
     init_db()
+    ensure_farmer_schema()
     db = SessionLocal()
     try:
         farmer_n = db.query(Farmer).count()
