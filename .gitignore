@@ -9,6 +9,10 @@ env/
 build/
 dist/
 *.egg-info/
+datasets/
+hackathon-submission-round1/
+twilio-voice-agent/logs/
+twilio-voice-agent/google/
 
 # Databases
 *.db
@@ -36,3 +40,7 @@ Thumbs.db
 dataset/
 m8_product_ranker/
 m7_urgency_scorer/
+.figma
+.claude
+.agents
+node_modules/

@@ -17,6 +17,9 @@ if [[ -z "${PYTHON_CMD:-}" ]]; then
     PYTHON_CMD="$DEFAULT_VENV_PYTHON"
   elif [[ -x "$ROOT/venv/bin/python" ]]; then
     PYTHON_CMD="$ROOT/venv/bin/python"
+  elif [[ -x "$ROOT/../.venv/bin/python" ]]; then
+    # KrishiMitra_syngenta's shared root .venv (this repo's actual layout).
+    PYTHON_CMD="$ROOT/../.venv/bin/python"
   elif [[ -n "${VIRTUAL_ENV:-}" && -x "${VIRTUAL_ENV}/bin/python" ]]; then
     PYTHON_CMD="${VIRTUAL_ENV}/bin/python"
   else
@@ -42,10 +45,37 @@ print(u)
 ' 2>/dev/null || true
 }
 
+load_ngrok_authtoken() {
+  # ngrok reads NGROK_AUTHTOKEN natively, but only if it's already in this
+  # shell's env — the app's own dotenv loading happens later, in Python, too
+  # late for the ngrok subprocess we spawn below. Pull it from .env ourselves.
+  if [[ -n "${NGROK_AUTHTOKEN:-}" ]]; then
+    return 0
+  fi
+  local env_file token
+  for env_file in "$ROOT/.env" "$ROOT/../.env"; do
+    if [[ -f "$env_file" ]]; then
+      token="$(grep -m1 '^NGROK_AUTHTOKEN=' "$env_file" | cut -d= -f2-)" || true
+      if [[ -n "$token" ]]; then
+        export NGROK_AUTHTOKEN="$token"
+        return 0
+      fi
+    fi
+  done
+}
+
 start_ngrok_and_export_tunnel() {
   if [[ "$START_NGROK" != "1" ]]; then
     echo "ngrok: skipped (START_NGROK=$START_NGROK). Using TUNNEL_LINK from env/.env if set."
     return 0
+  fi
+  if ! command -v ngrok >/dev/null 2>&1; then
+    # pyngrok (in requirements.txt) downloads its own ngrok binary next to
+    # the venv's python — pick it up even when ngrok isn't globally on PATH.
+    local venv_bin="$(dirname "$PYTHON_CMD")"
+    if [[ -x "$venv_bin/ngrok" ]]; then
+      export PATH="$venv_bin:$PATH"
+    fi
   fi
   if ! command -v ngrok >/dev/null 2>&1; then
     echo "ngrok: not on PATH — start the app without a tunnel or install ngrok."
@@ -55,6 +85,8 @@ start_ngrok_and_export_tunnel() {
     echo "curl: not on PATH — cannot read ngrok API; skipping TUNNEL_LINK."
     return 0
   fi
+
+  load_ngrok_authtoken
 
   mkdir -p "$ROOT/logs"
   local log_file="$ROOT/logs/ngrok.log"

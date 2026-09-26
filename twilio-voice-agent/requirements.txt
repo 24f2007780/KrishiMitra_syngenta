@@ -9,4 +9,5 @@ python-multipart
 google-cloud-speech
 google-cloud-texttospeech
 elevenlabs
+sarvamai
 httpx

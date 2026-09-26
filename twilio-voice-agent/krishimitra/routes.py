@@ -89,9 +89,12 @@ async def place_farmer_call(body: FarmerVoiceCallRequest):
             to=body.to_number,
             from_=PHONE_NO,
             url=voice_url,
-            method="GET",
+            # NOTE: do not pass method= here — Twilio trial accounts reject
+            # calls.create() outright ("Invalid or disallowed parameters
+            # provided") the instant `method` is present, regardless of its
+            # value. Omitting it uses Twilio's default (POST), which
+            # /twilio/voice already handles via @app.post.
             status_callback=f"{TUNNEL_LINK.rstrip('/')}/twilio/status",
-            status_callback_event=["initiated", "ringing", "answered", "completed", "failed"],
         )
     except Exception as e:
         logger.exception("KrishiMitra call failed")

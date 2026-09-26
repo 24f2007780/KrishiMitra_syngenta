@@ -7,9 +7,9 @@ from typing import Optional, Callable
 from google import genai
 from google.cloud import speech
 from google.cloud import texttospeech
-import httpx
 import elevenlabs
 from elevenlabs.client import ElevenLabs
+from sarvamai import AsyncSarvamAI
 
 logger = logging.getLogger(__name__)
 
@@ -63,13 +63,19 @@ class VoicePipeline:
         self.system_instruction = system_instruction or "You are a helpful assistant."
         
         # Providers from environment
-        self.stt_provider = os.getenv("STT_PROVIDER", "google")  # google only
-        self.tts_provider = os.getenv("TTS_PROVIDER", "google")  # google, elevenlabs, sarvam
+        self.stt_provider = os.getenv("STT_PROVIDER", "sarvam")  # sarvam (default), google
+        self.tts_provider = os.getenv("TTS_PROVIDER", "sarvam")  # sarvam (default), google, elevenlabs
         self.llm_model = os.getenv("LLM_MODEL", "gemini-2.5-flash")
         self.sarvam_api_key = os.getenv("SARVAM_API_KEY")
-        self.sarvam_tts_url = os.getenv("SARVAM_TTS_URL", "").strip()
-        self.sarvam_voice = os.getenv("SARVAM_VOICE", "default")
-        self.sarvam_audio_format = os.getenv("SARVAM_AUDIO_FORMAT", "wav")
+        self.sarvam_model = os.getenv("SARVAM_TTS_MODEL", "bulbul:v3")
+        self.sarvam_voice = os.getenv("SARVAM_VOICE", "shubh")
+        self.sarvam_language = os.getenv("SARVAM_LANGUAGE", "en-IN")
+        self.sarvam_pace = float(os.getenv("SARVAM_PACE", "1.0"))
+        self.sarvam_stt_model = os.getenv("SARVAM_STT_MODEL", "saaras:v3")
+        self.sarvam_stt_language = os.getenv("SARVAM_STT_LANGUAGE", self.sarvam_language)
+        # NOTE: downstream Twilio bridge (app.py) hardcodes input_rate=24000 for
+        # whatever the active TTS provider returns, so this must stay 24000
+        # unless that resampling assumption is updated too.
         self.sarvam_sample_rate = int(os.getenv("SARVAM_SAMPLE_RATE", "24000"))
         
         # Callbacks
@@ -88,7 +94,7 @@ class VoicePipeline:
         self._last_error_notice_ts = 0.0
         self._last_assistant_text = ""
         
-        # Initialize Google Clients
+        # Initialize provider clients
         if self.stt_provider == "google":
             self.speech_client = speech.SpeechAsyncClient()
 
@@ -96,6 +102,11 @@ class VoicePipeline:
             self.tts_client = texttospeech.TextToSpeechAsyncClient()
         elif self.tts_provider == "elevenlabs":
             self.el_client = ElevenLabs(api_key=os.getenv("ELEVENLABS_API_KEY"))
+
+        if self.stt_provider == "sarvam" or self.tts_provider == "sarvam":
+            if not self.sarvam_api_key:
+                raise ValueError("SARVAM_API_KEY is required when STT_PROVIDER=sarvam or TTS_PROVIDER=sarvam")
+            self.sarvam_client = AsyncSarvamAI(api_subscription_key=self.sarvam_api_key)
 
     async def connect(self):
         """Initialize the pipeline"""
@@ -126,6 +137,8 @@ class VoicePipeline:
         """Continuous STT loop"""
         if self.stt_provider == "google":
             await self._run_google_stt()
+        elif self.stt_provider == "sarvam":
+            await self._run_sarvam_stt()
 
     async def _run_google_stt(self):
         """Google Cloud Streaming STT implementation"""
@@ -186,6 +199,58 @@ class VoicePipeline:
         except Exception as e:
             if self.is_connected:
                 logger.error(f"Google STT Error: {e}")
+
+    async def _run_sarvam_stt(self):
+        """Sarvam streaming STT implementation.
+
+        Twilio audio arrives as raw PCM16 at 16kHz (app.py resamples the
+        inbound mulaw before calling send_audio_chunk), so the connection is
+        opened with input_audio_codec=pcm_s16le / sample_rate=16000 to match
+        exactly — no WAV wrapping needed per chunk.
+        """
+        if not self.sarvam_api_key:
+            logger.error("Sarvam STT Error: SARVAM_API_KEY is not set")
+            return
+
+        try:
+            async with self.sarvam_client.speech_to_text_streaming.connect(
+                language_code=self.sarvam_stt_language,
+                model=self.sarvam_stt_model,
+                sample_rate="16000",
+                input_audio_codec="pcm_s16le",
+            ) as ws:
+                async def sender():
+                    try:
+                        while self.is_connected:
+                            chunk = await self.audio_input_queue.get()
+                            await ws.transcribe(
+                                audio=base64.b64encode(chunk).decode("ascii"),
+                                sample_rate=16000,
+                            )
+                    except asyncio.CancelledError:
+                        pass
+
+                send_task = asyncio.create_task(sender())
+                try:
+                    async for message in ws:
+                        if message.type == "error":
+                            logger.error("Sarvam STT error event: %s", message.data)
+                            continue
+                        if message.type != "data":
+                            continue
+                        transcript = getattr(message.data, "transcript", "") or ""
+                        cleaned = transcript.strip()
+                        if not cleaned:
+                            continue
+                        logger.info("STT Final (sarvam): %s", cleaned)
+                        if self.on_user_transcript:
+                            await self.on_user_transcript(cleaned)
+                        await self._process_text_with_llm(cleaned)
+                finally:
+                    send_task.cancel()
+        except Exception as e:
+            if self.is_connected:
+                logger.error(f"Sarvam STT Error: {e}")
 
     async def _process_text_with_llm(self, text: str):
         """Send transcript to Gemini LLM"""
@@ -323,33 +388,22 @@ class VoicePipeline:
     async def _generate_sarvam_tts(self, text: str):
         if not self.sarvam_api_key:
             raise RuntimeError("SARVAM_API_KEY is not set")
-        if not self.sarvam_tts_url:
-            raise RuntimeError("SARVAM_TTS_URL is not set")
 
-        payload = {
-            "text": text,
-            "voice": self.sarvam_voice,
-            "format": self.sarvam_audio_format,
-            "sample_rate": self.sarvam_sample_rate,
-        }
-        headers = {
-            "Authorization": f"Bearer {self.sarvam_api_key}",
-            "x-api-key": self.sarvam_api_key,
-        }
+        # bulbul:v3 REST caps input at 2500 chars; truncate defensively so a
+        # long LLM reply can't turn into a hard API error mid-call.
+        response = await self.sarvam_client.text_to_speech.convert(
+            text=text[:2500],
+            language_code=self.sarvam_language,
+            model=self.sarvam_model,
+            speaker=self.sarvam_voice,
+            pace=self.sarvam_pace,
+            speech_sample_rate=self.sarvam_sample_rate,
+        )
 
-        async with httpx.AsyncClient(timeout=30.0) as client:
-            resp = await client.post(self.sarvam_tts_url, json=payload, headers=headers)
-            resp.raise_for_status()
+        if not response.audios:
+            raise RuntimeError("Sarvam TTS response contained no audio")
 
-            content_type = (resp.headers.get("content-type") or "").lower()
-            if "application/json" in content_type:
-                data = resp.json()
-                audio_b64 = data.get("audio") or data.get("audio_base64")
-                if not audio_b64:
-                    raise RuntimeError("Sarvam TTS response missing audio data")
-                audio_bytes = base64.b64decode(audio_b64)
-            else:
-                audio_bytes = resp.content
+        audio_bytes = base64.b64decode(response.audios[0])
 
         if self.on_audio_response:
             await self.on_audio_response(audio_bytes)
